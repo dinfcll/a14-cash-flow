@@ -78,6 +78,15 @@ namespace CashFlow.Models
         public string UserName { get; set; }
 
         [Required]
+        [Display(Name = "Adresse électronique")]
+        public string AdresseElectronique { get; set; }
+
+        
+        [Display(Name = "Confirmer l'adresse électronique")]
+        [Compare("Password", ErrorMessage = "L'adresse électroniqeue et l'adresse électronique de confirmation ne correspondent pas.")]
+        public string ConfirmationAdresseElectronique { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Mot de passe")]
