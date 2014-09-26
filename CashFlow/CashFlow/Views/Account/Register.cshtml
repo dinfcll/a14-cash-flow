@@ -1,6 +1,6 @@
 ﻿@model CashFlow.Models.RegisterModel
 @{
-    ViewBag.Title = "Sing up";
+    ViewBag.Title = "Inscription";
 }
 
 <hgroup class="title">
@@ -23,8 +23,10 @@
                 @Html.LabelFor(m => m.AdresseElectronique)
                 @Html.TextBoxFor(m => m.AdresseElectronique)
             </li>
+            <li>
                 @Html.LabelFor(m => m.ConfirmationAdresseElectronique)
                 @Html.TextBoxFor(m => m.ConfirmationAdresseElectronique)
+            </li>
             <li>
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)

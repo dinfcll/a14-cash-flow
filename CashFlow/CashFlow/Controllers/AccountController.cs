@@ -10,6 +10,9 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using CashFlow.Filters;
 using CashFlow.Models;
+using System.Web.UI.WebControls;
+using System.Net.Mail;
+using System.Collections.Specialized;
 
 namespace CashFlow.Controllers
 {
@@ -74,6 +77,7 @@ namespace CashFlow.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
+           
             if (ModelState.IsValid)
             {
                 // Tentative d'inscription de l'utilisateur
@@ -81,6 +85,7 @@ namespace CashFlow.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    //EnvoieEmail();
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -328,6 +333,54 @@ namespace CashFlow.Controllers
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
+
+        //Permet l'envoi de message
+        public void EnvoieEmail()
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient client = new SmtpClient();
+            string ChaineVerif = ChaineHasard();
+            client.Port = 587;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = true;
+            client.EnableSsl = true;
+            client.Host = "smtp.gmail.com";
+            mail.To.Add(new MailAddress("alexys.leclerc@gmail.com"));
+            mail.From = new MailAddress("alexys.leclerc@gmail.com");
+            mail.Subject = "this is a test email.";
+            mail.Body = "Voici la chaîne de vérification : " + ChaineVerif;
+            client.Send(mail);
+    
+        }
+
+        //Création d'une chaîne au hasard
+        public string ChaineHasard()
+        {
+            Random Lettre = new Random();
+            Random Chiffre = new Random();
+            Random VraiOuFaux = new Random();
+            int LettreAscii = 0;
+            string Chaine = "";
+            for (int i = 0; i < 6; i++)
+            {
+                if (VraiOuFaux.Next(0, 2) == 1)
+                {
+                    LettreAscii = Lettre.Next(65, 91);
+                    if (VraiOuFaux.Next(0, 2) == 1)
+                    {
+
+                        LettreAscii += 32;
+                    }
+                    Chaine += (char)(LettreAscii);
+                }
+                else
+                {
+                    Chaine += (char)Chiffre.Next(48, 58);
+                }
+
+            }
+            return Chaine;
+        }
         #region Applications auxiliaires
         private ActionResult RedirectToLocal(string returnUrl)
         {

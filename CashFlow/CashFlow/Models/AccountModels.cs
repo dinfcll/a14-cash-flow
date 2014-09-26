@@ -78,12 +78,13 @@ namespace CashFlow.Models
         public string UserName { get; set; }
 
         [Required]
+        [RegularExpression(@"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "L'adresse électronique n'est pas valide.")]
         [Display(Name = "Adresse électronique")]
         public string AdresseElectronique { get; set; }
 
         
         [Display(Name = "Confirmer l'adresse électronique")]
-        [Compare("Password", ErrorMessage = "L'adresse électroniqeue et l'adresse électronique de confirmation ne correspondent pas.")]
+        [Compare("AdresseElectronique", ErrorMessage = "L'adresse électronique et l'adresse électronique de confirmation ne correspondent pas.")]
         public string ConfirmationAdresseElectronique { get; set; }
 
         [Required]

@@ -18,6 +18,9 @@ namespace CashFlow
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute("Project", "Project", new { controller = "Project", action = "Project" });
+
         }
     }
 }
