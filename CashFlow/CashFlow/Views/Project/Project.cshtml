@@ -1,4 +1,4 @@
-﻿@model CashFlow.Models.ProjectModel
+﻿@model CashFlow.Models.NewProject
 @{
     ViewBag.Title = "Nouveau projet";
 }
@@ -7,24 +7,29 @@
 @using (Html.BeginForm())
 {
     @Html.LabelFor(model => model.Titre)
-    @Html.TextBoxFor(model => model.Titre)
-    @Html.ValidationMessageFor(model => model.Titre)
+    @Html.TextBoxFor(model => model.Titre)<br />
+    @Html.ValidationMessageFor(model => model.Titre)<br />
     
-    @Html.LabelFor(model => model.Image)<br />
+    @Html.LabelFor(model => model.Image)
     <input type="file" accept=".jpg,.png,.gif,.jpeg,.bmp" id="fileLoader" name="files" title="Load File" />
     //<input type="button" id="btnOpenFileDialog" value = "Click Me !!!" onclick="openfileDialog();" />
     
-    @Html.LabelFor(model => model.Description)<br />
+    @Html.LabelFor(model => model.Description)
     @Html.TextAreaFor(model => model.Description)<br />
     @Html.ValidationMessageFor(model => model.Description)<br />
     
-    @Html.LabelFor(model => model.Categorie)<br />
+    @Html.LabelFor(model => model.Categorie)
     @Html.DropDownListFor(model => model.Categorie, new SelectList(Model.ListeCategories, "ID", "Value", Model.ListeCategories.First().ID))<br />
     @Html.ValidationMessageFor(model => model.ListeCategories)<br />
     
 
-    @Html.LabelFor(model => model.Ville)<br />
+    @Html.LabelFor(model => model.Ville)
     @Html.DropDownListFor(model => model.Ville, new SelectList(Model.ListeVille, "ID", "Value", Model.ListeVille.First().ID))<br />
     @Html.ValidationMessageFor(model => model.Ville)<br />
+    
+    @Html.LabelFor(model => model.DateString)
+    @Html.TextBoxFor(model => model.DateString)<br />
+    @Html.ValidationMessageFor(model => model.DateString)<br />
+    
     <button type="submit">Lancer le projet</button>
 }

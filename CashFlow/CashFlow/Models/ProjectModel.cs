@@ -14,8 +14,9 @@ using System.ComponentModel;
 
 namespace CashFlow.Models
 {
-    public class ProjectModel
+    public class NewProject
     {
+        //Classe utilisée lorsqu'on veux créer un nouveau projet
         [Required]
         public string Titre { get; set; }
         string Createur { get; set; }
@@ -24,9 +25,10 @@ namespace CashFlow.Models
         [Required]
         public string UniteMonetaire;
         public Image Image;
-        DateTime DateDepart;
+        public DateTime DateDepart;
         [Required]
         [RegularExpression(@"^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$", ErrorMessage = "Date invalide")]
+        public string DateString { get; set; }
         public DateTime DateFin;
         public int MontantRequis;
 
@@ -63,5 +65,10 @@ namespace CashFlow.Models
             new ValeurVille { ID = 1, Value = "Québec" },
             new ValeurVille { ID = 2, Value = "Toronto" }
         };
+    }
+
+    public class EditProject
+    {
+        //Classe utilisée lorsqu'on veut modifier les informations d'un projet déja existant
     }
 }
