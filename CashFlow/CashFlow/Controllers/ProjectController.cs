@@ -24,11 +24,18 @@ namespace CashFlow.Controllers
         [HttpPost]
         public ActionResult Project(NewProject model)
         {
-            model.DateFin = Convert.ToDateTime(model.DateString);
-            model.DateDepart = DateTime.Today;
-            TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le " 
-                + model.DateFin.ToLongDateString() + ".";
-            return RedirectToAction("Index", "Home", model);
+            if (ModelState.IsValid)
+            {
+                model.DateFin = Convert.ToDateTime(model.DateString);
+                model.DateDepart = DateTime.Today;
+                model.MontantRequis = Convert.ToInt32(model.MontantString);
+                model.Createur = User.Identity.Name;
+                TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
+                    + model.DateFin.ToLongDateString() + ".";
+                return RedirectToAction("Index", "Home", model);
+            }
+            else
+                return View(new NewProject());
         }
     }
 }

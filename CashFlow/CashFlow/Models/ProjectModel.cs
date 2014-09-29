@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.ComponentModel;
+using System.Media;
 
 
 namespace CashFlow.Models
@@ -19,17 +20,22 @@ namespace CashFlow.Models
         //Classe utilisée lorsqu'on veux créer un nouveau projet
         [Required]
         public string Titre { get; set; }
-        string Createur { get; set; }
+        public string Createur { get; set; }
         [Required]
         public string Description { get; set; }
         [Required]
         public string UniteMonetaire;
         public Image Image;
         public DateTime DateDepart;
+        [DisplayName("Date limite")]
         [Required]
         [RegularExpression(@"^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$", ErrorMessage = "Date invalide")]
         public string DateString { get; set; }
         public DateTime DateFin;
+        [DisplayName("Montant demandé")]
+        [Required]
+        [RegularExpression(@"^\d+$")]
+        public string MontantString { get; set; }
         public int MontantRequis;
 
         [DisplayName("Catégorie du projet")]
