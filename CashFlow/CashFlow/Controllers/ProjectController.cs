@@ -12,18 +12,30 @@ namespace CashFlow.Controllers
     {
         //
         // GET: /Project/
-        private CashFlowEntities1 sdfsdf = new CashFlowEntities1();
+
         public ActionResult Project()
         {
-            
-            return View(new ProjectModel());
+            if (User.Identity.Name != "")
+                return View(new NewProject());
+            else
+                return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
-        public ActionResult Project(ProjectModel model)
+        public ActionResult Project(NewProject model)
         {
-            TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé!";
-            return RedirectToAction("Index", "Home", model);
+            if (ModelState.IsValid)
+            {
+                model.DateFin = Convert.ToDateTime(model.DateString);
+                model.DateDepart = DateTime.Today;
+                model.MontantRequis = Convert.ToInt32(model.MontantString);
+                model.Createur = User.Identity.Name;
+                TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
+                    + model.DateFin.ToLongDateString() + ".";
+                return RedirectToAction("Index", "Home", model);
+            }
+            else
+                return View(new NewProject());
         }
     }
 }

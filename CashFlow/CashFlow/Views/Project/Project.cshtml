@@ -1,30 +1,45 @@
-﻿@model CashFlow.Models.ProjectModel
+
+﻿@model CashFlow.Models.NewProject
+
 @{
     ViewBag.Title = "Nouveau projet";
 }
 
-<h2>ProjectView</h2>
+<h2>Informations du projet</h2>
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(model => model.Titre)<br />
-    @Html.TextBoxFor(model => model.Titre)<br />
+    @Html.LabelFor(model => model.Titre)
     @Html.ValidationMessageFor(model => model.Titre)<br />
-    
-    @Html.LabelFor(model => model.Img)<br />
+    @Html.TextBoxFor(model => model.Titre)<br />
+        
+    @Html.LabelFor(model => model.Image)
     <input type="file" accept=".jpg,.png,.gif,.jpeg,.bmp" id="fileLoader" name="files" title="Load File" />
-    //<input type="button" id="btnOpenFileDialog" value = "Click Me !!!" onclick="openfileDialog();" />
-    
-    @Html.LabelFor(model => model.Description)<br />
-    @Html.TextAreaFor(model => model.Description)<br />
+
+    @Html.LabelFor(model => model.Description)
     @Html.ValidationMessageFor(model => model.Description)<br />
+    @Html.TextAreaFor(model => model.Description)<br />
     
-    @Html.LabelFor(model => model.Categorie)<br />
-    @Html.DropDownListFor(model => model.Categorie, new SelectList(Model.ListeCategories, "ID", "Value", Model.ListeCategories.First().ID))<br />
+    
+    @Html.LabelFor(model => model.Categorie)
     @Html.ValidationMessageFor(model => model.ListeCategories)<br />
+    @Html.DropDownListFor(model => model.Categorie, new SelectList(Model.ListeCategories, "ID", "Value", Model.ListeCategories.First().ID))<br />
+   
     
 
-    @Html.LabelFor(model => model.Ville)<br />
-    @Html.DropDownListFor(model => model.Ville, new SelectList(Model.ListeVille, "ID", "Value", Model.ListeVille.First().ID))<br />
+    @Html.LabelFor(model => model.Ville)
     @Html.ValidationMessageFor(model => model.Ville)<br />
+    @Html.DropDownListFor(model => model.Ville, new SelectList(Model.ListeVille, "ID", "Value", Model.ListeVille.First().ID))<br />
+    
+    
+    @Html.LabelFor(model => model.MontantString)
+    @Html.ValidationMessageFor(model => model.MontantString)<br />
+    @Html.TextBoxFor(model => model.MontantString)<br />
+    
+    
+    @Html.LabelFor(model => model.DateString)
+    @Html.ValidationMessageFor(model => model.DateString)<br />
+    @Html.TextBoxFor(model => model.DateString)<br />
+    
+
     <button type="submit">Lancer le projet</button>
 }
