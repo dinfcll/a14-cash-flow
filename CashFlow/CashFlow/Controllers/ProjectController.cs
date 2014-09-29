@@ -12,9 +12,10 @@ namespace CashFlow.Controllers
     {
         //
         // GET: /Project/
-
+        private CashFlowEntities1 sdfsdf = new CashFlowEntities1();
         public ActionResult Project()
         {
+            
             return View(new ProjectModel());
         }
 

@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbCashFlowModel.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="dbCashFlowModelModelStoreContainer">
+          <EntitySet Name="tableProject" EntityType="dbCashFlowModel.Model.Store.tableProject" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tableUtilisateur" EntityType="dbCashFlowModel.Model.Store.tableUtilisateur" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_tableProject_tableUtilisateur" Association="dbCashFlowModel.Model.Store.FK_tableProject_tableUtilisateur">
+            <End Role="tableUtilisateur" EntitySet="tableUtilisateur" />
+            <End Role="tableProject" EntitySet="tableProject" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tableProject">
+          <Key>
+            <PropertyRef Name="Hash" />
+          </Key>
+          <Property Name="Hash" Type="varchar" Nullable="false" MaxLength="420" />
+          <Property Name="Titre" Type="varchar" Nullable="false" MaxLength="60" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="Location" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MontantRecu" Type="money" Nullable="false" />
+          <Property Name="MontantRequis" Type="money" Nullable="false" />
+          <Property Name="DateDebut" Type="date" Nullable="false" />
+          <Property Name="DateLimite" Type="date" Nullable="false" />
+          <Property Name="Categorie" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tableUtilisateur">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" Nullable="false" MaxLength="420" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="16" />
+          <Property Name="Nom" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="300" />
+          <Property Name="PhotoProfile" Type="image" />
+          <Property Name="Location" Type="varchar" MaxLength="50" />
+          <Property Name="Twitter" Type="varchar" MaxLength="25" />
+          <Property Name="Facebook" Type="varchar" MaxLength="60" />
+          <Property Name="GooglePlus" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tableProject_tableUtilisateur">
+          <End Role="tableUtilisateur" Type="dbCashFlowModel.Model.Store.tableUtilisateur" Multiplicity="1" />
+          <End Role="tableProject" Type="dbCashFlowModel.Model.Store.tableProject" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tableUtilisateur">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="tableProject">
+              <PropertyRef Name="Hash" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbCashFlowModel.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="dbCashFlowEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tableProjects" EntityType="dbCashFlowModel.Model.tableProject" />
+          <EntitySet Name="tableUtilisateurs" EntityType="dbCashFlowModel.Model.tableUtilisateur" />
+          <AssociationSet Name="FK_tableProject_tableUtilisateur" Association="dbCashFlowModel.Model.FK_tableProject_tableUtilisateur">
+            <End Role="tableUtilisateur" EntitySet="tableUtilisateurs" />
+            <End Role="tableProject" EntitySet="tableProjects" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tableProject">
+          <Key>
+            <PropertyRef Name="Hash" />
+          </Key>
+          <Property Name="Hash" Type="String" Nullable="false" MaxLength="420" Unicode="false" FixedLength="false" />
+          <Property Name="Titre" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="MontantRecu" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="MontantRequis" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="DateDebut" Type="DateTime" Nullable="false" />
+          <Property Name="DateLimite" Type="DateTime" Nullable="false" />
+          <Property Name="Categorie" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="tableUtilisateur" Relationship="dbCashFlowModel.Model.FK_tableProject_tableUtilisateur" FromRole="tableProject" ToRole="tableUtilisateur" />
+        </EntityType>
+        <EntityType Name="tableUtilisateur">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="420" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="16" Unicode="false" FixedLength="false" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="300" Unicode="false" FixedLength="false" />
+          <Property Name="PhotoProfile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Location" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Twitter" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
+          <Property Name="Facebook" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+          <Property Name="GooglePlus" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="tableProject" Relationship="dbCashFlowModel.Model.FK_tableProject_tableUtilisateur" FromRole="tableUtilisateur" ToRole="tableProject" />
+        </EntityType>
+        <Association Name="FK_tableProject_tableUtilisateur">
+          <End Role="tableUtilisateur" Type="dbCashFlowModel.Model.tableUtilisateur" Multiplicity="1" />
+          <End Role="tableProject" Type="dbCashFlowModel.Model.tableProject" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tableUtilisateur">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="tableProject">
+              <PropertyRef Name="Hash" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbCashFlowModelModelStoreContainer" CdmEntityContainer="dbCashFlowEntities">
+          <EntitySetMapping Name="tableProjects">
+            <EntityTypeMapping TypeName="dbCashFlowModel.Model.tableProject">
+              <MappingFragment StoreEntitySet="tableProject">
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="Titre" ColumnName="Titre" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="MontantRecu" ColumnName="MontantRecu" />
+                <ScalarProperty Name="MontantRequis" ColumnName="MontantRequis" />
+                <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+                <ScalarProperty Name="DateLimite" ColumnName="DateLimite" />
+                <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tableUtilisateurs">
+            <EntityTypeMapping TypeName="dbCashFlowModel.Model.tableUtilisateur">
+              <MappingFragment StoreEntitySet="tableUtilisateur">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PhotoProfile" ColumnName="PhotoProfile" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="GooglePlus" ColumnName="GooglePlus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="edmCashFlow">
+        <EntityTypeShape EntityType="dbCashFlowModel.Model.tableProject" Width="1.5" PointX="3" PointY="1.125" Height="2.941793619791667" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCashFlowModel.Model.tableUtilisateur" Width="1.5" PointX="0.75" PointY="1" Height="3.1340950520833313" IsExpanded="true" />
+        <AssociationConnector Association="dbCashFlowModel.Model.FK_tableProject_tableUtilisateur" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.5958968098958337" />
+          <ConnectorPoint PointX="3" PointY="2.5958968098958337" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
