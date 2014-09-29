@@ -172,17 +172,12 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ProjectModel.cs" />
-    <Compile Include="Models\testerino4201.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>testerino4201.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CashFlow.mdf" />
-    <Content Include="App_Data\CashFlow_log.ldf">
-      <DependentUpon>CashFlow.mdf</DependentUpon>
+    <Content Include="App_Data\dbCashFlow.mdf" />
+    <Content Include="App_Data\dbCashFlow_log.ldf">
+      <DependentUpon>dbCashFlow.mdf</DependentUpon>
     </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -299,15 +294,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Project\Project.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Models\testerino4201.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>testerino4201.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Project\Project.cshtml" />
