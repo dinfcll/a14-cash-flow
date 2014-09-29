@@ -10,8 +10,6 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.ComponentModel;
-using System.Media;
-
 
 namespace CashFlow.Models
 {
@@ -21,10 +19,12 @@ namespace CashFlow.Models
         [Required]
         public string Titre { get; set; }
         public string Createur { get; set; }
+
         [Required]
         public string Description { get; set; }
         [Required]
         public string UniteMonetaire;
+		
         public Image Image;
         public DateTime DateDepart;
         [DisplayName("Date limite")]
@@ -36,6 +36,7 @@ namespace CashFlow.Models
         [Required]
         [RegularExpression(@"^\d+$")]
         public string MontantString { get; set; }
+
         public int MontantRequis;
 
         [DisplayName("Catégorie du projet")]
@@ -77,4 +78,5 @@ namespace CashFlow.Models
     {
         //Classe utilisée lorsqu'on veut modifier les informations d'un projet déja existant
     }
+
 }

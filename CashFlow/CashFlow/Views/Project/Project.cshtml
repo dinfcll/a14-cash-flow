@@ -1,4 +1,6 @@
+
 ﻿@model CashFlow.Models.NewProject
+
 @{
     ViewBag.Title = "Nouveau projet";
 }
@@ -38,6 +40,6 @@
     @Html.ValidationMessageFor(model => model.DateString)<br />
     @Html.TextBoxFor(model => model.DateString)<br />
     
-    
+
     <button type="submit">Lancer le projet</button>
 }
