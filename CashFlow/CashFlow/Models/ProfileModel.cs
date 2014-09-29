@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Drawing;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Globalization;
+using System.Web.Mvc;
+using System.Web.Security;
+using System.ComponentModel;
+
+namespace CashFlow.Models
+{
+    public class ProfileModel
+    {
+        [Required]
+        [DisplayName("Nom complet")]
+        public string NomComplet { get; set; }      
+       
+        public string Location { get; set; }
+
+        [DisplayName("Image de profile")]
+        public Image ImageProfile { get; set; }
+
+        [DisplayName("Biographie/Description")]
+        public string Description { get; set; }
+
+
+
+    }
+}

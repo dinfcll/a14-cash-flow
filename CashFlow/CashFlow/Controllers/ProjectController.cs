@@ -22,7 +22,7 @@ namespace CashFlow.Controllers
         public ActionResult Project(ProjectModel model)
         {
             TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé!";
-            return RedirectToAction("Index", "Home", model);
+            return RedirectToAction("Index", "Home",model);
         }
     }
 }

@@ -1,0 +1,28 @@
+﻿@model CashFlow.Models.ProfileModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.NomComplet)
+    @Html.TextBoxFor(model => model.NomComplet)<br />
+    @Html.ValidationMessageFor(model => model.NomComplet)<br />
+    
+    @Html.LabelFor(model => model.ImageProfile)
+    <input type="file" accept=".jpg,.png,.gif,.jpeg,.bmp" id="fileLoader" name="files" title="Load File" />
+    //<input type="button" id="btnOpenFileDialog" value = "Click Me !!!" onclick="openfileDialog();" />
+    <br /><br />
+    
+    @Html.LabelFor(model => model.Description)
+    @Html.TextAreaFor(model => model.Description, new { maxlength = 300 })<br />
+    @Html.ValidationMessageFor(model => model.Description)<br />
+        
+
+    @Html.LabelFor(model => model.Location)
+    @Html.TextBoxFor(model => model.Location)<br />
+    @Html.ValidationMessageFor(model => model.Location)<br />
+    <button type="submit">Sauvegarder les changements</button>
+}
