@@ -27,7 +27,17 @@ namespace CashFlow.Models
         [DisplayName("Biographie/Description")]
         public string Description { get; set; }
 
+        [DisplayName("Handle Twitter")]
+        public string nomTwitter { get; set; }
 
+        [DisplayName("Lien Facebook")]
+        public string lienFacebook { get; set; }
+
+        [DisplayName("Youtube/Google +")]
+        public string nomGooglePlus { get; set; }
+
+        [DisplayName("Site Web")]
+        public string lienSiteWeb { get; set; }
 
     }
 }
