@@ -85,7 +85,7 @@ namespace CashFlow.Controllers
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     //EnvoieEmail();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Profile", "Profile");
                 }
                 catch (MembershipCreateUserException e)
                 {

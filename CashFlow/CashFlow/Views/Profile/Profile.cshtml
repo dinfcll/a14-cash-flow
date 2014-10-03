@@ -1,10 +1,10 @@
 ﻿@model CashFlow.Models.ProfileModel
 
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Profil !";
 }
 
-<h2>Profile</h2>
+<h2>Votre compte a été créé ! Voici des informations personelles que vous pouvez modifier !</h2>
 @using (Html.BeginForm())
 {
     @Html.LabelFor(model => model.NomComplet)
@@ -33,9 +33,9 @@
     @Html.TextBoxFor(model => model.lienFacebook)<br />
     @Html.ValidationMessageFor(model => model.lienFacebook)<br />
     
-    @Html.LabelFor(model => model.nomGooglePlus)
-    @Html.TextBoxFor(model => model.nomGooglePlus)<br />
-    @Html.ValidationMessageFor(model => model.nomGooglePlus)<br />
+    @Html.LabelFor(model => model.lienYoutube)
+    @Html.TextBoxFor(model => model.lienYoutube)<br />
+    @Html.ValidationMessageFor(model => model.lienYoutube)<br />
     
     @Html.LabelFor(model => model.lienSiteWeb)
     @Html.TextBoxFor(model => model.lienSiteWeb)<br />

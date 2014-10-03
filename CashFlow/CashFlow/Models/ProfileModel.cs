@@ -33,8 +33,8 @@ namespace CashFlow.Models
         [DisplayName("Lien Facebook")]
         public string lienFacebook { get; set; }
 
-        [DisplayName("Youtube/Google +")]
-        public string nomGooglePlus { get; set; }
+        [DisplayName("Lien Youtube")]
+        public string lienYoutube { get; set; }
 
         [DisplayName("Site Web")]
         public string lienSiteWeb { get; set; }

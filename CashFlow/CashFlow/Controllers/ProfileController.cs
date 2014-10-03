@@ -20,6 +20,10 @@ namespace CashFlow.Controllers
         [HttpPost]
         public ActionResult Profile(ProfileModel model)
         {
+            if (model.nomTwitter[0] != '@')
+            {
+                model.nomTwitter = '@' + model.nomTwitter;
+            }
             TempData["info"] = "Votre profile a été modifié !";
             return RedirectToAction("Index", "Home");
         }
