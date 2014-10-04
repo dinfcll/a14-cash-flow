@@ -17,6 +17,10 @@ namespace CashFlow.Controllers
             return View();                             
         }
 
+        public ActionResult Verif()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Profile(ProfileModel model)
         {
