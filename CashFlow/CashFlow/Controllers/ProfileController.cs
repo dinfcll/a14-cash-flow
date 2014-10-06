@@ -11,24 +11,44 @@ namespace CashFlow.Controllers
     {
         //
         // GET: /Profile/
-
+        ProfileModel modelPro = new ProfileModel();
         public ActionResult Profile()
-        {            
-            return View();                             
+        {
+            return View(modelPro);                             
         }
 
         public ActionResult Verif()
         {
-            return View();
+            return View(modelPro);
         }
+
+
+
         [HttpPost]
-        public ActionResult Profile(ProfileModel model)
+        public ActionResult Verif(ProfileModel Model)
         {
-            if (model.nomTwitter[0] != '@')
+            modelPro.codeVerif= TempData["CodeVerif"].ToString();
+            if (modelPro.codeVerif == Model.codeVerif)
             {
-                model.nomTwitter = '@' + model.nomTwitter;
+                TempData["info"] = "Votre profil a été vérifié !";
+                return RedirectToAction("Index", "Home");
             }
-            TempData["info"] = "Votre profile a été modifié !";
+            else
+            {
+                TempData["info"] = "Erreur ! Veillez entrer le bon code de verification !";
+                return RedirectToAction("Verif", "Profile");
+            }
+            
+        }
+
+        [HttpPost]
+        public ActionResult Profile(ProfileModel Model)
+        {
+            if (Model.nomTwitter[0] != '@')
+            {
+                Model.nomTwitter = '@' + Model.nomTwitter;
+            }
+            TempData["info"] = "Votre profil a été modifié !";
             return RedirectToAction("Index", "Home");
         }
 

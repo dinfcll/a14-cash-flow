@@ -75,7 +75,6 @@ namespace CashFlow.Models
     {
         [Required]
         [Display(Name = "Nom d'utilisateur")]
-        [RegularExpression(@"/^[a-z0-9_-]{3,16}$/", ErrorMessage = "Les caractères permis sont A à Z, a à z, 0 à 9 et -. Aussi, il doit être entre 3 et 16 caractères")]
         public string UserName { get; set; }
 
         [Required]
@@ -92,7 +91,6 @@ namespace CashFlow.Models
         [StringLength(100, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Mot de passe")]
-        [RegularExpression(@"/^[a-z0-9_-]{6,16}$/", ErrorMessage = "Les caractères permis sont A à Z, a à z, 0 à 9 et -. Aussi, il doit être entre 6 et 16 caractères")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

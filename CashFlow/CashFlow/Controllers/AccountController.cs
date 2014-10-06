@@ -76,16 +76,18 @@ namespace CashFlow.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
-           
             if (ModelState.IsValid)
             {
                 // Tentative d'inscription de l'utilisateur
                 try
                 {
+                    ProfileModel Profile = new ProfileModel();
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     //EnvoieEmail();
-                    return RedirectToAction("Profile", "Profile");
+                    
+                    return RedirectToAction("Verif", "Profile");
+
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -339,6 +341,7 @@ namespace CashFlow.Controllers
             MailMessage mail = new MailMessage();
             SmtpClient client = new SmtpClient();
             string ChaineVerif = ChaineHasard();
+            TempData["CodeVerif"] = ChaineVerif;
             client.Port = 587;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = true;

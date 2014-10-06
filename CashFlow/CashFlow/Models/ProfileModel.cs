@@ -39,5 +39,20 @@ namespace CashFlow.Models
         [DisplayName("Site Web")]
         public string lienSiteWeb { get; set; }
 
+        public string codeVerif { get; set; }
+
+        public bool Verif { get; set; }
+
+        public ProfileModel()
+        { 
+            NomComplet = " ";    
+            Location = " ";
+            Description = " ";    
+            nomTwitter = " ";
+            lienFacebook = " ";
+            lienYoutube = " ";
+            lienSiteWeb = " ";
+        }
+
     }
 }
