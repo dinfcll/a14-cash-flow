@@ -19,7 +19,7 @@ namespace CashFlow.Models
         [Required]
         public string Titre { get; set; }
         public string Createur { get; set; }
-
+        
         [Required]
         public string Description { get; set; }
         [Required]
@@ -72,6 +72,11 @@ namespace CashFlow.Models
             new ValeurVille { ID = 1, Value = "Québec" },
             new ValeurVille { ID = 2, Value = "Toronto" }
         };
+
+        public class ProjectDBContext : DbContext
+        {
+            public DbSet<NewProject> Project { get; set; }
+        }
     }
 
     public class EditProject

@@ -38,10 +38,16 @@ namespace CashFlow.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            {
+         //   dbCashFlowEntities1 db = new dbCashFlowEntities1();
+            //var chose = db.tableUtilisateurs;
+            //chose.First(d => d.Nom == "admin");
+            
+                
+            
+           if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+           {
                 return RedirectToLocal(returnUrl);
-            }
+           }
 
             // Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
             ModelState.AddModelError("", "Le nom d'utilisateur ou mot de passe fourni est incorrect.");

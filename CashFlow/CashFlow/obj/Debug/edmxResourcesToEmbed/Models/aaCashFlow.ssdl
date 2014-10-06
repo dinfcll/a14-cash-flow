@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbCashFlowModel.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="dbCashFlowModelModelStoreContainer">
+    <EntitySet Name="tableProject" EntityType="dbCashFlowModel.Model.Store.tableProject" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tableUtilisateur" EntityType="dbCashFlowModel.Model.Store.tableUtilisateur" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_tableProject_tableUtilisateur" Association="dbCashFlowModel.Model.Store.FK_tableProject_tableUtilisateur">
+      <End Role="tableUtilisateur" EntitySet="tableUtilisateur" />
+      <End Role="tableProject" EntitySet="tableProject" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tableProject">
+    <Key>
+      <PropertyRef Name="Hash" />
+    </Key>
+    <Property Name="Hash" Type="varchar" Nullable="false" MaxLength="420" />
+    <Property Name="Titre" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="Description" Type="varchar(max)" Nullable="false" />
+    <Property Name="Location" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="MontantRecu" Type="money" Nullable="false" />
+    <Property Name="MontantRequis" Type="money" Nullable="false" />
+    <Property Name="DateDebut" Type="date" Nullable="false" />
+    <Property Name="DateLimite" Type="date" Nullable="false" />
+    <Property Name="Categorie" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tableUtilisateur">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="varchar" Nullable="false" MaxLength="420" />
+    <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="16" />
+    <Property Name="Nom" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="300" />
+    <Property Name="PhotoProfile" Type="image" />
+    <Property Name="Location" Type="varchar" MaxLength="50" />
+    <Property Name="Twitter" Type="varchar" MaxLength="25" />
+    <Property Name="Facebook" Type="varchar" MaxLength="60" />
+    <Property Name="GooglePlus" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_tableProject_tableUtilisateur">
+    <End Role="tableUtilisateur" Type="dbCashFlowModel.Model.Store.tableUtilisateur" Multiplicity="1" />
+    <End Role="tableProject" Type="dbCashFlowModel.Model.Store.tableProject" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tableUtilisateur">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="tableProject">
+        <PropertyRef Name="Hash" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
