@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region Métadonnées de relation EDM
 
-[assembly: EdmRelationshipAttribute("dbCashFlowModel.Model", "tableProjecttableUtilisateur", "tableProject", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CashFlow.Models.tableProject), "tableUtilisateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CashFlow.Models.tableUtilisateur), true)]
+[assembly: EdmRelationshipAttribute("dbCashFlowModel.Model", "ProjetsUtilisateurs", "tableProject", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CashFlow.Models.tableProject), "tableUtilisateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CashFlow.Models.tableUtilisateur))]
 
 #endregion
 
@@ -74,53 +74,77 @@ namespace CashFlow.Models
         /// <summary>
         /// Aucune documentation sur les métadonnées n'est disponible.
         /// </summary>
-        public ObjectSet<tableProject> tableProjects
+        public ObjectSet<sysdiagrams> sysdiagrams
         {
             get
             {
-                if ((_tableProjects == null))
+                if ((_sysdiagrams == null))
                 {
-                    _tableProjects = base.CreateObjectSet<tableProject>("tableProjects");
+                    _sysdiagrams = base.CreateObjectSet<sysdiagrams>("sysdiagrams");
                 }
-                return _tableProjects;
+                return _sysdiagrams;
             }
         }
-        private ObjectSet<tableProject> _tableProjects;
+        private ObjectSet<sysdiagrams> _sysdiagrams;
     
         /// <summary>
         /// Aucune documentation sur les métadonnées n'est disponible.
         /// </summary>
-        public ObjectSet<tableUtilisateur> tableUtilisateurs
+        public ObjectSet<tableProject> tableProject
         {
             get
             {
-                if ((_tableUtilisateurs == null))
+                if ((_tableProject == null))
                 {
-                    _tableUtilisateurs = base.CreateObjectSet<tableUtilisateur>("tableUtilisateurs");
+                    _tableProject = base.CreateObjectSet<tableProject>("tableProject");
                 }
-                return _tableUtilisateurs;
+                return _tableProject;
             }
         }
-        private ObjectSet<tableUtilisateur> _tableUtilisateurs;
+        private ObjectSet<tableProject> _tableProject;
+    
+        /// <summary>
+        /// Aucune documentation sur les métadonnées n'est disponible.
+        /// </summary>
+        public ObjectSet<tableUtilisateur> tableUtilisateur
+        {
+            get
+            {
+                if ((_tableUtilisateur == null))
+                {
+                    _tableUtilisateur = base.CreateObjectSet<tableUtilisateur>("tableUtilisateur");
+                }
+                return _tableUtilisateur;
+            }
+        }
+        private ObjectSet<tableUtilisateur> _tableUtilisateur;
 
         #endregion
 
         #region Méthodes AddTo
     
         /// <summary>
-        /// Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet tableProjects. Utilisez la méthode .Add de la propriété ObjectSet&lt;T&gt; associée à la place.
+        /// Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet sysdiagrams. Utilisez la méthode .Add de la propriété ObjectSet&lt;T&gt; associée à la place.
         /// </summary>
-        public void AddTotableProjects(tableProject tableProject)
+        public void AddTosysdiagrams(sysdiagrams sysdiagrams)
         {
-            base.AddObject("tableProjects", tableProject);
+            base.AddObject("sysdiagrams", sysdiagrams);
         }
     
         /// <summary>
-        /// Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet tableUtilisateurs. Utilisez la méthode .Add de la propriété ObjectSet&lt;T&gt; associée à la place.
+        /// Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet tableProject. Utilisez la méthode .Add de la propriété ObjectSet&lt;T&gt; associée à la place.
         /// </summary>
-        public void AddTotableUtilisateurs(tableUtilisateur tableUtilisateur)
+        public void AddTotableProject(tableProject tableProject)
         {
-            base.AddObject("tableUtilisateurs", tableUtilisateur);
+            base.AddObject("tableProject", tableProject);
+        }
+    
+        /// <summary>
+        /// Méthode déconseillée pour ajouter un nouvel objet à l'EntitySet tableUtilisateur. Utilisez la méthode .Add de la propriété ObjectSet&lt;T&gt; associée à la place.
+        /// </summary>
+        public void AddTotableUtilisateur(tableUtilisateur tableUtilisateur)
+        {
+            base.AddObject("tableUtilisateur", tableUtilisateur);
         }
 
         #endregion
@@ -130,6 +154,163 @@ namespace CashFlow.Models
     #endregion
 
     #region Entités
+    
+    /// <summary>
+    /// Aucune documentation sur les métadonnées n'est disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="dbCashFlowModel.Model", Name="sysdiagrams")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class sysdiagrams : EntityObject
+    {
+        #region Méthode de fabrique
+    
+        /// <summary>
+        /// Créez un nouvel objet sysdiagrams.
+        /// </summary>
+        /// <param name="name">Valeur initiale de la propriété name.</param>
+        /// <param name="principal_id">Valeur initiale de la propriété principal_id.</param>
+        /// <param name="diagram_id">Valeur initiale de la propriété diagram_id.</param>
+        public static sysdiagrams Createsysdiagrams(global::System.String name, global::System.Int32 principal_id, global::System.Int32 diagram_id)
+        {
+            sysdiagrams sysdiagrams = new sysdiagrams();
+            sysdiagrams.name = name;
+            sysdiagrams.principal_id = principal_id;
+            sysdiagrams.diagram_id = diagram_id;
+            return sysdiagrams;
+        }
+
+        #endregion
+
+        #region Propriétés primitives
+    
+        /// <summary>
+        /// Aucune documentation sur les métadonnées n'est disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
+    
+        /// <summary>
+        /// Aucune documentation sur les métadonnées n'est disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 principal_id
+        {
+            get
+            {
+                return _principal_id;
+            }
+            set
+            {
+                Onprincipal_idChanging(value);
+                ReportPropertyChanging("principal_id");
+                _principal_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("principal_id");
+                Onprincipal_idChanged();
+            }
+        }
+        private global::System.Int32 _principal_id;
+        partial void Onprincipal_idChanging(global::System.Int32 value);
+        partial void Onprincipal_idChanged();
+    
+        /// <summary>
+        /// Aucune documentation sur les métadonnées n'est disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 diagram_id
+        {
+            get
+            {
+                return _diagram_id;
+            }
+            set
+            {
+                if (_diagram_id != value)
+                {
+                    Ondiagram_idChanging(value);
+                    ReportPropertyChanging("diagram_id");
+                    _diagram_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("diagram_id");
+                    Ondiagram_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _diagram_id;
+        partial void Ondiagram_idChanging(global::System.Int32 value);
+        partial void Ondiagram_idChanged();
+    
+        /// <summary>
+        /// Aucune documentation sur les métadonnées n'est disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> version
+        {
+            get
+            {
+                return _version;
+            }
+            set
+            {
+                OnversionChanging(value);
+                ReportPropertyChanging("version");
+                _version = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("version");
+                OnversionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _version;
+        partial void OnversionChanging(Nullable<global::System.Int32> value);
+        partial void OnversionChanged();
+    
+        /// <summary>
+        /// Aucune documentation sur les métadonnées n'est disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] definition
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_definition);
+            }
+            set
+            {
+                OndefinitionChanging(value);
+                ReportPropertyChanging("definition");
+                _definition = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("definition");
+                OndefinitionChanged();
+            }
+        }
+        private global::System.Byte[] _definition;
+        partial void OndefinitionChanging(global::System.Byte[] value);
+        partial void OndefinitionChanged();
+
+        #endregion
+
+    
+    }
     
     /// <summary>
     /// Aucune documentation sur les métadonnées n'est disponible.
@@ -153,8 +334,7 @@ namespace CashFlow.Models
         /// <param name="dateDebut">Valeur initiale de la propriété DateDebut.</param>
         /// <param name="dateLimite">Valeur initiale de la propriété DateLimite.</param>
         /// <param name="categorie">Valeur initiale de la propriété Categorie.</param>
-        /// <param name="username">Valeur initiale de la propriété Username.</param>
-        public static tableProject CreatetableProject(global::System.String hash, global::System.String titre, global::System.String description, global::System.String location, global::System.Decimal montantRecu, global::System.Decimal montantRequis, global::System.DateTime dateDebut, global::System.DateTime dateLimite, global::System.String categorie, global::System.String username)
+        public static tableProject CreatetableProject(global::System.String hash, global::System.String titre, global::System.String description, global::System.String location, global::System.Decimal montantRecu, global::System.Decimal montantRequis, global::System.DateTime dateDebut, global::System.DateTime dateLimite, global::System.String categorie)
         {
             tableProject tableProject = new tableProject();
             tableProject.Hash = hash;
@@ -166,7 +346,6 @@ namespace CashFlow.Models
             tableProject.DateDebut = dateDebut;
             tableProject.DateLimite = dateLimite;
             tableProject.Categorie = categorie;
-            tableProject.Username = username;
             return tableProject;
         }
 
@@ -392,30 +571,6 @@ namespace CashFlow.Models
         private global::System.String _Categorie;
         partial void OnCategorieChanging(global::System.String value);
         partial void OnCategorieChanged();
-    
-        /// <summary>
-        /// Aucune documentation sur les métadonnées n'est disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Username
-        {
-            get
-            {
-                return _Username;
-            }
-            set
-            {
-                OnUsernameChanging(value);
-                ReportPropertyChanging("Username");
-                _Username = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Username");
-                OnUsernameChanged();
-            }
-        }
-        private global::System.String _Username;
-        partial void OnUsernameChanging(global::System.String value);
-        partial void OnUsernameChanged();
 
         #endregion
 
@@ -428,16 +583,16 @@ namespace CashFlow.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("dbCashFlowModel.Model", "tableProjecttableUtilisateur", "tableUtilisateur")]
-        public tableUtilisateur tableUtilisateur
+        [EdmRelationshipNavigationPropertyAttribute("dbCashFlowModel.Model", "ProjetsUtilisateurs", "tableUtilisateur")]
+        public tableUtilisateur Createur
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tableUtilisateur>("dbCashFlowModel.Model.tableProjecttableUtilisateur", "tableUtilisateur").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tableUtilisateur>("dbCashFlowModel.Model.ProjetsUtilisateurs", "tableUtilisateur").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tableUtilisateur>("dbCashFlowModel.Model.tableProjecttableUtilisateur", "tableUtilisateur").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tableUtilisateur>("dbCashFlowModel.Model.ProjetsUtilisateurs", "tableUtilisateur").Value = value;
             }
         }
         /// <summary>
@@ -445,17 +600,17 @@ namespace CashFlow.Models
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<tableUtilisateur> tableUtilisateurReference
+        public EntityReference<tableUtilisateur> CreateurReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tableUtilisateur>("dbCashFlowModel.Model.tableProjecttableUtilisateur", "tableUtilisateur");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tableUtilisateur>("dbCashFlowModel.Model.ProjetsUtilisateurs", "tableUtilisateur");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tableUtilisateur>("dbCashFlowModel.Model.tableProjecttableUtilisateur", "tableUtilisateur", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tableUtilisateur>("dbCashFlowModel.Model.ProjetsUtilisateurs", "tableUtilisateur", value);
                 }
             }
         }
@@ -749,18 +904,18 @@ namespace CashFlow.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("dbCashFlowModel.Model", "tableProjecttableUtilisateur", "tableProject")]
-        public EntityCollection<tableProject> tableProject
+        [EdmRelationshipNavigationPropertyAttribute("dbCashFlowModel.Model", "ProjetsUtilisateurs", "tableProject")]
+        public EntityCollection<tableProject> Projet
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tableProject>("dbCashFlowModel.Model.tableProjecttableUtilisateur", "tableProject");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tableProject>("dbCashFlowModel.Model.ProjetsUtilisateurs", "tableProject");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tableProject>("dbCashFlowModel.Model.tableProjecttableUtilisateur", "tableProject", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tableProject>("dbCashFlowModel.Model.ProjetsUtilisateurs", "tableProject", value);
                 }
             }
         }

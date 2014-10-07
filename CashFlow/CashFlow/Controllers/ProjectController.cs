@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Drawing;
+using System.Data.SqlClient;
 using CashFlow.Models;
 
 
@@ -13,7 +14,6 @@ namespace CashFlow.Controllers
     {
         //
         // GET: /Project/
-        //dbCashFlowEntities1 dbCashFlow = new dbCashFlowEntities1();
         CashFlow.Models.NewProject.ProjectDBContext dbProjet = new CashFlow.Models.NewProject.ProjectDBContext();
         public ActionResult Project()
         {
@@ -32,9 +32,11 @@ namespace CashFlow.Controllers
                 model.DateDepart = DateTime.Today;
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
+
+                EnregistrerDansBD(model);
+
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
                     + model.DateFin.ToLongDateString() + ".";
-                NewProject p = dbProjet.Project.Find(0);
                 //NewProject project = new.New
                 //{
                 //    Hash = ChaineHasard(),
@@ -85,5 +87,20 @@ namespace CashFlow.Controllers
             }
             return Chaine;
         }
+
+        void EnregistrerDansBD(NewProject model)
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
+            con.Open();
+
+            //SqlCommand insert = new SqlCommand("INSERT INTO tableProject(Hash, Titre) VALUES ('yolo','swag')", con);
+            SqlCommand insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + ChaineHasard() + "','" + model.Titre + "','" + model.Description
+                 + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
+                  + "','" + model.Categorie + "','" + model.Createur + "')", con);
+            insert.ExecuteNonQuery();
+            con.Close();
+            
+        }
+
     }
 }
