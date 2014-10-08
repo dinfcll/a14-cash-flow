@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbCashFlowModel.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="dbCashFlowEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="dbCashFlowModel.Model.sysdiagrams" />
+    <EntitySet Name="tableProject" EntityType="dbCashFlowModel.Model.tableProject" />
+    <EntitySet Name="tableUtilisateur" EntityType="dbCashFlowModel.Model.tableUtilisateur" />
+    <AssociationSet Name="ProjetsUtilisateurs" Association="dbCashFlowModel.Model.ProjetsUtilisateurs">
+      <End Role="tableProject" EntitySet="tableProject" />
+      <End Role="tableUtilisateur" EntitySet="tableUtilisateur" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="principal_id" Nullable="false" />
+    <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="version" />
+    <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tableProject">
+    <Key>
+      <PropertyRef Name="Hash" />
+    </Key>
+    <Property Type="String" Name="Hash" Nullable="false" MaxLength="420" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Titre" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Location" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="MontantRecu" Nullable="false" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="MontantRequis" Nullable="false" Precision="19" Scale="4" />
+    <Property Type="DateTime" Name="DateDebut" Nullable="false" />
+    <Property Type="DateTime" Name="DateLimite" Nullable="false" />
+    <Property Type="String" Name="Categorie" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Createur" Relationship="dbCashFlowModel.Model.ProjetsUtilisateurs" FromRole="tableProject" ToRole="tableUtilisateur" />
+  </EntityType>
+  <EntityType Name="tableUtilisateur">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="420" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Nom" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Description" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="PhotoProfile" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="Location" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Twitter" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Facebook" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="GooglePlus" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Projet" Relationship="dbCashFlowModel.Model.ProjetsUtilisateurs" FromRole="tableUtilisateur" ToRole="tableProject" />
+  </EntityType>
+  <Association Name="ProjetsUtilisateurs">
+    <End Type="dbCashFlowModel.Model.tableProject" Role="tableProject" Multiplicity="*" />
+    <End Type="dbCashFlowModel.Model.tableUtilisateur" Role="tableUtilisateur" Multiplicity="1" />
+  </Association>
+</Schema>
