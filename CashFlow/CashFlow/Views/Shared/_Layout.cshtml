@@ -22,6 +22,7 @@
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Créer un projet", "Project", "Project")</li>
+                            <li>@Html.ActionLink("Liste des projets", "ListeProject", "Project")</li>
                         </ul>
                     </nav>
                 </div>
@@ -35,14 +36,16 @@
         </div>
         <footer>
             <div class="content-wrapper">
+                <div class="float-right">
+                    <ul id="menu">
+                        <li>@Html.ActionLink("À propos de", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>                                      
+                </div>
                 <div class="float-left">
                     <p>&copy; @DateTime.Now.Year - Mon application ASP.NET MVC</p>
                 </div>
             </div>
-            <ul id="menu">
-                            <li>@Html.ActionLink("À propos de", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
         </footer>
 
         @Scripts.Render("~/bundles/jquery")

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Drawing;
 using System.Data.SqlClient;
 using CashFlow.Models;
+using System.Data;
 
 
 namespace CashFlow.Controllers
@@ -58,6 +59,38 @@ namespace CashFlow.Controllers
                 return View(new NewProject());
             
         }
+
+        public ActionResult ListeProject()
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
+            SqlCommand toutesDonnees = new SqlCommand();
+            SqlDataReader reader;
+
+            toutesDonnees.CommandText = "SELECT * FROM tableProject";
+            toutesDonnees.CommandType = CommandType.Text;
+            toutesDonnees.Connection = con;
+
+            con.Open();
+
+            reader = toutesDonnees.ExecuteReader();
+
+
+            List<NewProject> aideProjet = new List<NewProject>();
+            while (reader.Read())
+            {
+                NewProject projet = new NewProject();
+                projet.Titre = reader.GetString(1);
+                projet.Description = reader.GetString(2);
+                
+                projet.MontantRecu = reader.GetInt32(4);
+                projet.MontantRequis = reader.GetInt32(5);
+                projet.DateFin = reader.GetDateTime(7);
+                aideProjet.Add(projet);
+            }
+            con.Close();
+            return View(aideProjet);
+        }
+
 
 
         public string ChaineHasard()

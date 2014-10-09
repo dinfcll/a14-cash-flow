@@ -36,7 +36,7 @@ namespace CashFlow.Models
         [Required]
         [RegularExpression(@"^\d+$")]
         public string MontantString { get; set; }
-
+        public int MontantRecu;
         public int MontantRequis;
 
         [DisplayName("Catégorie du projet")]

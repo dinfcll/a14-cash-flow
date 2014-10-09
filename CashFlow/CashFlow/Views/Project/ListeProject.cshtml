@@ -1,0 +1,18 @@
+﻿@model IEnumerable<CashFlow.Models.NewProject>
+@{
+    ViewBag.Title = "Liste des projets";
+}
+
+<h2>Voici la liste de tous les projets qui sont en cours de fiancement.</h2>
+
+@for (int i = 0; i < Model.LongCount(); i++ )
+{ 
+    <h3>@Model.ElementAt(i).Titre</h3>
+    <ul>
+        <li>Description : @Model.ElementAt(i).Description</li>
+        <li>Montant reçu : @Model.ElementAt(i).MontantRecu $</li>
+        <li>Montant requis : @Model.ElementAt(i).MontantRequis $</li>
+        <li>Fin du projet : @Model.ElementAt(i).DateFin</li>
+    </ul>
+
+}
