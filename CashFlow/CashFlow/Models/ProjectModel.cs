@@ -25,23 +25,24 @@ namespace CashFlow.Models
         public string Description { get; set; }
         [Required]
         public string UniteMonetaire;
-		
-        public Image Image;
-        public DateTime DateDepart;
+
+        public Image Image { get; set; }
+        public DateTime DateDepart { get; set; }
         [DisplayName("Date limite")]
         [Required]
         [RegularExpression(@"^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$", ErrorMessage = "Date invalide")]
         public string DateString { get; set; }
-        public DateTime DateFin;
+        public DateTime DateFin { get; set; }
         [DisplayName("Montant demandé")]
         [Required]
         [RegularExpression(@"^\d+$")]
         public string MontantString { get; set; }
-        public int MontantRecu;
-        public int MontantRequis;
+        public int MontantRecu { get; set; }
+        public int MontantRequis { get; set; }
 
         [DisplayName("Catégorie du projet")]
         [Required]
+
         public string Categorie { get; set; }
 
         public class ValeurCategorie
@@ -59,6 +60,7 @@ namespace CashFlow.Models
 
         [DisplayName("Choisir une ville")]
         [Required]
+
         public string Ville { get; set; }
 
         public class ValeurVille
