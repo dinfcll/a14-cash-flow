@@ -15,7 +15,10 @@ namespace CashFlow.Controllers
     {
         //
         // GET: /Project/
-        CashFlow.Models.NewProject.ProjectDBContext dbProjet = new CashFlow.Models.NewProject.ProjectDBContext();
+        NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
+        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
+            
+
         public ActionResult Project()
         {
             if (User.Identity.Name != "")
@@ -38,21 +41,7 @@ namespace CashFlow.Controllers
 
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
                     + model.DateFin.ToLongDateString() + ".";
-                //NewProject project = new.New
-                //{
-                //    Hash = ChaineHasard(),
-                //    Titre = model.Titre,
-                //    Description = model.Description,
-                //    Categorie = model.Categorie,
-                //    Location = model.Ville,    //a changer
-                //    DateDebut = DateTime.Today,
-                //    DateLimite = Convert.ToDateTime(model.DateString),
-                //    MontantRecu = 0,
-                //    MontantRequis = Convert.ToInt32(model.MontantString)                  
-                //};
-                
-    //            TempData["info"] = "Votre projet " + project.Titre + " est désormais lancé! Le financement prendra fin le "
-    //+ project.DateLimite.ToLongDateString() + ".";
+
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -62,15 +51,15 @@ namespace CashFlow.Controllers
 
         public ActionResult ListeProject()
         {
-            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
+            
             SqlCommand toutesDonnees = new SqlCommand();
             SqlDataReader reader;
 
             toutesDonnees.CommandText = "SELECT * FROM tableProject";
             toutesDonnees.CommandType = CommandType.Text;
-            toutesDonnees.Connection = con;
+            toutesDonnees.Connection = m_con;
 
-            con.Open();
+            m_con.Open();
 
             reader = toutesDonnees.ExecuteReader();
 
@@ -79,18 +68,26 @@ namespace CashFlow.Controllers
             while (reader.Read())
             {
                 NewProject projet = new NewProject();
+                projet.Hash = reader.GetString(0);
                 projet.Titre = reader.GetString(1);
                 projet.Description = reader.GetString(2);
-                
+                projet.Ville = reader.GetString(3);
                 projet.MontantRecu = reader.GetInt32(4);
                 projet.MontantRequis = reader.GetInt32(5);
+                projet.DateDepart = reader.GetDateTime(6);
                 projet.DateFin = reader.GetDateTime(7);
+                projet.Categorie = reader.GetString(8);
+                projet.Createur = reader.GetString(9);
                 aideProjet.Add(projet);
             }
-            con.Close();
+            m_con.Close();
             return View(aideProjet);
         }
 
+        public ActionResult ProjectComplet(NewProject Projet)
+        {
+            return View(Projet);
+        }
 
 
         public string ChaineHasard()
@@ -123,15 +120,14 @@ namespace CashFlow.Controllers
 
         void EnregistrerDansBD(NewProject model)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
-            con.Open();
+            
+            m_con.Open();
 
-            //SqlCommand insert = new SqlCommand("INSERT INTO tableProject(Hash, Titre) VALUES ('yolo','swag')", con);
             SqlCommand insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + ChaineHasard() + "','" + model.Titre + "','" + model.Description
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
-                  + "','" + model.Categorie + "','" + model.Createur + "')", con);
+                  + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
             insert.ExecuteNonQuery();
-            con.Close();
+            m_con.Close();
             
         }
 

@@ -16,8 +16,9 @@ namespace CashFlow.Models
     public class NewProject
     {
         //Classe utilisée lorsqu'on veux créer un nouveau projet
-        [Required]
+        [Required]       
         public string Titre { get; set; }
+        public string Hash { get; set; }
         public string Createur { get; set; }
         
         [Required]
