@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CashFlowModel.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="CashFlowEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tableProjects" EntityType="CashFlowModel.Model.tableProject" />
+    <EntitySet Name="tableUtilisateurs" EntityType="CashFlowModel.Model.tableUtilisateur" />
+    <AssociationSet Name="FK_tableProject_tableUtilisateur" Association="CashFlowModel.Model.FK_tableProject_tableUtilisateur">
+      <End Role="tableUtilisateur" EntitySet="tableUtilisateurs" />
+      <End Role="tableProject" EntitySet="tableProjects" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tableProject">
+    <Key>
+      <PropertyRef Name="Hash" />
+    </Key>
+    <Property Name="Hash" Type="String" Nullable="false" MaxLength="420" Unicode="false" FixedLength="false" />
+    <Property Name="Titre" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Location" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MontantRecu" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="MontantRequis" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" />
+    <Property Name="DateLimite" Type="DateTime" Nullable="false" />
+    <Property Name="Categorie" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="tableUtilisateur" Relationship="CashFlowModel.Model.FK_tableProject_tableUtilisateur" FromRole="tableProject" ToRole="tableUtilisateur" />
+  </EntityType>
+  <EntityType Name="tableUtilisateur">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="420" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="Nom" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="300" Unicode="false" FixedLength="false" />
+    <Property Name="PhotoProfile" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Location" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Twitter" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
+    <Property Name="Facebook" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="GooglePlus" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="tableProject" Relationship="CashFlowModel.Model.FK_tableProject_tableUtilisateur" FromRole="tableUtilisateur" ToRole="tableProject" />
+  </EntityType>
+  <Association Name="FK_tableProject_tableUtilisateur">
+    <End Role="tableUtilisateur" Type="CashFlowModel.Model.tableUtilisateur" Multiplicity="1" />
+    <End Role="tableProject" Type="CashFlowModel.Model.tableProject" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tableUtilisateur">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="tableProject">
+        <PropertyRef Name="Hash" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
