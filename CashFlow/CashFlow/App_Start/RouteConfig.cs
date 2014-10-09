@@ -20,7 +20,7 @@ namespace CashFlow
             );
 
             routes.MapRoute("Project", "Project", new { controller = "Project", action = "Project" });
-
+            routes.MapRoute("Profile", "Profile", new { controller = "Profile", action = "Profile" });
         }
     }
 }
