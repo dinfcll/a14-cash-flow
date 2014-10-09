@@ -14,7 +14,8 @@ namespace CashFlow.Controllers
     {
         //
         // GET: /Project/
-        CashFlow.Models.NewProject.ProjectDBContext dbProjet = new CashFlow.Models.NewProject.ProjectDBContext();
+        NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
+
         public ActionResult Project()
         {
             if (User.Identity.Name != "")
@@ -37,21 +38,7 @@ namespace CashFlow.Controllers
 
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
                     + model.DateFin.ToLongDateString() + ".";
-                //NewProject project = new.New
-                //{
-                //    Hash = ChaineHasard(),
-                //    Titre = model.Titre,
-                //    Description = model.Description,
-                //    Categorie = model.Categorie,
-                //    Location = model.Ville,    //a changer
-                //    DateDebut = DateTime.Today,
-                //    DateLimite = Convert.ToDateTime(model.DateString),
-                //    MontantRecu = 0,
-                //    MontantRequis = Convert.ToInt32(model.MontantString)                  
-                //};
-                
-    //            TempData["info"] = "Votre projet " + project.Titre + " est désormais lancé! Le financement prendra fin le "
-    //+ project.DateLimite.ToLongDateString() + ".";
+
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -93,7 +80,6 @@ namespace CashFlow.Controllers
             SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
             con.Open();
 
-            //SqlCommand insert = new SqlCommand("INSERT INTO tableProject(Hash, Titre) VALUES ('yolo','swag')", con);
             SqlCommand insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + ChaineHasard() + "','" + model.Titre + "','" + model.Description
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
                   + "','" + model.Categorie + "','" + model.Createur + "')", con);

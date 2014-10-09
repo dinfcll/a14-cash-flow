@@ -9,8 +9,6 @@ namespace CashFlow.Controllers
 {
     public class ProfileController : Controller
     {
-        //
-        // GET: /Profile/
         ProfileModel modelPro = new ProfileModel();
         public ActionResult Profile()
         {
@@ -35,7 +33,7 @@ namespace CashFlow.Controllers
             }
             else
             {
-                TempData["info"] = "Erreur ! Veillez entrer le bon code de verification !";
+                TempData["info"] = "Erreur ! Veuillez entrer le bon code de vérification !";
                 return RedirectToAction("Verif", "Profile");
             }
             

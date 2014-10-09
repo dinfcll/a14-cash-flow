@@ -37,13 +37,7 @@ namespace CashFlow.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
-        {
-         //   dbCashFlowEntities1 db = new dbCashFlowEntities1();
-            //var chose = db.tableUtilisateurs;
-            //chose.First(d => d.Nom == "admin");
-            
-                
-            
+        {                            
            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
            {
                 return RedirectToLocal(returnUrl);
@@ -87,11 +81,9 @@ namespace CashFlow.Controllers
                 // Tentative d'inscription de l'utilisateur
                 try
                 {
-                    ProfileModel Profile = new ProfileModel();
+                   
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    //EnvoieEmail();
-                    
+                    WebSecurity.Login(model.UserName, model.Password);                   
                     return RedirectToAction("Verif", "Profile");
 
                 }
