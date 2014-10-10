@@ -13,6 +13,8 @@ using CashFlow.Models;
 using System.Web.UI.WebControls;
 using System.Net.Mail;
 using System.Collections.Specialized;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace CashFlow.Controllers
 {
@@ -20,8 +22,8 @@ namespace CashFlow.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/Login
+        NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
+        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -29,9 +31,6 @@ namespace CashFlow.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
-        //
-        // POST: /Account/Login
 
         [HttpPost]
         [AllowAnonymous]
@@ -47,9 +46,6 @@ namespace CashFlow.Controllers
             ModelState.AddModelError("", "Le nom d'utilisateur ou mot de passe fourni est incorrect.");
             return View(model);
         }
-
-        //
-        // POST: /Account/LogOff
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -79,18 +75,33 @@ namespace CashFlow.Controllers
             if (ModelState.IsValid)
             {
                 // Tentative d'inscription de l'utilisateur
-                try
-                {
-                   
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);                   
-                    return RedirectToAction("Verif", "Profile");
+               
+                    m_con.Open();
+                    SqlCommand toutesDonnees = new SqlCommand();
+                    SqlDataReader reader;
+                    string CommandeSQL = "SELECT * FROM tableUtilisateur WHERE Username = '" + model.UserName + "'";
+                    toutesDonnees.CommandText = CommandeSQL;
+                    toutesDonnees.CommandType = CommandType.Text;
+                    toutesDonnees.Connection = m_con;
 
-                }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
+
+                    try
+                    {
+                        reader = toutesDonnees.ExecuteReader();
+                    }
+                    catch
+                    {
+
+                        SqlCommand insert = new SqlCommand("INSERT INTO tableUtilisateur (Username, Email, Password) VALUES ('" + model.UserName + "','" + model.AdresseElectronique + "','" + model.Password + "')", m_con);
+                        insert.ExecuteNonQuery();
+                        m_con.Close();
+                        return RedirectToAction("Verif", "Profile");
+                    }
+
+
+                    TempData["erreur"] = "Le nom d'utilisateur est déjà utilisé. Modifier le nom d'utilisateur et réessayer.";
+                    m_con.Close();
+                    return View();                    
             }
 
             // Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
@@ -111,7 +122,7 @@ namespace CashFlow.Controllers
             if (ownerAccount == User.Identity.Name)
             {
                 // Utiliser une transaction pour empêcher l’utilisateur de supprimer ses dernières informations d’identification de connexion
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
+                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.Serializable }))
                 {
                     bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
