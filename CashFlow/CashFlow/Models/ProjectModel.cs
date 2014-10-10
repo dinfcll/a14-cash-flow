@@ -36,8 +36,37 @@ namespace CashFlow.Models
         [Required]
         [RegularExpression(@"^\d+$")]
         public string MontantString { get; set; }
-
         public int MontantRequis;
+
+        [DisplayName("Monnaie")]
+        [Required]
+        public string Monnaie { get; set; }
+
+        public class ValeurMonnaie
+        {
+            public int ID { get; set; }
+            public string Value { get; set; }
+        }
+
+        public IEnumerable<ValeurMonnaie> ListeMonnaie = new List<ValeurMonnaie>
+        {
+            new ValeurMonnaie { ID = 0, Value = "CAD"},
+            new ValeurMonnaie { ID = 1, Value = "USD"},
+            new ValeurMonnaie { ID = 2, Value = "RUB"},
+            new ValeurMonnaie { ID = 3, Value = "EUR"},
+            new ValeurMonnaie { ID = 4, Value = "AUD"},
+            new ValeurMonnaie { ID = 5, Value = "GBP"},
+            new ValeurMonnaie { ID = 6, Value = "MXN"},
+            new ValeurMonnaie { ID = 7, Value = "BRL"},
+            new ValeurMonnaie { ID = 8, Value = "JPY"},
+            new ValeurMonnaie { ID = 9, Value = "INR"},
+            new ValeurMonnaie { ID = 10, Value = "PHP"},
+            new ValeurMonnaie { ID = 11, Value = "CNY"},
+            new ValeurMonnaie { ID = 12, Value = "ARS"},
+            new ValeurMonnaie { ID = 13, Value = "JMD"},
+            new ValeurMonnaie { ID = 14, Value = "KRW"},
+            new ValeurMonnaie { ID = 15, Value = "SEK"},
+        };
 
         [DisplayName("Catégorie du projet")]
         [Required]

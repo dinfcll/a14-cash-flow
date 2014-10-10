@@ -23,11 +23,13 @@
     @Html.DropDownListFor(model => model.Categorie, new SelectList(Model.ListeCategories, "ID", "Value", Model.ListeCategories.First().ID))<br /><br />
    
     
-
     @Html.LabelFor(model => model.Ville)
     @Html.ValidationMessageFor(model => model.Ville)
     @Html.DropDownListFor(model => model.Ville, new SelectList(Model.ListeVille, "ID", "Value", Model.ListeVille.First().ID))<br /><br />
     
+    @Html.LabelFor(model => model.Monnaie)
+    @Html.ValidationMessageFor(model => model.Monnaie)
+    @Html.DropDownListFor(model => model.Monnaie, new SelectList(Model.ListeMonnaie, "ID", "Value", Model.ListeMonnaie.First().ID))<br /><br />
     
     @Html.LabelFor(model => model.MontantString)
     @Html.ValidationMessageFor(model => model.MontantString)
