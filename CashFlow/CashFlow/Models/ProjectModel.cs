@@ -16,7 +16,7 @@ namespace CashFlow.Models
     public class NewProject
     {
         //Classe utilisée lorsqu'on veux créer un nouveau projet
-        [Required]       
+        [Required]
         public string Titre { get; set; }
         public string Hash { get; set; }
         public string Createur { get; set; }
@@ -42,7 +42,6 @@ namespace CashFlow.Models
 
         [DisplayName("Catégorie du projet")]
         [Required]
-
         public string Categorie { get; set; }
 
         public class ValeurCategorie
@@ -60,7 +59,6 @@ namespace CashFlow.Models
 
         [DisplayName("Choisir une ville")]
         [Required]
-
         public string Ville { get; set; }
 
         public class ValeurVille
