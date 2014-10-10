@@ -242,6 +242,11 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\banner.png" />
+    <Content Include="Images\cashflow-101-202-espanol-pc-original-precio-especial_MLM-F-3661077115_012013.jpg" />
+    <Content Include="Images\cashflow-arus-kas.jpg" />
+    <Content Include="Images\cashflow.htm.jpg" />
+    <Content Include="Images\Operating-Cash-Flow-There-Are-Many-Types-of-Cash-Flow.jpg" />
     <Content Include="Models\aaCashFlow.edmx.sql" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />

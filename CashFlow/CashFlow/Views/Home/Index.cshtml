@@ -4,6 +4,7 @@
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
+         <img src="Images/banner.png" /> <img src="Images/cashflow.htm.jpg" width = "350" height = "296"/>
             <hgroup class="title">
                 <h1>@ViewBag.Title.</h1>
                 <h2>@ViewBag.Message</h2>
@@ -14,4 +15,33 @@
         </div>
     </section>
 }
-<h1>@TempData["info"]</h1><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<h1>@TempData["info"]</h1>
+
+    
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+
+<button id="paiement">Faire une contribution</button>
+
+<script>
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_kWMZ4i3unFgBYwdXs1PEdAz9',
+        image: '/Images/Operating-Cash-Flow-There-Are-Many-Types-of-Cash-Flow.jpg',
+        token: function (token) {
+            // Use the token to create the charge with a server-side script.
+            // You can access the token ID with `token.id`
+        }
+    });
+
+    document.getElementById('paiement').addEventListener('click', function (e) {
+        // Open Checkout with further options
+        handler.open({
+            name: 'projet',
+            description: 'Don de 50$',
+            amount: 5000,
+            email: 'davtremblay@hotmail.com'
+        });
+        e.preventDefault();
+    });
+    
+</script>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

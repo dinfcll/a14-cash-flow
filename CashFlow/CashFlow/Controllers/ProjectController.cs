@@ -18,10 +18,11 @@ namespace CashFlow.Controllers
 
         public ActionResult Project()
         {
-            if (User.Identity.Name != "")
+            if (User.Identity.IsAuthenticated)
                 return View(new NewProject());
             else
-                return RedirectToAction("Login", "Account");
+                //return RedirectToAction("Login", "Account");
+                return View(new NewProject());
         }
 
         [HttpPost]
@@ -38,6 +39,7 @@ namespace CashFlow.Controllers
 
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
                     + model.DateFin.ToLongDateString() + ".";
+                TempData["TitreProjet"] = model.Titre;
 
                 return RedirectToAction("Index", "Home");
             }

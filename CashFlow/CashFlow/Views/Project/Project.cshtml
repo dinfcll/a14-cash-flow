@@ -12,8 +12,7 @@
     @Html.TextBoxFor(model => model.Titre)<br /><br />
         
     @Html.LabelFor(model => model.Image)
-    <input type="file" accept=".jpg,.png,.gif,.jpeg,.bmp" id="fileLoader" name="files" title="Load File" /><br />
-<br />
+    <input type="file" accept=".jpg,.png,.gif,.jpeg,.bmp" id="fileLoader" name="files" title="Load File" /><br /><br />
     @Html.LabelFor(model => model.Description)
     @Html.ValidationMessageFor(model => model.Description)<br />
     @Html.TextAreaFor(model => model.Description)<br /><br />
@@ -41,4 +40,5 @@
     
 
     <button type="submit">Lancer le projet</button>
+
 }
