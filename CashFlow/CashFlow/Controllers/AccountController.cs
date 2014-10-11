@@ -13,6 +13,8 @@ using CashFlow.Models;
 using System.Web.UI.WebControls;
 using System.Net.Mail;
 using System.Collections.Specialized;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace CashFlow.Controllers
 {
@@ -22,6 +24,8 @@ namespace CashFlow.Controllers
     {
         //
         // GET: /Account/Login
+        NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
+        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -81,10 +85,30 @@ namespace CashFlow.Controllers
                 // Tentative d'inscription de l'utilisateur
                 try
                 {
+                    SqlCommand NomUsager;
+                    m_con.Open();
+                    string CommandeSQL = "SELECT Username FROM tableUtilisateur Where Username = '"+model.UserName+"'";
+                    NomUsager = new SqlCommand(CommandeSQL, m_con);
+                    NomUsager.Connection = m_con;
+
+                    object Valeur = NomUsager.ExecuteScalar();
                    
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);                   
-                    return RedirectToAction("Verif", "Profile");
+                    if (Valeur == null)
+                    {
+                        CommandeSQL = "INSERT into tableUtilisateur (Username, Email, Password) VALUES " + "('" + model.UserName + "','" + model.AdresseElectronique
+                 + "','" + model.Password + "')";
+                        NomUsager = new SqlCommand(CommandeSQL,m_con);
+                        NomUsager.ExecuteNonQuery();
+                        m_con.Close();
+                        return RedirectToAction("Verif", "Profile");
+                    }
+                    else
+                    {
+                        TempData["erreur"] = "Le nom d'utilisateur existe déjà. Veuillez essayer avec un nouveau nom.";
+                        m_con.Close();
+                        return View();
+                    }
+                    
 
                 }
                 catch (MembershipCreateUserException e)
@@ -111,7 +135,7 @@ namespace CashFlow.Controllers
             if (ownerAccount == User.Identity.Name)
             {
                 // Utiliser une transaction pour empêcher l’utilisateur de supprimer ses dernières informations d’identification de connexion
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
+                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.Serializable }))
                 {
                     bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)

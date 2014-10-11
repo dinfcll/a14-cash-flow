@@ -11,7 +11,7 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-
+    <h2>@TempData["erreur"]</h2>
     <fieldset>
         <legend>Formulaire d’inscription</legend>
         <ol>
