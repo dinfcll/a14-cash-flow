@@ -165,7 +165,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -307,14 +306,17 @@
     <Content Include="Views\Project\Project.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Profile\Profile.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Profile\Verif.cshtml" />
+    <Content Include="Views\Account\Verif.cshtml" />
     <EntityDeploy Include="Models\aaCashFlow.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>aaCashFlow.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Profile\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
