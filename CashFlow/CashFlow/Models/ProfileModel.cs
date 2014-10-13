@@ -43,5 +43,16 @@ namespace CashFlow.Models
 
         public bool Verif { get; set; }
 
+        public ProfileModel()
+        { 
+            NomComplet = " ";    
+            Location = " ";
+            Description = " ";    
+            nomTwitter = " ";
+            lienFacebook = " ";
+            lienYoutube = " ";
+            lienSiteWeb = " ";
+        }
+
     }
 }

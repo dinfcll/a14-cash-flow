@@ -16,7 +16,6 @@ using System.Collections.Specialized;
 using System.Data.SqlClient;
 using System.Data;
 
-
 namespace CashFlow.Controllers
 {
     [Authorize]
@@ -42,7 +41,7 @@ namespace CashFlow.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
-        {
+        {                            
            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
            {
                 return RedirectToLocal(returnUrl);
@@ -83,30 +82,39 @@ namespace CashFlow.Controllers
         {
             if (ModelState.IsValid)
             {
-            // Tentative d'inscription de l'utilisateur
-                
-                SqlCommand SQLNomUsager;
-                m_con.Open();
-                string CommandeSQL = "SELECT Username FROM tableUtilisateur Where Username = '"+ model.UserName +"'";
-                SQLNomUsager = new SqlCommand(CommandeSQL, m_con);
-                SQLNomUsager.Connection = m_con;
-
-                object Valeur = SQLNomUsager.ExecuteScalar();
-                   
-                if (Valeur == null)
+                // Tentative d'inscription de l'utilisateur
+                try
                 {
-                    CommandeSQL = "INSERT into tableUtilisateur (Username, Email, Password) VALUES " + "('" + model.UserName + "','" + model.AdresseElectronique + "','" + model.Password + "')";
-                    SQLNomUsager = new SqlCommand(CommandeSQL, m_con);
-                    SQLNomUsager.ExecuteNonQuery();
-                    m_con.Close();
-                    TempData["Username"] = model.UserName;
-                    TempData["MotDePasse"] = model.Password;
-                    TempData["CodeVerif"] = "123456";
-                    return RedirectToAction("Verif","Account");
+                    SqlCommand NomUsager;
+                    m_con.Open();
+                    string CommandeSQL = "SELECT Username FROM tableUtilisateur Where Username = '"+model.UserName+"'";
+                    NomUsager = new SqlCommand(CommandeSQL, m_con);
+                    NomUsager.Connection = m_con;
+
+                    object Valeur = NomUsager.ExecuteScalar();
+                   
+                    if (Valeur == null)
+                    {
+                        CommandeSQL = "INSERT into tableUtilisateur (Username, Email, Password) VALUES " + "('" + model.UserName + "','" + model.AdresseElectronique
+                 + "','" + model.Password + "')";
+                        NomUsager = new SqlCommand(CommandeSQL,m_con);
+                        NomUsager.ExecuteNonQuery();
+                        m_con.Close();
+                        return RedirectToAction("Verif", "Profile");
+                    }
+                    else
+                    {
+                        TempData["erreur"] = "Le nom d'utilisateur existe déjà. Veuillez essayer avec un nouveau nom.";
+                        m_con.Close();
+                        return View();
+                    }
+                    
+
                 }
-                    TempData["erreur"] = "Le nom d'utilisateur existe déjà. Veuillez essayer avec un nouveau nom.";
-                    m_con.Close();
-                    return View(model);                    
+                catch (MembershipCreateUserException e)
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                }
             }
 
             // Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
@@ -348,54 +356,10 @@ namespace CashFlow.Controllers
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
-        [AllowAnonymous]
-        public ActionResult Profile()
-        {
-            return View();
-        }
-
-         [AllowAnonymous]
-        public ActionResult Verif()
-        {
-            return View();
-        }
-
-
-
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult Verif(ProfileModel Model)
-        {
-            
-            if (Model.codeVerif == TempData["CodeVerif"].ToString())
-            {
-                WebSecurity.CreateUserAndAccount(TempData["Username"].ToString(),TempData["MotDePasse"].ToString());
-                WebSecurity.Login(TempData["Username"].ToString(), TempData["MotDePasse"].ToString());       
-                TempData["info"] = "Votre profil a été vérifié !";
-                return RedirectToAction("Index", "Home");
-            }
-                TempData["info"] = "Erreur ! Veuillez entrer le bon code de vérification !";
-                return RedirectToAction("Verif", "Account");
-            
-
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult Profile(ProfileModel Model)
-        {
-            if (Model.nomTwitter[0] != '@')
-            {
-                Model.nomTwitter = '@' + Model.nomTwitter;
-            }
-            TempData["info"] = "Votre profil a été modifié !";
-            return RedirectToAction("Index", "Home");
-        }
 
         //Permet l'envoi de message
         public void EnvoieEmail()
         {
-            
             MailMessage mail = new MailMessage();
             SmtpClient client = new SmtpClient();
             string ChaineVerif = ChaineHasard();
