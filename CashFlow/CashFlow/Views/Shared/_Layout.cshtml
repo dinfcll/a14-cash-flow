@@ -23,6 +23,12 @@
                         <ul id="menu">
                             <li>@Html.ActionLink("Créer un projet", "Project", "Project")</li>
                         </ul>
+                        <div class="search-wrapper">
+	                        <form>
+	                            <input type="text" name="focus" required class="search-box" placeholder="Recherche" />
+                                <input type="submit" onclick="location.href='@Url.Action("Project","Project")'", value="" style="border-style: none; background: url('/../Images/Search.png') no-repeat; width: 50px; height: 50px;">
+	                        </form>
+                        </div>
                     </nav>
                 </div>
             </div>
