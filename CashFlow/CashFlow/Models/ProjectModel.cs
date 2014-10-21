@@ -68,7 +68,7 @@ namespace CashFlow.Models
             new ValeurMonnaie { ID = 15, Value = "SEK"},
         };
 
-        [DisplayName("Catégorie du projet")]
+        [DisplayName("Catégorie")]
         [Required]
         public string Categorie { get; set; }
 
@@ -81,11 +81,20 @@ namespace CashFlow.Models
         public IEnumerable<ValeurCategorie> ListeCategories = new List<ValeurCategorie>
         {
             new ValeurCategorie { ID = 0, Value = "Art" },
-            new ValeurCategorie { ID = 1, Value = "Electronique" },
-            new ValeurCategorie { ID = 2, Value = "Musique" }
+            new ValeurCategorie { ID = 1, Value = "Jeux" },
+            new ValeurCategorie { ID = 3, Value = "Musique" },
+            new ValeurCategorie { ID = 4, Value = "Technologie" },
+            new ValeurCategorie { ID = 5, Value = "Sport" },
+            new ValeurCategorie { ID = 6, Value = "Film" },
+            new ValeurCategorie { ID = 7, Value = "Mode" },
+            new ValeurCategorie { ID = 1, Value = "Publications" },
+            new ValeurCategorie { ID = 8, Value = "Journalisme" },
+            new ValeurCategorie { ID = 9, Value = "Théatre" },
+            new ValeurCategorie { ID = 10, Value = "Alimentation" },
+            new ValeurCategorie { ID = 11, Value = "Transport" }
         };
 
-        [DisplayName("Choisir une ville")]
+        [DisplayName("Ville")]
         [Required]
         public string Ville { get; set; }
 
@@ -99,7 +108,34 @@ namespace CashFlow.Models
         {
             new ValeurVille { ID = 0, Value = "Montréal" },
             new ValeurVille { ID = 1, Value = "Québec" },
-            new ValeurVille { ID = 2, Value = "Toronto" }
+            new ValeurVille { ID = 2, Value = "Toronto" },
+            new ValeurVille { ID = 3, Value = "Ottawa" },
+            new ValeurVille { ID = 4, Value = "Calgary" },
+            new ValeurVille { ID = 5, Value = "Edmonton" },
+            new ValeurVille { ID = 6, Value = "Saskatchewan" },
+            new ValeurVille { ID = 7, Value = "Vancouver" },
+            new ValeurVille { ID = 8, Value = "New York" },
+            new ValeurVille { ID = 9, Value = "Boston" },
+            new ValeurVille { ID = 10, Value = "New Jersey" },
+            new ValeurVille { ID = 11, Value = "Miami" },
+            new ValeurVille { ID = 12, Value = "Detroit" },
+            new ValeurVille { ID = 13, Value = "Chicago" },
+            new ValeurVille { ID = 14, Value = "Denver" },
+            new ValeurVille { ID = 15, Value = "Nashville" },
+            new ValeurVille { ID = 16, Value = "Tampa Bay" },
+            new ValeurVille { ID = 17, Value = "Los Angeles" },
+            new ValeurVille { ID = 18, Value = "San Francisco" },
+            new ValeurVille { ID = 19, Value = "Mexico" },
+            new ValeurVille { ID = 20, Value = "Hawai" },
+            new ValeurVille { ID = 21, Value = "Paris" },
+            new ValeurVille { ID = 22, Value = "Berlin" },
+            new ValeurVille { ID = 23, Value = "Londres" },
+            new ValeurVille { ID = 24, Value = "Amsterdam" },
+            new ValeurVille { ID = 25, Value = "Barcelone" },
+            new ValeurVille { ID = 26, Value = "Moscou" },
+            new ValeurVille { ID = 27, Value = "Tokyo" },
+            new ValeurVille { ID = 28, Value = "Pyongyang" },
+            new ValeurVille { ID = 29, Value = "Lévis" },
         };
 
         public class ProjectDBContext : DbContext
