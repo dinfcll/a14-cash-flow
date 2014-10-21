@@ -150,7 +150,6 @@ namespace CashFlow.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Manage(LocalPasswordModel model)
         {
-            
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -194,7 +193,6 @@ namespace CashFlow.Controllers
                     try
                     {
                         WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-                       
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                     }
                     catch (Exception e)
