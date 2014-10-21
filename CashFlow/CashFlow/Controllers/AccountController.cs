@@ -16,6 +16,7 @@ using System.Collections.Specialized;
 using System.Data.SqlClient;
 using System.Data;
 using RestSharp;
+using System.Text;
 
 namespace CashFlow.Controllers
 {
@@ -350,8 +351,6 @@ namespace CashFlow.Controllers
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
-
-
         [AllowAnonymous]
         public ActionResult Verif()
         {
@@ -370,9 +369,10 @@ namespace CashFlow.Controllers
                 TempData["info"] = "Votre profil a été vérifié !";
                 return RedirectToAction("Index", "Home");
             }
-                TempData["info"] = "Erreur ! Veuillez entrer le bon code de vérification !";
-                return RedirectToAction("Verif", "Profile");
+            TempData["info"] = "Erreur ! Veuillez entrer le bon code de vérification !";
+            return RedirectToAction("Verif", "Profile");
         }
+
         //Permet l'envoi de message
         public static RestResponse SendSimpleMessage(string Adresse, string Chaine)
         {
@@ -394,28 +394,15 @@ namespace CashFlow.Controllers
         //Création d'une chaîne au hasard
         public string ChaineHasard()
         {
-            Random Lettre = new Random();
-            Random Chiffre = new Random();
-            Random VraiOuFaux = new Random();
-            int LettreAscii = 0;
-            string Chaine = "";
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random((int)DateTime.Now.Ticks);
+            char ch;
             for (int i = 0; i < 6; i++)
             {
-                if (VraiOuFaux.Next(0, 2) == 1)
-                {
-                    LettreAscii = Lettre.Next(65, 91);
-                    if (VraiOuFaux.Next(0, 2) == 1)
-                    {
-                        LettreAscii += 32;
-                    }
-                    Chaine += (char)(LettreAscii);
-                }
-                else
-                {
-                    Chaine += (char)Chiffre.Next(48, 58);
-                }
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));                 
+                builder.Append(ch);
             }
-            return Chaine;
+            return builder.ToString();
         }
 
         #region Applications auxiliaires
