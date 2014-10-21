@@ -24,10 +24,6 @@ namespace CashFlow.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/Login
-        NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
-        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
         ProfileModel modelPro = new ProfileModel();
 
         [AllowAnonymous]
@@ -85,35 +81,24 @@ namespace CashFlow.Controllers
         {
             if (ModelState.IsValid)
             {
-                SqlCommand NomUsager;
-                m_con.Open();
-                string CommandeSQL = "SELECT Username FROM tableUtilisateur Where Username = '"+model.UserName+"'";
-                NomUsager = new SqlCommand(CommandeSQL, m_con);
-                NomUsager.Connection = m_con;
-                object Valeur = NomUsager.ExecuteScalar();                  
-                if (Valeur == null)
+                // Tentative d'inscription de l'utilisateur
+                try
                 {
-                    CommandeSQL = "INSERT into tableUtilisateur (Username, Email, Password) VALUES " + "('" + model.UserName + "','" + model.AdresseElectronique + "','" + model.Password + "')";
-                    NomUsager = new SqlCommand(CommandeSQL,m_con);
-                    NomUsager.ExecuteNonQuery();
-                    m_con.Close();
-                    string chaine = ChaineHasard();
-                    TempData["CodeVerif"] = chaine;
-                    RestResponse rep = SendSimpleMessage(model.AdresseElectronique,chaine);
-                    if (!(rep.ErrorException == null))
-                    {
-                        return RedirectToAction("Verif", "Account");
-                    }     
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.Login(model.UserName, model.Password);
+                    TempData["CodeVerif"] = ChaineHasard();
+                    EnvoieMessageSimple(model.AdresseElectronique, TempData["CodeVerif"].ToString());
+                    return RedirectToAction("Verif", "Account");
                 }
-                TempData["erreur"] = "Le nom d'utilisateur existe déjà. Veuillez essayer avec un nouveau nom.";
-                m_con.Close();
-                return View();
+                catch (MembershipCreateUserException e)
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                }
             }
 
             // Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
             return View(model);
         }
-
         //
         // POST: /Account/Disassociate
 
@@ -366,22 +351,23 @@ namespace CashFlow.Controllers
             {
                 WebSecurity.CreateAccount("test", "test");
                 WebSecurity.Login("test", "test");
+                modelPro.Verif = true;
                 TempData["info"] = "Votre profil a été vérifié !";
                 return RedirectToAction("Index", "Home");
             }
+            modelPro.Verif = false;
             TempData["info"] = "Erreur ! Veuillez entrer le bon code de vérification !";
             return RedirectToAction("Verif", "Profile");
         }
 
         //Permet l'envoi de message
-        public static RestResponse SendSimpleMessage(string Adresse, string Chaine)
+        public static RestResponse EnvoieMessageSimple(string Adresse, string Chaine)
         {
             RestClient client = new RestClient();
             client.BaseUrl = "https://api.mailgun.net/v2";
             client.Authenticator = new HttpBasicAuthenticator("api", "key-6462596df2ca948c682e6863582b275c");
             RestRequest request = new RestRequest();
-            request.AddParameter("domain",
-                                "sandboxe63fa61fafc1425b93d33ff793f58c00.mailgun.org", ParameterType.UrlSegment);
+            request.AddParameter("domain","sandboxe63fa61fafc1425b93d33ff793f58c00.mailgun.org", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
             request.AddParameter("from", "Ca$hFlow <projet.cashflow@gmail.com>");
             request.AddParameter("to", Adresse);

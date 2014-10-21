@@ -14,10 +14,8 @@ namespace CashFlow.Controllers
         public ActionResult Profile()
         {
             return View(modelPro);                             
-        }
-
-        
-
+        }   
+    
         [HttpPost]
         public ActionResult Profile(ProfileModel Model)
         {
