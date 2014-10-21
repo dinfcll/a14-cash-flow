@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CashFlow.Models;
+using RestSharp;
 
 namespace CashFlow.Controllers
 {
@@ -15,29 +16,7 @@ namespace CashFlow.Controllers
             return View(modelPro);                             
         }
 
-        public ActionResult Verif()
-        {
-            return View(modelPro);
-        }
-
-
-
-        [HttpPost]
-        public ActionResult Verif(ProfileModel Model)
-        {
-            modelPro.codeVerif= TempData["CodeVerif"].ToString();
-            if (modelPro.codeVerif == Model.codeVerif)
-            {
-                TempData["info"] = "Votre profil a été vérifié !";
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                TempData["info"] = "Erreur ! Veuillez entrer le bon code de vérification !";
-                return RedirectToAction("Verif", "Profile");
-            }
-            
-        }
+        
 
         [HttpPost]
         public ActionResult Profile(ProfileModel Model)

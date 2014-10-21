@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.5.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -310,7 +313,7 @@
     <Content Include="Views\Profile\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Profile\Verif.cshtml" />
+    <Content Include="Views\Account\Verif.cshtml" />
     <EntityDeploy Include="Models\aaCashFlow.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>aaCashFlow.Designer.cs</LastGenOutput>

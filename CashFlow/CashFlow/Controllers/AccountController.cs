@@ -15,6 +15,7 @@ using System.Net.Mail;
 using System.Collections.Specialized;
 using System.Data.SqlClient;
 using System.Data;
+using RestSharp;
 
 namespace CashFlow.Controllers
 {
@@ -26,6 +27,7 @@ namespace CashFlow.Controllers
         // GET: /Account/Login
         NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
         SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
+        ProfileModel modelPro = new ProfileModel();
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -82,39 +84,29 @@ namespace CashFlow.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Tentative d'inscription de l'utilisateur
-                try
+                SqlCommand NomUsager;
+                m_con.Open();
+                string CommandeSQL = "SELECT Username FROM tableUtilisateur Where Username = '"+model.UserName+"'";
+                NomUsager = new SqlCommand(CommandeSQL, m_con);
+                NomUsager.Connection = m_con;
+                object Valeur = NomUsager.ExecuteScalar();                  
+                if (Valeur == null)
                 {
-                    SqlCommand NomUsager;
-                    m_con.Open();
-                    string CommandeSQL = "SELECT Username FROM tableUtilisateur Where Username = '"+model.UserName+"'";
-                    NomUsager = new SqlCommand(CommandeSQL, m_con);
-                    NomUsager.Connection = m_con;
-
-                    object Valeur = NomUsager.ExecuteScalar();
-                   
-                    if (Valeur == null)
+                    CommandeSQL = "INSERT into tableUtilisateur (Username, Email, Password) VALUES " + "('" + model.UserName + "','" + model.AdresseElectronique + "','" + model.Password + "')";
+                    NomUsager = new SqlCommand(CommandeSQL,m_con);
+                    NomUsager.ExecuteNonQuery();
+                    m_con.Close();
+                    string chaine = ChaineHasard();
+                    TempData["CodeVerif"] = chaine;
+                    RestResponse rep = SendSimpleMessage(model.AdresseElectronique,chaine);
+                    if (!(rep.ErrorException == null))
                     {
-                        CommandeSQL = "INSERT into tableUtilisateur (Username, Email, Password) VALUES " + "('" + model.UserName + "','" + model.AdresseElectronique
-                 + "','" + model.Password + "')";
-                        NomUsager = new SqlCommand(CommandeSQL,m_con);
-                        NomUsager.ExecuteNonQuery();
-                        m_con.Close();
-                        return RedirectToAction("Verif", "Profile");
-                    }
-                    else
-                    {
-                        TempData["erreur"] = "Le nom d'utilisateur existe déjà. Veuillez essayer avec un nouveau nom.";
-                        m_con.Close();
-                        return View();
-                    }
-                    
-
+                        return RedirectToAction("Verif", "Account");
+                    }     
                 }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
+                TempData["erreur"] = "Le nom d'utilisateur existe déjà. Veuillez essayer avec un nouveau nom.";
+                m_con.Close();
+                return View();
             }
 
             // Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
@@ -172,6 +164,7 @@ namespace CashFlow.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Manage(LocalPasswordModel model)
         {
+            
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -215,6 +208,7 @@ namespace CashFlow.Controllers
                     try
                     {
                         WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
+                       
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                     }
                     catch (Exception e)
@@ -357,24 +351,44 @@ namespace CashFlow.Controllers
         }
 
 
-        //Permet l'envoi de message
-        public void EnvoieEmail()
+
+        [AllowAnonymous]
+        public ActionResult Verif()
         {
-            MailMessage mail = new MailMessage();
-            SmtpClient client = new SmtpClient();
-            string ChaineVerif = ChaineHasard();
-            TempData["CodeVerif"] = ChaineVerif;
-            client.Port = 587;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = true;
-            client.EnableSsl = true;
-            client.Host = "smtp.gmail.com";
-            mail.To.Add(new MailAddress("alexys.leclerc@gmail.com"));
-            mail.From = new MailAddress("alexys.leclerc@gmail.com");
-            mail.Subject = "this is a test email.";
-            mail.Body = "Voici la chaîne de vérification : " + ChaineVerif;
-            client.Send(mail);
-    
+            return View(modelPro);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Verif(ProfileModel Model)
+        {
+            modelPro.codeVerif = TempData["CodeVerif"].ToString();
+            if (modelPro.codeVerif == Model.codeVerif)
+            {
+                WebSecurity.CreateAccount("test", "test");
+                WebSecurity.Login("test", "test");
+                TempData["info"] = "Votre profil a été vérifié !";
+                return RedirectToAction("Index", "Home");
+            }
+                TempData["info"] = "Erreur ! Veuillez entrer le bon code de vérification !";
+                return RedirectToAction("Verif", "Profile");
+        }
+        //Permet l'envoi de message
+        public static RestResponse SendSimpleMessage(string Adresse, string Chaine)
+        {
+            RestClient client = new RestClient();
+            client.BaseUrl = "https://api.mailgun.net/v2";
+            client.Authenticator = new HttpBasicAuthenticator("api", "key-6462596df2ca948c682e6863582b275c");
+            RestRequest request = new RestRequest();
+            request.AddParameter("domain",
+                                "sandboxe63fa61fafc1425b93d33ff793f58c00.mailgun.org", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "Ca$hFlow <projet.cashflow@gmail.com>");
+            request.AddParameter("to", Adresse);
+            request.AddParameter("subject", "Vérification de compte");
+            request.AddParameter("text", "Voici votre code de vérification. \r\r\r "+ Chaine);
+            request.Method = Method.POST;
+            return (RestResponse)client.Execute(request);
         }
 
         //Création d'une chaîne au hasard
@@ -392,7 +406,6 @@ namespace CashFlow.Controllers
                     LettreAscii = Lettre.Next(65, 91);
                     if (VraiOuFaux.Next(0, 2) == 1)
                     {
-
                         LettreAscii += 32;
                     }
                     Chaine += (char)(LettreAscii);
@@ -401,10 +414,10 @@ namespace CashFlow.Controllers
                 {
                     Chaine += (char)Chiffre.Next(48, 58);
                 }
-
             }
             return Chaine;
         }
+
         #region Applications auxiliaires
         private ActionResult RedirectToLocal(string returnUrl)
         {

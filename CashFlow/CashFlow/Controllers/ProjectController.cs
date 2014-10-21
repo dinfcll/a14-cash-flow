@@ -18,7 +18,7 @@ namespace CashFlow.Controllers
 
         public ActionResult Project()
         {
-            if (User.Identity.Name != "")
+            if (Request.IsAuthenticated)
                 return View(new NewProject());
             else
                 return RedirectToAction("Login", "Account");

@@ -481,3 +481,5 @@ C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cas
 C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cash-flow\CashFlow\CashFlow\bin\fr\WebMatrix.WebData.resources.dll
 C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.dll
 C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.pdb
+C:\Users\Usager\Desktop\a14-cash-flow\CashFlow\CashFlow\bin\RestSharp.dll
+C:\Users\Usager\Desktop\a14-cash-flow\CashFlow\CashFlow\bin\RestSharp.xml
