@@ -67,7 +67,6 @@ C:\Users\Usager\Desktop\a14-cash-flow\CashFlow\CashFlow\bin\fr\WebMatrix.WebData
 C:\Users\Usager\Desktop\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.csprojResolveAssemblyReference.cache
 C:\Users\Usager\Desktop\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.dll
 C:\Users\Usager\Desktop\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.pdb
-=======
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\bin\CashFlow.dll
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\bin\CashFlow.pdb
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\bin\Antlr3.Runtime.dll
@@ -480,7 +479,6 @@ C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cas
 C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cash-flow\CashFlow\CashFlow\bin\fr\Microsoft.Web.WebPages.OAuth.resources.dll
 C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cash-flow\CashFlow\CashFlow\bin\fr\WebMatrix.WebData.resources.dll
 C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.dll
-<<<<<<< HEAD
 C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.pdb
 C:\Users\UTILISATEUR\Desktop\a14-cash-flow\CashFlow\CashFlow\bin\CashFlow.dll
 C:\Users\UTILISATEUR\Desktop\a14-cash-flow\CashFlow\CashFlow\bin\CashFlow.pdb
@@ -551,6 +549,3 @@ C:\Users\UTILISATEUR\Desktop\a14-cash-flow\CashFlow\CashFlow\bin\fr\WebMatrix.We
 C:\Users\UTILISATEUR\Desktop\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.dll
 C:\Users\UTILISATEUR\Desktop\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.pdb
 C:\Users\UTILISATEUR\Desktop\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.csprojResolveAssemblyReference.cache
-=======
-C:\Users\Usager\Desktop\BACKUP TEMPORAIRE BD DEFECTUEUSE!!!!!!!!!!!!!!!!\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.pdb
->>>>>>> master
