@@ -69,11 +69,11 @@ namespace CashFlow.Controllers
             while (reader.Read())
             {
                 NewProject projet = new NewProject();
-                //projet.Hash = reader.GetString(0);
+                projet.Hash = reader.GetString(0);
                 projet.Titre = reader.GetString(1);
                 projet.Description = reader.GetString(2);
                 projet.Ville = reader.GetString(3);
-                //projet.MontantRecu = reader.GetInt32(4);
+                projet.MontantRecu = reader.GetInt32(4);
                 projet.MontantRequis = reader.GetInt32(5);
                 projet.DateDepart = reader.GetDateTime(6);
                 projet.DateFin = reader.GetDateTime(7);
@@ -83,6 +83,11 @@ namespace CashFlow.Controllers
             }
             m_con.Close();
             return View(aideProjet);
+        }
+
+        public ActionResult ProjectComplet(NewProject Projet)
+        {
+            return View(Projet);
         }
 
         public string ChaineHasard()
