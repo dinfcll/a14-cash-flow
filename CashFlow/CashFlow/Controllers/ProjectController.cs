@@ -12,9 +12,8 @@ namespace CashFlow.Controllers
 {
     public class ProjectController : Controller
     {
-        //
-        // GET: /Project/
         NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
+        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");   
 
         public ActionResult Project()
         {/*
@@ -31,7 +30,10 @@ namespace CashFlow.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.DateFin = Convert.ToDateTime(model.DateString);
+                string Annee = model.DateString[6].ToString() + model.DateString[7].ToString() + model.DateString[8].ToString() + model.DateString[9].ToString();
+                string Mois = model.DateString[3].ToString() + model.DateString[4].ToString();
+                string Jour = model.DateString[0].ToString() + model.DateString[1].ToString();
+                model.DateFin = new DateTime(Convert.ToInt32(Annee), Convert.ToInt32(Mois), Convert.ToInt32(Jour), 23, 59, 59);
                 model.DateDepart = DateTime.Today;
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
@@ -79,14 +81,13 @@ namespace CashFlow.Controllers
 
         void EnregistrerDansBD(NewProject model)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
-            con.Open();
+            m_con.Open();
 
             SqlCommand insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + ChaineHasard() + "','" + model.Titre + "','" + model.Description
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
-                  + "','" + model.Categorie + "','" + model.Createur + "')", con);
+                  + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
             insert.ExecuteNonQuery();
-            con.Close();
+            m_con.Close();
             
         }
 
