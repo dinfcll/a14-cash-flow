@@ -1,0 +1,15 @@
+﻿@model CashFlow.Models.ProfileModel
+@{
+    ViewBag.Title = "Vérification";
+}
+
+<h2>Veuillez entrer le code de 6 caractères que vous venez reçevoir à l'adresse électronique que vous avez rentrée juste avant</h2>
+<h3>Entrez votre code ici</h3>
+@TempData["info"]
+@using (Html.BeginForm())
+{
+    @Html.TextBoxFor(model => model.codeVerif)<br />
+    <button type=submit>Vérification !</button>
+}
+
+

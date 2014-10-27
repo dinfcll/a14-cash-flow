@@ -1,0 +1,45 @@
+﻿@model CashFlow.Models.ProfileModel
+
+@{
+    ViewBag.Title = "Profil";
+}
+
+<h2>Votre compte a été créé ! Voici des informations personelles que vous pouvez modifier !</h2>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.NomComplet)
+    @Html.TextBoxFor(model => model.NomComplet, new { @Value = Model.NomComplet})<br />
+    @Html.ValidationMessageFor(model => model.NomComplet)<br />
+    
+    @Html.LabelFor(model => model.ImageProfile)
+    <input type="file" accept=".jpg,.png,.gif,.jpeg,.bmp" id="fileLoader" name="files" title="Load File" />
+    //<input type="button" id="btnOpenFileDialog" value = "Click Me !!!" onclick="openfileDialog();" />
+    <br /><br />
+    
+    @Html.LabelFor(model => model.Description)
+    @Html.TextAreaFor(model => model.Description, new { maxlength = 300, @Value = Model.Description })<br />
+    @Html.ValidationMessageFor(model => model.Description)<br />
+        
+
+    @Html.LabelFor(model => model.Location)
+    @Html.TextBoxFor(model => model.Location, new { @Value = Model.Location})<br />
+    @Html.ValidationMessageFor(model => model.Location)<br />
+    
+    @Html.LabelFor(model => model.nomTwitter)
+    @Html.TextBoxFor(model => model.nomTwitter, new { @Value = Model.nomTwitter})<br />
+    @Html.ValidationMessageFor(model => model.nomTwitter)<br />
+    
+    @Html.LabelFor(model => model.lienFacebook)
+    @Html.TextBoxFor(model => model.lienFacebook, new { @Value = Model.lienFacebook})<br />
+    @Html.ValidationMessageFor(model => model.lienFacebook)<br />
+    
+    @Html.LabelFor(model => model.lienYoutube)
+    @Html.TextBoxFor(model => model.lienYoutube, new { @Value = Model.lienYoutube})<br />
+    @Html.ValidationMessageFor(model => model.lienYoutube)<br />
+    
+    @Html.LabelFor(model => model.lienSiteWeb)
+    @Html.TextBoxFor(model => model.lienSiteWeb, new { @Value = Model.lienSiteWeb})<br />
+    @Html.ValidationMessageFor(model => model.lienSiteWeb)<br />
+    
+    <button type="submit">Sauvegarder les changements</button>
+}

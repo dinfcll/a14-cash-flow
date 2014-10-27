@@ -37,13 +37,7 @@ namespace CashFlow.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
-        {
-         //   dbCashFlowEntities1 db = new dbCashFlowEntities1();
-            //var chose = db.tableUtilisateurs;
-            //chose.First(d => d.Nom == "admin");
-            
-                
-            
+        {                            
            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
            {
                 return RedirectToLocal(returnUrl);
@@ -62,7 +56,6 @@ namespace CashFlow.Controllers
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -83,16 +76,16 @@ namespace CashFlow.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
-           
             if (ModelState.IsValid)
             {
                 // Tentative d'inscription de l'utilisateur
                 try
                 {
+                   
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    //EnvoieEmail();
-                    return RedirectToAction("Index", "Home");
+                    WebSecurity.Login(model.UserName, model.Password);                   
+                    return RedirectToAction("Verif", "Profile");
+
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -346,6 +339,7 @@ namespace CashFlow.Controllers
             MailMessage mail = new MailMessage();
             SmtpClient client = new SmtpClient();
             string ChaineVerif = ChaineHasard();
+            TempData["CodeVerif"] = ChaineVerif;
             client.Port = 587;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = true;

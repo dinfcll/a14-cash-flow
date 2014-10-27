@@ -20,6 +20,7 @@ else
     @Html.Partial("_SetPasswordPartial")
 }
 
+<input type="button" value="Modifier votre profil !" onclick="location.href='@Url.Action("Profile", "Profile")'" />
 <section id="externalLogins">
     @Html.Action("RemoveExternalLogins")
 
