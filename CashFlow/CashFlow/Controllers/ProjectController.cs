@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Drawing;
 using System.Data.SqlClient;
 using CashFlow.Models;
+using System.Data;
 
 
 namespace CashFlow.Controllers
@@ -16,12 +17,12 @@ namespace CashFlow.Controllers
         SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");   
 
         public ActionResult Project()
-        {/*
+        {
             if (User.Identity.Name != "")
                 return View(new NewProject());
             else
                 return RedirectToAction("Login", "Account");
-          */
+          
             return View(new NewProject());
         }
 
@@ -50,6 +51,39 @@ namespace CashFlow.Controllers
             
         }
 
+        public ActionResult ListeProject()
+        {
+
+            SqlCommand toutesDonnees = new SqlCommand();
+            SqlDataReader reader;
+
+            toutesDonnees.CommandText = "SELECT * FROM tableProject";
+            toutesDonnees.CommandType = CommandType.Text;
+            toutesDonnees.Connection = m_con;
+
+            m_con.Open();
+
+            reader = toutesDonnees.ExecuteReader();
+
+            List<NewProject> aideProjet = new List<NewProject>();
+            while (reader.Read())
+            {
+                NewProject projet = new NewProject();
+                //projet.Hash = reader.GetString(0);
+                projet.Titre = reader.GetString(1);
+                projet.Description = reader.GetString(2);
+                projet.Ville = reader.GetString(3);
+                //projet.MontantRecu = reader.GetInt32(4);
+                projet.MontantRequis = reader.GetInt32(5);
+                projet.DateDepart = reader.GetDateTime(6);
+                projet.DateFin = reader.GetDateTime(7);
+                projet.Categorie = reader.GetString(8);
+                projet.Createur = reader.GetString(9);
+                aideProjet.Add(projet);
+            }
+            m_con.Close();
+            return View(aideProjet);
+        }
 
         public string ChaineHasard()
         {

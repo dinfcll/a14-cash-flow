@@ -134,7 +134,6 @@ C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\bin\fr\System.W
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\bin\fr\WebMatrix.Data.resources.dll
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\bin\fr\Microsoft.Web.WebPages.OAuth.resources.dll
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\bin\fr\WebMatrix.WebData.resources.dll
-C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.csprojResolveAssemblyReference.cache
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.dll
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.pdb
 G:\a14-cash-flow\CashFlow\CashFlow\bin\CashFlow.dll
