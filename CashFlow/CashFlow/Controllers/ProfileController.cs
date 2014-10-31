@@ -14,6 +14,7 @@ namespace CashFlow.Controllers
         ProfileModel modelPro = new ProfileModel();
         NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
         SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");    
+
         public ActionResult Profile()
         {
             SqlCommand toutesDonnees = new SqlCommand();
@@ -26,19 +27,22 @@ namespace CashFlow.Controllers
             m_con.Open();
             ProfileModel aideUser = new ProfileModel();
             object valeur = toutesDonnees.ExecuteScalar();
-            if((bool)valeur)
+            object[] aide = new object[10];
+            if(valeur != null)
             {
                 reader = toutesDonnees.ExecuteReader();
-                aideUser.NomComplet = reader.GetString(3);
-                aideUser.Description = reader.GetString(4);
-                aideUser.ImageProfile = reader.GetString(5);
-                aideUser.Location = reader.GetString(4); 
-                aideUser.nomTwitter = reader.GetString(4); 
-                aideUser.lienFacebook = reader.GetString(4);
-                aideUser.lienYoutube = reader.GetString(4); 
+                reader.Read();
+                reader.GetValues(aide);
+                aideUser.NomComplet = aide.ElementAt(3).ToString();
+                aideUser.Description = aide.ElementAt(4).ToString();
+                aideUser.ImageProfile = aide.ElementAt(5).ToString();
+                aideUser.Location = aide.ElementAt(6).ToString();
+                aideUser.nomTwitter = aide.ElementAt(7).ToString();
+                aideUser.lienFacebook = aide.ElementAt(8).ToString();
+                aideUser.lienYoutube = aide.ElementAt(9).ToString();
             }
-            
-            
+
+            m_con.Close();
             return View(aideUser);                             
         }
 
@@ -75,9 +79,10 @@ namespace CashFlow.Controllers
                 model.nomTwitter = '@' + model.nomTwitter;
             }
             TempData["info"] = "Votre profil a été modifié !";
-            SqlCommand insert = new SqlCommand("INSERT INTO tableUtilisateur (Nom, Description, PhotoProfile, Location, Twitter, Facebook, GooglePlus) VALUES ('" + model.NomComplet + "','" + model.Description + "','" + model.ImageProfile
-                 + "','" + model.Location + "','" + model.nomTwitter + "','" + model.lienFacebook + "','" + model.lienYoutube +"')", m_con);
+            m_con.Open();
+            SqlCommand insert = new SqlCommand("UPDATE tableUtilisateur SET Nom='"+ model.NomComplet + "',Description='"+ model.Description +"',PhotoProfile='"+ model.ImageProfile + "',Location='" + model.Location+"',Twitter='"+model.nomTwitter+"',Facebook='"+ model.lienFacebook +"',GooglePlus='"+model.lienYoutube + "'WHERE Username = '"+ User.Identity.Name + "'" , m_con);
             insert.ExecuteNonQuery();
+            m_con.Close();
             return RedirectToAction("Index", "Home");
             
         }

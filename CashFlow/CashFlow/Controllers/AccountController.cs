@@ -13,13 +13,18 @@ using CashFlow.Models;
 using System.Web.UI.WebControls;
 using System.Net.Mail;
 using System.Collections.Specialized;
+using System.Data.SqlClient;
 
 namespace CashFlow.Controllers
 {
+
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
+        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");   
+ 
         //
         // GET: /Account/Login
 
@@ -81,10 +86,27 @@ namespace CashFlow.Controllers
                 // Tentative d'inscription de l'utilisateur
                 try
                 {
-                   
+                   SqlCommand SQLNomUsager;
+                m_con.Open();
+                string CommandeSQL = "SELECT Username FROM tableUtilisateur Where Username = '"+ model.UserName +"'";
+                SQLNomUsager = new SqlCommand(CommandeSQL, m_con);
+                SQLNomUsager.Connection = m_con;
+
+                object Valeur = SQLNomUsager.ExecuteScalar();
+                if (Valeur == null)
+                {
+                    CommandeSQL = "INSERT into tableUtilisateur (Username, Email, Password) VALUES " + "('" + model.UserName + "','" + model.AdresseElectronique + "','" + model.Password + "')";
+                    SQLNomUsager = new SqlCommand(CommandeSQL, m_con);
+                    SQLNomUsager.ExecuteNonQuery();
+                    m_con.Close();
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);                   
+                    WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Verif", "Profile");
+                }
+                    TempData["erreur"] = "Le nom d'utilisateur existe déjà. Veuillez essayer avec un nouveau nom.";
+                    m_con.Close();
+                    return View(model);                    
+
 
                 }
                 catch (MembershipCreateUserException e)
