@@ -22,7 +22,7 @@ namespace CashFlow.Models
         public string Location { get; set; }
 
         [DisplayName("Image de profile")]
-        public Image ImageProfile { get; set; }
+        public String ImageProfile { get; set; }
 
         [DisplayName("Biographie/Description")]
         public string Description { get; set; }
