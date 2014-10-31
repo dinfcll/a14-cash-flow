@@ -85,10 +85,10 @@ namespace CashFlow.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    
                     TempData["CodeVerif"] = ChaineHasard();
                     EnvoieMessageSimple(model.AdresseElectronique, TempData["CodeVerif"].ToString());
-                    return RedirectToAction("Verif", "Account");
+                    return RedirectToAction("Verif", "Account");                   
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -347,15 +347,13 @@ namespace CashFlow.Controllers
             modelPro.codeVerif = TempData["CodeVerif"].ToString();
             if (modelPro.codeVerif == Model.codeVerif)
             {
-                WebSecurity.CreateAccount("test", "test");
-                WebSecurity.Login("test", "test");
                 modelPro.Verif = true;
                 TempData["info"] = "Votre profil a été vérifié !";
                 return RedirectToAction("Index", "Home");
             }
             modelPro.Verif = false;
             TempData["info"] = "Erreur ! Veuillez entrer le bon code de vérification !";
-            return RedirectToAction("Verif", "Profile");
+            return RedirectToAction("Verif", "Account");
         }
 
         //Permet l'envoi de message
@@ -363,7 +361,7 @@ namespace CashFlow.Controllers
         {
             RestClient client = new RestClient();
             client.BaseUrl = "https://api.mailgun.net/v2";
-            client.Authenticator = new HttpBasicAuthenticator("api", "key-6462596df2ca948c682e6863582b275c");
+            client.Authenticator = new HttpBasicAuthenticator("api", "key-fc226d8adc1dd29b1b855aeef3cbec96");
             RestRequest request = new RestRequest();
             request.AddParameter("domain","sandboxe63fa61fafc1425b93d33ff793f58c00.mailgun.org", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
