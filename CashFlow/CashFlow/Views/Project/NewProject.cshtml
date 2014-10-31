@@ -11,9 +11,9 @@
     @Html.ValidationMessageFor(model => model.Titre)
     @Html.TextBoxFor(model => model.Titre)<br /><br />
         
-    @Html.LabelFor(model => model.Image)
-    <input type="file" accept=".jpg,.png,.gif,.jpeg,.bmp" id="fileLoader" name="files" title="Load File" /><br />
-<br />
+    @Html.Label("Image")
+    <input type="file" accept="image/*" id="fichier" name="fichier" title="Upload Image" /><br /><br />
+    
     @Html.LabelFor(model => model.Description)
     @Html.ValidationMessageFor(model => model.Description)<br />
     @Html.TextAreaFor(model => model.Description)<br /><br />
@@ -24,11 +24,13 @@
     @Html.DropDownListFor(model => model.Categorie, new SelectList(Model.ListeCategories, "ID", "Value", Model.ListeCategories.First().ID))<br /><br />
    
     
-
     @Html.LabelFor(model => model.Ville)
     @Html.ValidationMessageFor(model => model.Ville)
     @Html.DropDownListFor(model => model.Ville, new SelectList(Model.ListeVille, "ID", "Value", Model.ListeVille.First().ID))<br /><br />
     
+    @Html.LabelFor(model => model.Monnaie)
+    @Html.ValidationMessageFor(model => model.Monnaie)
+    @Html.DropDownListFor(model => model.Monnaie, new SelectList(Model.ListeMonnaie, "ID", "Value", Model.ListeMonnaie.First().ID))<br /><br />
     
     @Html.LabelFor(model => model.MontantString)
     @Html.ValidationMessageFor(model => model.MontantString)
@@ -38,6 +40,8 @@
     @Html.LabelFor(model => model.DateString)
     @Html.ValidationMessageFor(model => model.DateString)
     @Html.TextBoxFor(model => model.DateString)<br /><br />
-    <button type="submit">Lancer le projet</button>
     
+
+    <input type="submit" value = "Lancer le projet" class="submit" />
+
 }

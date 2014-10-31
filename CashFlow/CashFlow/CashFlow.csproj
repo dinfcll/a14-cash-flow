@@ -313,7 +313,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Project\Project.cshtml" />
+    <Content Include="Views\Project\NewProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Profile\Profile.cshtml" />

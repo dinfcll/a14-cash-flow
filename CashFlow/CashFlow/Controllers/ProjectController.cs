@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Data.SqlClient;
 using CashFlow.Models;
 using System.Data;
+using System.Web.Security;
 
 
 namespace CashFlow.Controllers
@@ -16,7 +17,7 @@ namespace CashFlow.Controllers
         NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
         SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");   
 
-        public ActionResult Project()
+        public ActionResult NewProject()
         {
             if (User.Identity.Name != "")
                 return View(new NewProject());
@@ -27,7 +28,7 @@ namespace CashFlow.Controllers
         }
 
         [HttpPost]
-        public ActionResult Project(NewProject model)
+        public ActionResult NewProject(NewProject model)
         {
             if (ModelState.IsValid)
             {
@@ -38,7 +39,7 @@ namespace CashFlow.Controllers
                 model.DateDepart = DateTime.Today;
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
-                Recherche("fuck");
+                Recherche("test");
                 EnregistrerDansBD(model);
 
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
