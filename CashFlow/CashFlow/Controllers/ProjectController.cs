@@ -86,6 +86,12 @@ namespace CashFlow.Controllers
             return View(aideProjet);
         }
 
+        public ActionResult ListeProject(string MotCle)
+        {
+            List<NewProject> Resultats = Recherche(MotCle);
+            return View(Resultats);      
+        }
+
         public ActionResult ProjectComplet(NewProject Projet)
         {
             return View(Projet);
@@ -105,7 +111,6 @@ namespace CashFlow.Controllers
                     LettreAscii = Lettre.Next(65, 91);
                     if (VraiOuFaux.Next(0, 2) == 1)
                     {
-
                         LettreAscii += 32;
                     }
                     Chaine += (char)(LettreAscii);
@@ -131,27 +136,32 @@ namespace CashFlow.Controllers
             
         }
 
-        void Recherche(string MotCle)
+        List<NewProject> Recherche(string MotCle)
         {
             SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
             con.Open();
-            List<string[]> Resultats = new List<string[]>();
+            List<NewProject> Resultats = new List<NewProject>();
             try
             {
 
-                SqlCommand Recherche = new SqlCommand("Select Hash,Titre,Description,Categorie FROM tableProject WHERE Titre LIKE '%" + MotCle + "%' OR Description LIKE '%" + MotCle + "%'", con);
+                SqlCommand Recherche = new SqlCommand("Select * FROM tableProject WHERE Titre LIKE '%" + MotCle + "%' OR Description LIKE '%" + MotCle + "%'", con);
                 SqlDataReader reader = Recherche.ExecuteReader();
 
-                int i = 0;
-                string[] projet = new string[4];
                 while (reader.Read())
                 {
-                    projet[0] = reader.GetValue(0).ToString();
-                    projet[1] = reader.GetValue(1).ToString();
-                    projet[2] = reader.GetValue(2).ToString();
-                    projet[3] = reader.GetValue(3).ToString();
-                    Resultats.Add(projet);
+                    NewProject projet = new NewProject();
+                    projet.Hash = reader.GetString(0);
+                    projet.Titre = reader.GetString(1);
+                    projet.Description = reader.GetString(2);
+                    projet.Ville = reader.GetString(3);
+                    projet.MontantRecu = reader.GetInt32(4);
+                    projet.MontantRequis = reader.GetInt32(5);
+                    projet.DateDepart = reader.GetDateTime(6);
+                    projet.DateFin = reader.GetDateTime(7);
+                    projet.Categorie = reader.GetString(8);
+                    projet.Createur = reader.GetString(9);
                 }
+                
 
             }
             catch (Exception Ex)
@@ -162,6 +172,8 @@ namespace CashFlow.Controllers
             {
                 con.Close();
             }
+
+            return Resultats;
         }
 
     }
