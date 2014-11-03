@@ -10,7 +10,6 @@ namespace CashFlow.Controllers
 {
     public class SearchController : Controller
     {
-
         public ActionResult Index()
         {
             return View();
@@ -27,7 +26,7 @@ namespace CashFlow.Controllers
         {
             SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
             con.Open();
-            List<NewProject> Resultats = new List<NewProject>();
+            var Resultats = new List<NewProject>();
             try
             {
 
@@ -36,25 +35,26 @@ namespace CashFlow.Controllers
 
                 while (reader.Read())
                 {
-                    NewProject projet = new NewProject();
-                    projet.Hash = reader.GetString(0);
-                    projet.Titre = reader.GetString(1);
-                    projet.Description = reader.GetString(2);
-                    projet.Ville = reader.GetString(3);
-                    projet.MontantRecu = reader.GetInt32(4);
-                    projet.MontantRequis = reader.GetInt32(5);
-                    projet.DateDepart = reader.GetDateTime(6);
-                    projet.DateFin = reader.GetDateTime(7);
-                    projet.Categorie = reader.GetString(8);
-                    projet.Createur = reader.GetString(9);
-                    Resultats.Add(projet);
+                    Resultats.Add(new NewProject
+                    {
+                        Hash = reader.GetString(0),
+                        Titre = reader.GetString(1),
+                        Description = reader.GetString(2),
+                        Ville = reader.GetString(3),
+                        MontantRecu = reader.GetInt32(4),
+                        MontantRequis = reader.GetInt32(5),
+                        DateDepart = reader.GetDateTime(6),
+                        DateFin = reader.GetDateTime(7),
+                        Categorie = reader.GetString(8),
+                        Createur = reader.GetString(9)
+                    });
                 }
                 
 
             }
             catch (Exception Ex)
             {
-
+                throw new Exception("Erreur");
             }
             finally
             {

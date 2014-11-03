@@ -15,7 +15,7 @@ namespace CashFlow.Controllers
     public class ProjectController : Controller
     {
         NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
-        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");   
+        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
 
         public ActionResult NewProject()
         {
@@ -23,8 +23,6 @@ namespace CashFlow.Controllers
                 return View(new NewProject());
             else
                 return RedirectToAction("Login", "Account");
-          
-            return View(new NewProject());
         }
 
         [HttpPost]
@@ -49,7 +47,7 @@ namespace CashFlow.Controllers
             }
             else
                 return View(new NewProject());
-            
+
         }
 
         public ActionResult ListeProject()
@@ -129,48 +127,7 @@ namespace CashFlow.Controllers
                   + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
             insert.ExecuteNonQuery();
             m_con.Close();
-            
+
         }
-
-        List<NewProject> Recherche(string MotCle)
-        {
-            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
-            con.Open();
-            List<NewProject> Resultats = new List<NewProject>();
-            try
-            {
-
-                SqlCommand Recherche = new SqlCommand("Select * FROM tableProject WHERE Titre LIKE '%" + MotCle + "%' OR Description LIKE '%" + MotCle + "%'", con);
-                SqlDataReader reader = Recherche.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    NewProject projet = new NewProject();
-                    projet.Hash = reader.GetString(0);
-                    projet.Titre = reader.GetString(1);
-                    projet.Description = reader.GetString(2);
-                    projet.Ville = reader.GetString(3);
-                    projet.MontantRecu = reader.GetInt32(4);
-                    projet.MontantRequis = reader.GetInt32(5);
-                    projet.DateDepart = reader.GetDateTime(6);
-                    projet.DateFin = reader.GetDateTime(7);
-                    projet.Categorie = reader.GetString(8);
-                    projet.Createur = reader.GetString(9);
-                }
-                
-
-            }
-            catch (Exception Ex)
-            {
-
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return Resultats;
-        }
-
     }
 }

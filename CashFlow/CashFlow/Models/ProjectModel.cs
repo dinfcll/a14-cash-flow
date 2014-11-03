@@ -45,28 +45,28 @@ namespace CashFlow.Models
 
         public class ValeurMonnaie
         {
-            public int ID { get; set; }
+            public int Id { get; set; }
             public string Value { get; set; }
         }
 
         public IEnumerable<ValeurMonnaie> ListeMonnaie = new List<ValeurMonnaie>
         {
-            new ValeurMonnaie { ID = 0, Value = "CAD"},
-            new ValeurMonnaie { ID = 1, Value = "USD"},
-            new ValeurMonnaie { ID = 2, Value = "RUB"},
-            new ValeurMonnaie { ID = 3, Value = "EUR"},
-            new ValeurMonnaie { ID = 4, Value = "AUD"},
-            new ValeurMonnaie { ID = 5, Value = "GBP"},
-            new ValeurMonnaie { ID = 6, Value = "MXN"},
-            new ValeurMonnaie { ID = 7, Value = "BRL"},
-            new ValeurMonnaie { ID = 8, Value = "JPY"},
-            new ValeurMonnaie { ID = 9, Value = "INR"},
-            new ValeurMonnaie { ID = 10, Value = "PHP"},
-            new ValeurMonnaie { ID = 11, Value = "CNY"},
-            new ValeurMonnaie { ID = 12, Value = "ARS"},
-            new ValeurMonnaie { ID = 13, Value = "JMD"},
-            new ValeurMonnaie { ID = 14, Value = "KRW"},
-            new ValeurMonnaie { ID = 15, Value = "SEK"},
+            new ValeurMonnaie { Id = 0, Value = "CAD"},
+            new ValeurMonnaie { Id = 1, Value = "USD"},
+            new ValeurMonnaie { Id = 2, Value = "RUB"},
+            new ValeurMonnaie { Id = 3, Value = "EUR"},
+            new ValeurMonnaie { Id = 4, Value = "AUD"},
+            new ValeurMonnaie { Id = 5, Value = "GBP"},
+            new ValeurMonnaie { Id = 6, Value = "MXN"},
+            new ValeurMonnaie { Id = 7, Value = "BRL"},
+            new ValeurMonnaie { Id = 8, Value = "JPY"},
+            new ValeurMonnaie { Id = 9, Value = "INR"},
+            new ValeurMonnaie { Id = 10, Value = "PHP"},
+            new ValeurMonnaie { Id = 11, Value = "CNY"},
+            new ValeurMonnaie { Id = 12, Value = "ARS"},
+            new ValeurMonnaie { Id = 13, Value = "JMD"},
+            new ValeurMonnaie { Id = 14, Value = "KRW"},
+            new ValeurMonnaie { Id = 15, Value = "SEK"},
         };
 
         [DisplayName("Catégorie")]
@@ -75,24 +75,24 @@ namespace CashFlow.Models
 
         public class ValeurCategorie
         {
-            public int ID { get; set; }
+            public int Id { get; set; }
             public string Value { get; set; }
 
         }
         public IEnumerable<ValeurCategorie> ListeCategories = new List<ValeurCategorie>
         {
-            new ValeurCategorie { ID = 0, Value = "Art" },
-            new ValeurCategorie { ID = 1, Value = "Jeux" },
-            new ValeurCategorie { ID = 3, Value = "Musique" },
-            new ValeurCategorie { ID = 4, Value = "Technologie" },
-            new ValeurCategorie { ID = 5, Value = "Sport" },
-            new ValeurCategorie { ID = 6, Value = "Film" },
-            new ValeurCategorie { ID = 7, Value = "Mode" },
-            new ValeurCategorie { ID = 1, Value = "Publications" },
-            new ValeurCategorie { ID = 8, Value = "Journalisme" },
-            new ValeurCategorie { ID = 9, Value = "Théatre" },
-            new ValeurCategorie { ID = 10, Value = "Alimentation" },
-            new ValeurCategorie { ID = 11, Value = "Transport" }
+            new ValeurCategorie { Id = 0, Value = "Art" },
+            new ValeurCategorie { Id = 1, Value = "Jeux" },
+            new ValeurCategorie { Id = 3, Value = "Musique" },
+            new ValeurCategorie { Id = 4, Value = "Technologie" },
+            new ValeurCategorie { Id = 5, Value = "Sport" },
+            new ValeurCategorie { Id = 6, Value = "Film" },
+            new ValeurCategorie { Id = 7, Value = "Mode" },
+            new ValeurCategorie { Id = 1, Value = "Publications" },
+            new ValeurCategorie { Id = 8, Value = "Journalisme" },
+            new ValeurCategorie { Id = 9, Value = "Théatre" },
+            new ValeurCategorie { Id = 10, Value = "Alimentation" },
+            new ValeurCategorie { Id = 11, Value = "Transport" }
         };
 
         [DisplayName("Ville")]
@@ -101,42 +101,42 @@ namespace CashFlow.Models
 
         public class ValeurVille
         {
-            public int ID { get; set; }
+            public int Id { get; set; }
             public string Value { get; set; }
 
         }
         public IEnumerable<ValeurVille> ListeVille = new List<ValeurVille>
         {
-            new ValeurVille { ID = 0, Value = "Montréal" },
-            new ValeurVille { ID = 1, Value = "Québec" },
-            new ValeurVille { ID = 2, Value = "Toronto" },
-            new ValeurVille { ID = 3, Value = "Ottawa" },
-            new ValeurVille { ID = 4, Value = "Calgary" },
-            new ValeurVille { ID = 5, Value = "Edmonton" },
-            new ValeurVille { ID = 6, Value = "Saskatchewan" },
-            new ValeurVille { ID = 7, Value = "Vancouver" },
-            new ValeurVille { ID = 8, Value = "New York" },
-            new ValeurVille { ID = 9, Value = "Boston" },
-            new ValeurVille { ID = 10, Value = "New Jersey" },
-            new ValeurVille { ID = 11, Value = "Miami" },
-            new ValeurVille { ID = 12, Value = "Detroit" },
-            new ValeurVille { ID = 13, Value = "Chicago" },
-            new ValeurVille { ID = 14, Value = "Denver" },
-            new ValeurVille { ID = 15, Value = "Las Vegas" },
-            new ValeurVille { ID = 16, Value = "Tampa Bay" },
-            new ValeurVille { ID = 17, Value = "Los Angeles" },
-            new ValeurVille { ID = 18, Value = "San Francisco" },
-            new ValeurVille { ID = 19, Value = "Mexico" },
-            new ValeurVille { ID = 20, Value = "Hawai" },
-            new ValeurVille { ID = 21, Value = "Paris" },
-            new ValeurVille { ID = 22, Value = "Berlin" },
-            new ValeurVille { ID = 23, Value = "Londres" },
-            new ValeurVille { ID = 24, Value = "Amsterdam" },
-            new ValeurVille { ID = 25, Value = "Barcelone" },
-            new ValeurVille { ID = 26, Value = "Moscou" },
-            new ValeurVille { ID = 27, Value = "Tokyo" },
-            new ValeurVille { ID = 28, Value = "Pyongyang" },
-            new ValeurVille { ID = 29, Value = "Lévis" },
+            new ValeurVille { Id = 0, Value = "Montréal" },
+            new ValeurVille { Id = 1, Value = "Québec" },
+            new ValeurVille { Id = 2, Value = "Toronto" },
+            new ValeurVille { Id = 3, Value = "Ottawa" },
+            new ValeurVille { Id = 4, Value = "Calgary" },
+            new ValeurVille { Id = 5, Value = "Edmonton" },
+            new ValeurVille { Id = 6, Value = "Saskatchewan" },
+            new ValeurVille { Id = 7, Value = "Vancouver" },
+            new ValeurVille { Id = 8, Value = "New York" },
+            new ValeurVille { Id = 9, Value = "Boston" },
+            new ValeurVille { Id = 10, Value = "New Jersey" },
+            new ValeurVille { Id = 11, Value = "Miami" },
+            new ValeurVille { Id = 12, Value = "Detroit" },
+            new ValeurVille { Id = 13, Value = "Chicago" },
+            new ValeurVille { Id = 14, Value = "Denver" },
+            new ValeurVille { Id = 15, Value = "Las Vegas" },
+            new ValeurVille { Id = 16, Value = "Tampa Bay" },
+            new ValeurVille { Id = 17, Value = "Los Angeles" },
+            new ValeurVille { Id = 18, Value = "San Francisco" },
+            new ValeurVille { Id = 19, Value = "Mexico" },
+            new ValeurVille { Id = 20, Value = "Hawai" },
+            new ValeurVille { Id = 21, Value = "Paris" },
+            new ValeurVille { Id = 22, Value = "Berlin" },
+            new ValeurVille { Id = 23, Value = "Londres" },
+            new ValeurVille { Id = 24, Value = "Amsterdam" },
+            new ValeurVille { Id = 25, Value = "Barcelone" },
+            new ValeurVille { Id = 26, Value = "Moscou" },
+            new ValeurVille { Id = 27, Value = "Tokyo" },
+            new ValeurVille { Id = 28, Value = "Pyongyang" },
+            new ValeurVille { Id = 29, Value = "Lévis" },
         };
 
         public class ProjectDBContext : DbContext
