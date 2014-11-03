@@ -89,11 +89,11 @@ namespace CashFlow.Models
             new ValeurCategorie { Id = 5, Value = "Sport" },
             new ValeurCategorie { Id = 6, Value = "Film" },
             new ValeurCategorie { Id = 7, Value = "Mode" },
-            new ValeurCategorie { Id = 1, Value = "Publications" },
-            new ValeurCategorie { Id = 8, Value = "Journalisme" },
-            new ValeurCategorie { Id = 9, Value = "Théatre" },
-            new ValeurCategorie { Id = 10, Value = "Alimentation" },
-            new ValeurCategorie { Id = 11, Value = "Transport" }
+            new ValeurCategorie { Id = 8, Value = "Publications" },
+            new ValeurCategorie { Id = 9, Value = "Journalisme" },
+            new ValeurCategorie { Id = 10, Value = "Théatre" },
+            new ValeurCategorie { Id = 11, Value = "Alimentation" },
+            new ValeurCategorie { Id = 12, Value = "Transport" }
         };
 
         [DisplayName("Ville")]
