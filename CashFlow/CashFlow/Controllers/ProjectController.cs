@@ -50,7 +50,7 @@ namespace CashFlow.Controllers
 
         public ActionResult ListeProject()
         {
-            
+
             SqlCommand toutesDonnees = new SqlCommand();
             SqlDataReader reader;
 
@@ -79,7 +79,8 @@ namespace CashFlow.Controllers
                 aideProjet.Add(projet);
             }
             m_con.Close();
-            return View(aideProjet);
+            CommentaireModel commentaireModel = new CommentaireModel();
+            return View(Tuple.Create(aideProjet, commentaireModel));
         }
 
         public ActionResult ProjectComplet(NewProject Projet)

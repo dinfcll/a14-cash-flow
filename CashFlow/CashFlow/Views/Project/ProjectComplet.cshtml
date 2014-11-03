@@ -1,15 +1,15 @@
-﻿@model CashFlow.Models.NewProject
+﻿@model Tuple<CashFlow.Models.NewProject, CashFlow.Models.CommentaireModel>
 @{
-    ViewBag.Title = @Model.Titre;
+    ViewBag.Title = @Model.Item1.Titre;
 }
 
 <h2>@Model.Titre</h2>
 
-<h3>Créateur du projet : @Model.Createur</h3>
-<h3>Description : @Model.Description</h3>
-<h3>Type du projet : @Model.ListeCategories.ElementAt(Convert.ToInt32(@Model.Categorie)).Value </h3>
-<h3>Ville : @Model.ListeVille.ElementAt(Convert.ToInt32(@Model.Ville)).Value</h3>
-<h3>Montant reçu : @Model.MontantRecu $</h3>
-<h3>Montant requis : @Model.MontantRequis $</h3>
-<h3>Début du projet : Le @Model.DateDepart.Day @Model.DateDepart.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateDepart.Year</h3>
-<h3>Fin du projet :  Le @Model.DateFin.Day @Model.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateFin.Year</h3>
+<h3>Créateur du projet : @Model.Item1.Createur</h3>
+<h3>Description : @Model.Item1.Description</h3>
+<h3>Type du projet : @Model.Item1.ListeCategories.ElementAt(Convert.ToInt32(@Model.Item1.Categorie)).Value </h3>
+<h3>Ville : @Model.Item1.ListeVille.ElementAt(Convert.ToInt32(@Model.Item1.Ville)).Value</h3>
+<h3>Montant reçu : @Model.Item1.MontantRecu $</h3>
+<h3>Montant requis : @Model.Item1.MontantRequis $</h3>
+<h3>Début du projet : Le @Model.Item1.DateDepart.Day @Model.Item1.DateDepart.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.Item1.DateDepart.Year</h3>
+<h3>Fin du projet :  Le @Model.Item1.DateFin.Day @Model.Item1.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.Item1.DateFin.Year</h3>
