@@ -88,12 +88,6 @@ namespace CashFlow.Controllers
             return View(aideProjet);
         }
 
-        /*public ActionResult ListeProject(string MotCle)
-        {
-            List<NewProject> Resultats = Recherche(MotCle);
-            return View(Resultats);      
-        }*/
-
         public ActionResult ProjectComplet(NewProject Projet)
         {
             return View(Projet);
