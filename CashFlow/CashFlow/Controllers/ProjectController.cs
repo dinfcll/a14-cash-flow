@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Data.SqlClient;
 using CashFlow.Models;
 using System.Data;
+using System.Web.Security;
 
 
 namespace CashFlow.Controllers
@@ -14,9 +15,9 @@ namespace CashFlow.Controllers
     public class ProjectController : Controller
     {
         NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
-        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");    
-
-        public ActionResult Project()
+        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
+		
+        public ActionResult NewProject()
         {
             if (User.Identity.Name != "")
                 return View(new NewProject());
@@ -25,14 +26,14 @@ namespace CashFlow.Controllers
         }
 
         [HttpPost]
-        public ActionResult Project(NewProject model)
+        public ActionResult NewProject(NewProject model)
         {
             if (ModelState.IsValid)
             {
                 string Annee = model.DateString[6].ToString() + model.DateString[7].ToString() + model.DateString[8].ToString() + model.DateString[9].ToString();
                 string Mois = model.DateString[3].ToString() + model.DateString[4].ToString();
                 string Jour = model.DateString[0].ToString() + model.DateString[1].ToString();
-                model.DateFin = new DateTime(Convert.ToInt32(Annee),Convert.ToInt32(Mois),Convert.ToInt32(Jour), 23, 59, 59);
+                model.DateFin = new DateTime(Convert.ToInt32(Annee), Convert.ToInt32(Mois), Convert.ToInt32(Jour), 23, 59, 59);
                 model.DateDepart = DateTime.Today;
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
@@ -62,23 +63,26 @@ namespace CashFlow.Controllers
 
             reader = toutesDonnees.ExecuteReader();
 
-            List<NewProject> aideProjet = new List<NewProject>();
+            var aideProjet = new List<NewProject>();
+			
             while (reader.Read())
             {
-                NewProject projet = new NewProject();
-                projet.Hash = reader.GetString(0);
-                projet.Titre = reader.GetString(1);
-                projet.Description = reader.GetString(2);
-                projet.Ville = reader.GetString(3);
-                projet.MontantRecu = reader.GetInt32(4);
-                projet.MontantRequis = reader.GetInt32(5);
-                projet.DateDepart = reader.GetDateTime(6);
-                projet.DateFin = reader.GetDateTime(7);
-                projet.Categorie = reader.GetString(8);
-                projet.Createur = reader.GetString(9);
-                aideProjet.Add(projet);
+				aideProjet.Add(new NewProject
+                {
+                    Hash = reader.GetString(0),
+					Titre = reader.GetString(1),
+					Description = reader.GetString(2),
+					Ville = reader.GetString(3),
+					MontantRecu = reader.GetInt32(4),
+					MontantRequis = reader.GetInt32(5),
+					DateDepart = reader.GetDateTime(6),
+					DateFin = reader.GetDateTime(7),
+					Categorie = reader.GetString(8),
+					Createur = reader.GetString(9)
+				});
             }
             m_con.Close();
+			TempData["message"] = "Voici la liste de tous les projets qui sont en cours de financement.";
             return View(aideProjet);
         }
 
@@ -122,8 +126,8 @@ namespace CashFlow.Controllers
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
                   + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
             insert.ExecuteNonQuery();
-            m_con.Close();    
+
+            m_con.Close();
         }
     }
 }
-

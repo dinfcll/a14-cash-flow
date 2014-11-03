@@ -3,6 +3,8 @@
     ViewBag.Title = @Model.Titre;
 }
 
+<div id="info-projet" style="float:left"></div>
+
 <h2>@Model.Titre</h2>
 
 <h3>Créateur du projet : @Model.Createur</h3>
@@ -13,3 +15,43 @@
 <h3>Montant requis : @Model.MontantRequis $</h3>
 <h3>Début du projet : Le @Model.DateDepart.Day @Model.DateDepart.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateDepart.Year</h3>
 <h3>Fin du projet :  Le @Model.DateFin.Day @Model.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateFin.Year</h3>
+
+<div />
+
+<div id="div-paiement" style="float:right">
+        <h3>Financer le projet</h2>
+        <input type="radio" name="rbMontant" value="500" checked = "checked"/>5$<br />
+        <input type="radio" name="rbMontant" value="1000"/>10$<br />
+        <input type="radio" name="rbMontant" value="2000"/>20$<br />
+        <input type="radio" name="rbMontant" value="5000"/>50$<br />
+        <input type="radio" name="rbMontant" value="10000"/>100$<br />
+        <input type="radio" name="rbMontant" value="20000"/>200$<br />
+        <input type="radio" name="rbMontant" value="50000"/>500$<br />
+        <input type="radio" name="rbMontant" value="100000"/>1000$<br />
+        <button id="bouton-paiement">Payer</button>
+</div>
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<script>
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_kWMZ4i3unFgBYwdXs1PEdAz9',
+        image: '/Images/cashflow_logo.png',
+        token: function (token) {
+            // Use the token to create the charge with a server-side script.
+            // You can access the token ID with `token.id`
+        }
+    });
+
+    document.getElementById('bouton-paiement').addEventListener('click', function (e) {
+        // Open Checkout with further options
+        var montant = $('input[name="rbMontant"]:checked').val();
+        handler.open({
+            name: 'Faire une contribution',
+            description: '@Model.Titre',
+            amount: montant,
+            email: '@@Membership.GetUser(User.Identity.Name).Email'
+        });
+        e.preventDefault();
+    });    
+</script>

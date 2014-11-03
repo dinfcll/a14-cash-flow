@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -242,6 +243,14 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\banner.png" />
+    <Content Include="Images\cashflow-101-202-espanol-pc-original-precio-especial_MLM-F-3661077115_012013.jpg" />
+    <Content Include="Images\cashflow-arus-kas.jpg" />
+    <Content Include="Images\cashflow-rat.jpg" />
+    <Content Include="Images\cashflow_logo.png" />
+    <Content Include="Images\Operating-Cash-Flow-There-Are-Many-Types-of-Cash-Flow.jpg" />
+    <Content Include="Images\roundbox.gif" />
+    <Content Include="Images\Search.png" />
     <Content Include="Models\aaCashFlow.edmx.sql" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -304,7 +313,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Project\Project.cshtml" />
+    <Content Include="Views\Project\NewProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Profile\Profile.cshtml" />
@@ -321,6 +330,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Project\ProjectComplet.cshtml" />
+    <Content Include="Views\Project\ProjectComplet.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\ListeProject.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
