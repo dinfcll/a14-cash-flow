@@ -15,7 +15,8 @@ namespace CashFlow.Controllers
             return View();
         }
 
-        public ActionResult ListeProject(string focus)
+        //[HttpPost] y u no work?
+        public ActionResult ListeProject(string focus, int categorie)
         {
             List<NewProject> Resultats = Recherche(focus);
             TempData["message"] = "Résultats de recherche pour \"" + focus + "\"";
