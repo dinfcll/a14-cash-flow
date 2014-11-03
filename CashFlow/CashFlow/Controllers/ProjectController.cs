@@ -39,7 +39,7 @@ namespace CashFlow.Controllers
                 model.DateDepart = DateTime.Today;
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
-                Recherche("test");
+
                 EnregistrerDansBD(model);
 
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
