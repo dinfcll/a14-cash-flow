@@ -79,13 +79,21 @@ namespace CashFlow.Controllers
                 aideProjet.Add(projet);
             }
             m_con.Close();
-            CommentaireModel commentaireModel = new CommentaireModel();
-            return View(Tuple.Create(aideProjet, commentaireModel));
+            return View(aideProjet);
         }
 
         public ActionResult ProjectComplet(NewProject Projet)
         {
-            return View(Projet);
+            
+            return View(Tuple.Create(Projet,RechercheCommentaire(Projet.Hash)));
+        }
+
+
+        [HttpPost]
+        public ActionResult ProjectComplet(NewProject projet, CommentaireModel commentaire)
+        {
+            AjoutCommentaire(projet.Hash,commentaire);
+            return View(Tuple.Create(projet,RechercheCommentaire(projet.Hash)));
         }
 
         public string ChaineHasard()
@@ -124,6 +132,44 @@ namespace CashFlow.Controllers
                   + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
             insert.ExecuteNonQuery();
             m_con.Close();    
+        }
+
+        private ListeCommentaireModel RechercheCommentaire(string Hash)
+        {
+            SqlCommand toutesDonnees = new SqlCommand();
+            SqlDataReader reader;
+
+            toutesDonnees.CommandText = "SELECT * FROM tableCommentaire WHERE Hash ='" + Hash + "'";
+            toutesDonnees.CommandType = CommandType.Text;
+            toutesDonnees.Connection = m_con;
+            ListeCommentaireModel ListeCommentaire = new ListeCommentaireModel();
+
+            m_con.Open();
+
+            reader = toutesDonnees.ExecuteReader();
+            while (reader.Read())
+            {
+                CommentaireModel commentaire = new CommentaireModel();
+                commentaire.Id = reader.GetInt32(0);
+                commentaire.Username = reader.GetString(1);
+                commentaire.Hash = reader.GetString(2);
+                commentaire.Commentaire = reader.GetString(3);
+                commentaire.Date = reader.GetDateTime(4);
+                ListeCommentaire.Add(commentaire);
+            }
+
+            return ListeCommentaire;
+        }
+
+        private void AjoutCommentaire(string Hash, CommentaireModel model)
+        {
+            m_con.Open();
+
+            SqlCommand insert = new SqlCommand("INSERT INTO tableCommentaire (Username,Hash,Commentaire,Date) VALUES  ('"+ User.Identity.Name + "','" + Hash
+                 + "','" + model.Commentaire + "','" + DateTime.Now + "')", m_con);
+            insert.ExecuteNonQuery();
+            m_con.Close();    
+
         }
     }
 }

@@ -1,12 +1,13 @@
-﻿@model Tuple<List<CashFlow.Models.NewProject>, CommentaireModel>
+﻿
+@model List<CashFlow.Models.NewProject>
+
 @{
     ViewBag.Title = "Liste des projets";
 }
 
 <h2>Voici la liste de tous les projets qui sont en cours de fiancement.</h2>
-
-@for (int i = 0; i < Model.LongCount(); i++ )
-{ 
+@for (var i = 0; i < Model.LongCount(); i++ )
+{
     <h3>@Html.ActionLink(@Model.ElementAt(i).Titre, "ProjectComplet", "Project", Model.ElementAt(i),null)</h3>
     <ul>
         <li>Description : @Model.ElementAt(i).Description</li>

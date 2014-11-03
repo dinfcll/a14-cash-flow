@@ -1,15 +1,35 @@
-﻿@model Tuple<CashFlow.Models.NewProject, CashFlow.Models.CommentaireModel>
+﻿@using CashFlow.Models
+@model Tuple<NewProject, ListeCommentaireModel>
 @{
     ViewBag.Title = @Model.Item1.Titre;
 }
+<div id="information">
+    <h2>@Model.Item1.Titre</h2>
 
-<h2>@Model.Titre</h2>
+    <h3>Créateur du projet : @Model.Item1.Createur</h3>
+    <h3>Description : @Model.Item1.Description</h3>
+    <h3>Type du projet : @Model.Item1.ListeCategories.ElementAt(Convert.ToInt32(@Model.Item1.Categorie)).Value </h3>
+    <h3>Ville : @Model.Item1.ListeVille.ElementAt(Convert.ToInt32(@Model.Item1.Ville)).Value</h3>
+    <h3>Montant reçu : @Model.Item1.MontantRecu $</h3>
+    <h3>Montant requis : @Model.Item1.MontantRequis $</h3>
+    <h3>Début du projet : Le @Model.Item1.DateDepart.Day @Model.Item1.DateDepart.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.Item1.DateDepart.Year</h3>
+    <h3>Fin du projet :  Le @Model.Item1.DateFin.Day @Model.Item1.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.Item1.DateFin.Year</h3><br /><br />
+</div>
 
-<h3>Créateur du projet : @Model.Item1.Createur</h3>
-<h3>Description : @Model.Item1.Description</h3>
-<h3>Type du projet : @Model.Item1.ListeCategories.ElementAt(Convert.ToInt32(@Model.Item1.Categorie)).Value </h3>
-<h3>Ville : @Model.Item1.ListeVille.ElementAt(Convert.ToInt32(@Model.Item1.Ville)).Value</h3>
-<h3>Montant reçu : @Model.Item1.MontantRecu $</h3>
-<h3>Montant requis : @Model.Item1.MontantRequis $</h3>
-<h3>Début du projet : Le @Model.Item1.DateDepart.Day @Model.Item1.DateDepart.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.Item1.DateDepart.Year</h3>
-<h3>Fin du projet :  Le @Model.Item1.DateFin.Day @Model.Item1.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.Item1.DateFin.Year</h3>
+<div id="commentaire">
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Item2.Commentaire)
+    @Html.TextAreaFor(model => model.Item2.Commentaire)<br />
+    @Html.ValidationMessageFor(model => model.Item2.Commentaire)<br />
+    
+    <button type="submit">Soummettre votre commentaire</button>
+}
+
+@foreach (CommentaireModel commentaire in Model.Item2)
+{
+    <h3>@commentaire.Username à @commentaire.Date.Day @commentaire.Date.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @commentaire.Date.Year @commentaire.Date.Hour : @commentaire.Date.Minute : @commentaire.Date.Second</h3><br />
+    <h4>@commentaire.Commentaire</h4><br />
+    <hr />
+}
+</div>
