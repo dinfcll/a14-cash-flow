@@ -83,14 +83,16 @@ namespace CashFlow.Controllers
                 aideProjet.Add(projet);
             }
             m_con.Close();
+
+            TempData["message"] = "Voici la liste de tous les projets qui sont en cours de financement.";
             return View(aideProjet);
         }
 
-        public ActionResult ListeProject(string MotCle)
+        /*public ActionResult ListeProject(string MotCle)
         {
             List<NewProject> Resultats = Recherche(MotCle);
             return View(Resultats);      
-        }
+        }*/
 
         public ActionResult ProjectComplet(NewProject Projet)
         {

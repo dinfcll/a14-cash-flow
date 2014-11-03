@@ -19,15 +19,16 @@
                     <section id="login">
                         @Html.Partial("_LoginPartial")
                     </section>
+                                    <img src="Images/banner.png" /> <img src="Images/cashflow.htm.jpg" width = "350" height = "296"/>
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Créer un projet", "NewProject", "Project")</li>
                             <li>@Html.ActionLink("Liste des projets", "ListeProject", "Project")</li>
                         </ul>
                         <div class="search-wrapper">
-	                        <form>
-	                            <input type="text" name="focus" required class="search-box" placeholder="Recherche" />
-                                <input type="submit" onclick=">@Html.ActionLink("Liste des projets", "ListeProject", "Project")", value="" style="border-style: none; background: url('/../Images/Search.png') no-repeat; width: 50px; height: 50px;">
+	                        <form action="@Url.Action("ListeProject","Search")">
+	                            <input type="text" name="focus" id = "focus" required class="search-box" placeholder="Recherche" />
+                                <input type="submit" value="" style="border-style: none; background: url('/../Images/Search.png') no-repeat; width: 50px; height: 50px;">
 	                        </form>
                         </div>
                     </nav>

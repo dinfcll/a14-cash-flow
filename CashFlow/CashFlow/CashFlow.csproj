@@ -329,7 +329,7 @@
     <Content Include="Views\Project\ProjectComplet.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Project\ListeProject.cshtml" />
+    <Content Include="Views\Shared\ListeProject.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

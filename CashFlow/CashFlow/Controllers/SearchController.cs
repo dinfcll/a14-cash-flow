@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.SqlClient;
+using CashFlow.Models;
 
 namespace CashFlow.Controllers
 {
@@ -15,27 +16,40 @@ namespace CashFlow.Controllers
             return View();
         }
 
-        void Recherche(string MotCle)
+        public ActionResult ListeProject(string focus)
+        {
+            List<NewProject> Resultats = Recherche(focus);
+            TempData["message"] = "Résultats de recherche pour \"" + focus + "\"";
+            return View(Resultats);
+        }
+
+        List<NewProject> Recherche(string MotCle)
         {
             SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
             con.Open();
-            List<string[]> Resultats = new List<string[]>();
+            List<NewProject> Resultats = new List<NewProject>();
             try
             {
 
-                SqlCommand Recherche = new SqlCommand("Select Hash,Titre,Description,Categorie FROM tableProject WHERE Titre LIKE '%" + MotCle + "%' OR Description LIKE '%" + MotCle + "%'", con);
+                SqlCommand Recherche = new SqlCommand("Select * FROM tableProject WHERE Titre LIKE '%" + MotCle + "%' OR Description LIKE '%" + MotCle + "%'", con);
                 SqlDataReader reader = Recherche.ExecuteReader();
 
-                int i = 0;
-                string[] projet = new string[4];
                 while (reader.Read())
                 {
-                    projet[0] = reader.GetValue(0).ToString();
-                    projet[1] = reader.GetValue(1).ToString();
-                    projet[2] = reader.GetValue(2).ToString();
-                    projet[3] = reader.GetValue(3).ToString();
+                    NewProject projet = new NewProject();
+                    projet.Hash = reader.GetString(0);
+                    projet.Titre = reader.GetString(1);
+                    projet.Description = reader.GetString(2);
+                    projet.Ville = reader.GetString(3);
+                    projet.MontantRecu = reader.GetInt32(4);
+                    projet.MontantRequis = reader.GetInt32(5);
+                    projet.DateDepart = reader.GetDateTime(6);
+                    projet.DateFin = reader.GetDateTime(7);
+                    projet.Categorie = reader.GetString(8);
+                    projet.Createur = reader.GetString(9);
                     Resultats.Add(projet);
                 }
+                
 
             }
             catch (Exception Ex)
@@ -46,7 +60,8 @@ namespace CashFlow.Controllers
             {
                 con.Close();
             }
-        }
 
+            return Resultats;
+        }
     }
 }
