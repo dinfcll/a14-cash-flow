@@ -326,9 +326,6 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Project\ListeProject.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Project\ProjectComplet.cshtml" />
     <Content Include="Views\Project\ProjectComplet.cshtml" />
   </ItemGroup>
