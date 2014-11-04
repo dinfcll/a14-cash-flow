@@ -54,9 +54,7 @@ namespace CashFlow.Controllers
             };
 
             m_con.Open();
-
             SqlDataReader reader = toutesDonnees.ExecuteReader();
-
             var aideProjet = new List<NewProject>();
             while (reader.Read())
             {
@@ -123,11 +121,9 @@ namespace CashFlow.Controllers
                 CommandType = CommandType.Text,
                 Connection = m_con
             };
-
             var listeCommentaire = new ListeCommentaireModel();
 
             m_con.Open();
-
             SqlDataReader reader = toutesDonnees.ExecuteReader();
             while (reader.Read())
             {
@@ -141,7 +137,7 @@ namespace CashFlow.Controllers
                 };
                 listeCommentaire.Add(commentaire);
             }
-
+            m_con.Close();
             return listeCommentaire;
         }
 
@@ -155,7 +151,6 @@ namespace CashFlow.Controllers
                  + "','" + commentaire + "','" + sqlmaintenant + "')", m_con);
             insert.ExecuteNonQuery();
             m_con.Close();    
-
         }
     }
 }
