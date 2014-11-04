@@ -22,6 +22,8 @@
         <h3>Montant requis : @Model.Item1.MontantRequis $</h3>
         <h3>Début du projet : Le @Model.Item1.DateDepart.ToString("dd/MM/yyyy HH:mm:ss")</h3>
         <h3>Fin du projet :  Le @Model.Item1.DateFin.ToString("dd/MM/yyyy HH:mm:ss")</h3><br /><br />
+        <input type="button" value="Suivre ce projet" onclick="location.href='@Url.Action("SuivreProjet", "Project", @Model.Item1)'" />
+        <h3>@TempData["Message"]</h3>
     </div>
 
         <div id="commentaire">

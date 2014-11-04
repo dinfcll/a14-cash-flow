@@ -181,6 +181,7 @@
     <Compile Include="Models\listeCommentaireModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\SuivreProjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

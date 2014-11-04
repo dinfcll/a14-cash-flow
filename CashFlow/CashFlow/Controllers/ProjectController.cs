@@ -90,6 +90,16 @@ namespace CashFlow.Controllers
             return View(Tuple.Create(projet, RechercheCommentaire(projet.Hash), new CommentaireModel()));
         }
 
+        public ActionResult SuivreProjet(NewProject projet)
+        {
+            TempData["Message"] = "Vous suivez maintenant ce projet.";
+            if (!Request.IsAuthenticated)
+            {
+                TempData["Message"] = "Vous devez être connecté pour suivre un projet.";
+            }
+            return RedirectToAction("ProjectComplet",projet);
+        }
+
         public string ChaineHasard()
         {
             var builder = new StringBuilder();
