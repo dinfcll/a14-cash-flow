@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Mes projets suivis";
+}
+
+@if (!Request.IsAuthenticated)
+{
+    <h2>Oops..</h2>
+    <span>On dirait bien que vous n'êtes pas connecté. <a href="@Url.Action("Login", "Account")">Connectez-vous</a> ou <a href=@Url.Action("Register", "Account")>créez-vous un compte</a> pour voir et suivre des projets.</span>
+}
+else
+{
+    <h2>Voici la liste des projets que vous suivez.</h2>
+}
+
+
+

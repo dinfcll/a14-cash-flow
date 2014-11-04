@@ -100,6 +100,11 @@ namespace CashFlow.Controllers
             return RedirectToAction("ProjectComplet",projet);
         }
 
+        public ActionResult MesProjetsSuivis()
+        {
+            return View();
+        }
+
         public string ChaineHasard()
         {
             var builder = new StringBuilder();
