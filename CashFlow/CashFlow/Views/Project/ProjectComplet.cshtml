@@ -12,7 +12,7 @@
 else
 {
     TimeSpan tempsRestant = Model.DateFin - DateTime.Now;
-    TempData["Date"] = "Il reste " + tempsRestant.Days + " jour(s), " + tempsRestant.Hours + " heure(s) et " + tempsRestant.Minutes + " minute(s) avant la fin du projet.";
+    TempData["Date"] = string.Format("Il reste {0} jours, {1} heures , {2} minutes et {3} secondes avant la fin du projet", tempsRestant.Days, tempsRestant.Hours, tempsRestant.Minutes, tempsRestant.Seconds);
 }
 
 <h3>Créateur du projet : @Model.Createur</h3>
