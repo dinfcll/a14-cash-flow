@@ -1,6 +1,4 @@
-﻿@using System
-@using System.Globalization
-@using System.Linq
+﻿@using System.Linq
 @using CashFlow.Models
 @model Tuple<NewProject, ListeCommentaireModel, CommentaireModel>
 @{
@@ -16,8 +14,8 @@
     <h3>Ville : @Model.Item1.ListeVille.ElementAt(Convert.ToInt32(@Model.Item1.Ville)).Value</h3>
     <h3>Montant reçu : @Model.Item1.MontantRecu $</h3>
     <h3>Montant requis : @Model.Item1.MontantRequis $</h3>
-    <h3>Début du projet : Le @Model.Item1.DateDepart.Day @Model.Item1.DateDepart.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.Item1.DateDepart.Year</h3>
-    <h3>Fin du projet :  Le @Model.Item1.DateFin.Day @Model.Item1.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.Item1.DateFin.Year</h3><br /><br />
+    <h3>Début du projet : Le @Model.Item1.DateDepart.ToString("dd/MM/yyyy HH:mm:ss")</h3>
+    <h3>Fin du projet :  Le @Model.Item1.DateFin.ToString("dd/MM/yyyy HH:mm:ss")</h3><br /><br />
 </div>
 
 <div id="Commentaire">

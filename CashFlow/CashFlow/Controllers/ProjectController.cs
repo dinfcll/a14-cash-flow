@@ -50,7 +50,6 @@ namespace CashFlow.Controllers
 
         public ActionResult ListeProject()
         {
-
             SqlCommand toutesDonnees = new SqlCommand();
             SqlDataReader reader;
 
