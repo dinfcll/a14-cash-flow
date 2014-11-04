@@ -5,12 +5,16 @@
 
 <h2>@Model.Titre</h2>
 
-@if((Model.DateFin < DateTime.Now))
+@if ((Model.DateFin < DateTime.Now))
 {
     TempData["Date"] = "Le projet est terminé.";
 }
 else
-    if ((Model.DateFin - DateTime.Now).TotalDays > 1)
+{
+    TimeSpan tempsRestant = Model.DateFin - DateTime.Now;
+    TempData["Date"] = "Il reste " + tempsRestant.Days + " jour(s), " + tempsRestant.Hours + " heure(s) et " + tempsRestant.Minutes + " minute(s) avant la fin du projet.";
+}
+    <!--if ((Model.DateFin - DateTime.Now).TotalDays > 1)
     {
         TempData["Date"] = ((int)(Model.DateFin - DateTime.Now).TotalDays).ToString() + " jours.";
     }
@@ -22,7 +26,7 @@ else
         else
         {
             TempData["Date"] = ((int)(Model.DateFin - DateTime.Now).TotalMinutes).ToString() + " minutes" + ((int)(Model.DateFin - DateTime.Now).Seconds).ToString() + " secondes.";
-        }
+        } -->
 
 <h3>Créateur du projet : @Model.Createur</h3>
 <h3>Description : @Model.Description</h3>
