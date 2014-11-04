@@ -84,16 +84,16 @@ namespace CashFlow.Controllers
 
         public ActionResult ProjectComplet(NewProject Projet)
         {
-            
-            return View(Tuple.Create(Projet,RechercheCommentaire(Projet.Hash)));
+            return View(Tuple.Create(Projet,RechercheCommentaire(Projet.Hash), new CommentaireModel()));
         }
 
-
         [HttpPost]
-        public ActionResult ProjectComplet(NewProject projet, CommentaireModel commentaire)
+        public ActionResult ProjectComplet(NewProject projet, [Bind(Prefix = "Item3")] CommentaireModel commentaire)
         {
-            AjoutCommentaire(projet.Hash,commentaire);
-            return View(Tuple.Create(projet,RechercheCommentaire(projet.Hash)));
+            
+            AjoutCommentaire(projet.Hash,commentaire.Commentaire);
+            ModelState.Clear();
+            return View(Tuple.Create(projet, RechercheCommentaire(projet.Hash), new CommentaireModel()));
         }
 
         public string ChaineHasard()
@@ -161,12 +161,14 @@ namespace CashFlow.Controllers
             return ListeCommentaire;
         }
 
-        private void AjoutCommentaire(string Hash, CommentaireModel model)
+        private void AjoutCommentaire(string Hash, string Commentaire)
         {
             m_con.Open();
+            DateTime maintenant = DateTime.Now;
+            string sqlmaintenant = maintenant.ToString("yyyy-MM-dd HH:mm:ss");
 
-            SqlCommand insert = new SqlCommand("INSERT INTO tableCommentaire (Username,Hash,Commentaire,Date) VALUES  ('"+ User.Identity.Name + "','" + Hash
-                 + "','" + model.Commentaire + "','" + DateTime.Now + "')", m_con);
+            SqlCommand insert = new SqlCommand("INSERT INTO tableCommentaire (Username,Hash,Commentaire,DateTime) VALUES  ('"+ User.Identity.Name + "','" + Hash
+                 + "','" + Commentaire + "','" + sqlmaintenant + "')", m_con);
             insert.ExecuteNonQuery();
             m_con.Close();    
 
