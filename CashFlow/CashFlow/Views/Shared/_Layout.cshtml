@@ -20,6 +20,17 @@
             return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
         } (document, "script", "twitter-wjs"));
     </script>
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/fr_CA/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+            </script>
+            
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
@@ -54,7 +65,11 @@
                 </div>
                 <div class="float-left">
                     <p>&copy; @DateTime.Now.Year - Mon application ASP.NET MVC</p>
-                    <a class="twitter-follow-button" href="https://twitter.com/ProjetCashFlow" data-show-count="false" data-lang="en"></a>
+                    <a class="twitter-follow-button" href="https://twitter.com/ProjetCashFlow" data-show-count="false" data-lang="en" ></a><br />
+                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like" data-show-faces="true" data-share="false" ></div><br />
+                    <form method="link" action="https://www.youtube.com/channel/UClf2G5izAkoi6oUVA_vcoiQ">
+                        <input type="submit" value="Nous suivre sur YouTube">
+                    </form>
                 </div>
             </div>
         </footer>
