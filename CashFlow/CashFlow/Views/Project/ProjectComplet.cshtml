@@ -17,18 +17,22 @@
 <h3>Fin du projet :  Le @Model.DateFin.Day @Model.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateFin.Year</h3>
 
 <div />
-
 <div id="div-paiement" style="float:right">
-        <h3>Financer le projet</h2>
-        <input type="radio" name="rbMontant" value="500" checked = "checked"/>5$<br />
-        <input type="radio" name="rbMontant" value="1000"/>10$<br />
-        <input type="radio" name="rbMontant" value="2000"/>20$<br />
-        <input type="radio" name="rbMontant" value="5000"/>50$<br />
-        <input type="radio" name="rbMontant" value="10000"/>100$<br />
-        <input type="radio" name="rbMontant" value="20000"/>200$<br />
-        <input type="radio" name="rbMontant" value="50000"/>500$<br />
-        <input type="radio" name="rbMontant" value="100000"/>1000$<br />
-        <button id="bouton-paiement">Payer</button>
+    @using (Html.BeginForm("ValidationCommande", "Paypal"))
+    {
+            <h3>Financer le projet</h3>
+            <input type="hidden" name="TitreProjet" value="Don au projet @Model.Titre" />
+            <input type="radio" name="Montant" value="5" checked = "checked"/> <p>5$</p> <br />
+            <input type="radio" name="Montant" value="10"/> <p>10$</p> <br />
+            <input type="radio" name="Montant" value="20"/> <p>20$</p> <br />
+            <input type="radio" name="Montant" value="50"/> <p>50$</p> <br />
+            <input type="radio" name="Montant" value="100"/> <p>100$</p> <br />
+            <input type="radio" name="Montant" value="200"/> <p>200$</p> <br />
+            <input type="radio" name="Montant" value="500"/> <p>500$</p> <br />
+            <input type="radio" name="Montant" value="1000"/> <p>1000$</p> <br />
+            <input type="submit" name="btnConfirm" value="Payer avec PayPal" />
+    }
+
 </div>
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
