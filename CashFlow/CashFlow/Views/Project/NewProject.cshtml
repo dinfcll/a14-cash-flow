@@ -5,14 +5,14 @@
 }
 
 <h2>Informations du projet</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("NewProject","Project",FormMethod.Post, new { enctype= "multipart/form-data" }))
 {
     @Html.LabelFor(model => model.Titre)
     @Html.ValidationMessageFor(model => model.Titre)
     @Html.TextBoxFor(model => model.Titre)<br /><br />
         
     @Html.Label("Image")
-    <input type="file" accept="image/*" id="fichier" name="fichier" title="Upload Image" /><br /><br />
+    <input type="file" accept="image/*" name="fichier" title="Upload Image" /><br /><br />
     
     @Html.LabelFor(model => model.Description)
     @Html.ValidationMessageFor(model => model.Description)<br />

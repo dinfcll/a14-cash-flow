@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using CashFlow.Models;
 using System.Data;
 using System.Web.Security;
+using System.Web.Helpers;
+using System.IO;
 
 
 namespace CashFlow.Controllers
@@ -19,14 +21,15 @@ namespace CashFlow.Controllers
 		
         public ActionResult NewProject()
         {
-            if (User.Identity.Name != "")
+            return View(new NewProject());
+            /*if (User.Identity.Name != "")
                 return View(new NewProject());
             else
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account");*/
         }
 
         [HttpPost]
-        public ActionResult NewProject(NewProject model)
+        public ActionResult NewProject(NewProject model, HttpPostedFileBase fichier)
         {
             if (ModelState.IsValid)
             {
@@ -37,6 +40,8 @@ namespace CashFlow.Controllers
                 model.DateDepart = DateTime.Today;
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
+
+                fichier.SaveAs("C:/Users/Usager/Desktop/a14-cash-flow/CashFlow/CashFlow/Images/Uploads/" + fichier.FileName);
 
                 EnregistrerDansBD(model);
 
@@ -125,6 +130,7 @@ namespace CashFlow.Controllers
             SqlCommand insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + ChaineHasard() + "','" + model.Titre + "','" + model.Description
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
                   + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
+
             insert.ExecuteNonQuery();
 
             m_con.Close();
