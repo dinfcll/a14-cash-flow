@@ -550,3 +550,4 @@ C:\Users\Usager\Desktop\cashflow good\a14-cash-flow\CashFlow\CashFlow\bin\fr\Mic
 C:\Users\Usager\Desktop\cashflow good\a14-cash-flow\CashFlow\CashFlow\bin\fr\WebMatrix.WebData.resources.dll
 C:\Users\Usager\Desktop\cashflow good\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.pdb
 C:\Users\Usager\Documents\GitHub\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.csprojResolveAssemblyReference.cache
+C:\Users\Usager\Desktop\a14-cash-flow\CashFlow\CashFlow\obj\Debug\CashFlow.csprojResolveAssemblyReference.cache

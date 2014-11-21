@@ -337,6 +337,12 @@
   <ItemGroup>
     <Content Include="Views\Paypal\ValidationCommande.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Paypal\RedirectFromPaypal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Paypal\CancelFromPaypal.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
