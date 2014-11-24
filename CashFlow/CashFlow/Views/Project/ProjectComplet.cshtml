@@ -7,6 +7,11 @@
 
 <h2>@Model.Titre</h2>
 
+@if (Model.Image != null)
+{
+    <img src="@Url.Content("~/Images/Uploads/" + Model.Image)"/>
+}
+
 <h3>Créateur du projet : @Model.Createur</h3>
 <h3>Description : @Model.Description</h3>
 <h3>Type du projet : @Model.ListeCategories.ElementAt(Convert.ToInt32(@Model.Categorie)).Value </h3>

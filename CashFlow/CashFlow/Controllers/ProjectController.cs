@@ -41,15 +41,17 @@ namespace CashFlow.Controllers
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
 
-                if(fichier != null)
+                if (fichier != null)
+                {
                     fichier.SaveAs("C:/Users/Usager/Desktop/a14-cash-flow/CashFlow/CashFlow/Images/Uploads/" + fichier.FileName);
+                    model.Image = fichier.FileName;
+                }
 
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
                     + model.DateFin.ToLongDateString() + ".";
 
                 model.Titre = model.Titre.Replace("'", "''");
                 model.Description = model.Description.Replace("'", "''");
-
                 EnregistrerDansBD(model);
 
                 return RedirectToAction("Index", "Home");
@@ -87,7 +89,8 @@ namespace CashFlow.Controllers
 					DateDepart = reader.GetDateTime(6),
 					DateFin = reader.GetDateTime(7),
 					Categorie = reader.GetString(8),
-					Createur = reader.GetString(9)
+					Createur = reader.GetString(9),
+                    Image = reader.GetString(10)
 				});
             }
             m_con.Close();
@@ -133,7 +136,7 @@ namespace CashFlow.Controllers
 
             SqlCommand insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + ChaineHasard() + "','" + model.Titre + "','" + model.Description
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
-                  + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
+                  + "','" + model.Categorie + "','" + model.Createur + "','" + model.Image + "')", m_con);
 
             insert.ExecuteNonQuery();
 
