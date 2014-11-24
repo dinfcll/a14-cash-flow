@@ -41,12 +41,16 @@ namespace CashFlow.Controllers
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
 
-                fichier.SaveAs("C:/Users/Usager/Desktop/a14-cash-flow/CashFlow/CashFlow/Images/Uploads/" + fichier.FileName);
-
-                EnregistrerDansBD(model);
+                if(fichier != null)
+                    fichier.SaveAs("C:/Users/Usager/Desktop/a14-cash-flow/CashFlow/CashFlow/Images/Uploads/" + fichier.FileName);
 
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
                     + model.DateFin.ToLongDateString() + ".";
+
+                model.Titre = model.Titre.Replace("'", "''");
+                model.Description = model.Description.Replace("'", "''");
+
+                EnregistrerDansBD(model);
 
                 return RedirectToAction("Index", "Home");
             }
