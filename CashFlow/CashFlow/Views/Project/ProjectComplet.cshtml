@@ -1,25 +1,48 @@
-﻿@model CashFlow.Models.NewProject
+﻿@using CashFlow.Models
+@model Tuple<NewProject, ListeCommentaireModel, CommentaireModel>
 @{
-    ViewBag.Title = @Model.Titre;
+    ViewBag.Title = @Model.Item1.Titre;
 }
 
-<div id="info-projet" style="float:left"></div>
+<div id="tabs">
+    <ul>
+        <li><a href="#information">Informations</a></li>
+        <li><a href="#commentaire">Commentaires</a></li>
+        <li><a href="#financement">Financement</a></li>
+    </ul>
 
-<h2>@Model.Titre</h2>
+    <div id="information">
+        <h2>@Model.Item1.Titre</h2>
+        <h3>Créateur du projet : @Model.Item1.Createur</h3>
+        <h3>Description : @Model.Item1.Description</h3>
+        <h3>Type du projet : @Model.Item1.ListeCategories.ElementAt(Convert.ToInt32(@Model.Item1.Categorie)).Value </h3>
+        <h3>Ville : @Model.Item1.ListeVille.ElementAt(Convert.ToInt32(@Model.Item1.Ville)).Value</h3>
+        <h3>Montant reçu : @Model.Item1.MontantRecu $</h3>
+        <h3>Montant requis : @Model.Item1.MontantRequis $</h3>
+        <h3>Début du projet : Le @Model.Item1.DateDepart.ToString("dd/MM/yyyy HH:mm:ss")</h3>
+        <h3>Fin du projet :  Le @Model.Item1.DateFin.ToString("dd/MM/yyyy HH:mm:ss")</h3><br /><br />
+    </div>
 
-<h3>Créateur du projet : @Model.Createur</h3>
-<h3>Description : @Model.Description</h3>
-<h3>Type du projet : @Model.ListeCategories.ElementAt(Convert.ToInt32(@Model.Categorie)).Value </h3>
-<h3>Ville : @Model.ListeVille.ElementAt(Convert.ToInt32(@Model.Ville)).Value</h3>
-<h3>Montant reçu : @Model.MontantRecu $</h3>
-<h3>Montant requis : @Model.MontantRequis $</h3>
-<h3>Début du projet : Le @Model.DateDepart.Day @Model.DateDepart.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateDepart.Year</h3>
-<h3>Fin du projet :  Le @Model.DateFin.Day @Model.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateFin.Year</h3>
+    <div id="commentaire">
+        @foreach (var commentaire in Model.Item2)
+        {
+            <h3>@commentaire.Username le @commentaire.Date.ToString("dd/MM/yyyy HH:mm:ss") </h3>
+            <br />
+            <span>@commentaire.Commentaire</span>
+            <hr />
+        }
+        @using (Html.BeginForm())
+        {
+            @Html.LabelFor(model => model.Item3.Commentaire)<br />
+            @Html.TextAreaFor(model => model.Item3.Commentaire)<br />
+            @Html.ValidationMessageFor(model => model.Item3.Commentaire)<br />
 
-<div />
+            <button type="submit">Soummettre votre commentaire</button>
+        }
+    </div>
 
-<div id="div-paiement" style="float:right">
-        <h3>Financer le projet</h2>
+    <div id="financement">
+		<h3>Financer le projet</h2>
         <input type="radio" name="rbMontant" value="500" checked = "checked"/>5$<br />
         <input type="radio" name="rbMontant" value="1000"/>10$<br />
         <input type="radio" name="rbMontant" value="2000"/>20$<br />
@@ -29,10 +52,10 @@
         <input type="radio" name="rbMontant" value="50000"/>500$<br />
         <input type="radio" name="rbMontant" value="100000"/>1000$<br />
         <button id="bouton-paiement">Payer</button>
+    </div>
 </div>
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
-
 <script>
     var handler = StripeCheckout.configure({
         key: 'pk_test_kWMZ4i3unFgBYwdXs1PEdAz9',
@@ -42,13 +65,12 @@
             // You can access the token ID with `token.id`
         }
     });
-
     document.getElementById('bouton-paiement').addEventListener('click', function (e) {
         // Open Checkout with further options
         var montant = $('input[name="rbMontant"]:checked').val();
         handler.open({
             name: 'Faire une contribution',
-            description: '@Model.Titre',
+            description: '@Model.Item1.Titre',
             amount: montant,
             email: '@@Membership.GetUser(User.Identity.Name).Email'
         });

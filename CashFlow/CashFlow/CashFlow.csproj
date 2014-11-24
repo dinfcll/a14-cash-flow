@@ -178,6 +178,8 @@
       <DependentUpon>aaCashFlow.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CommentaireModel.cs" />
+    <Compile Include="Models\listeCommentaireModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
