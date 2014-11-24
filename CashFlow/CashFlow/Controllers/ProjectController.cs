@@ -22,10 +22,10 @@ namespace CashFlow.Controllers
         public ActionResult NewProject()
         {
             return View(new NewProject());
-            /*if (User.Identity.Name != "")
+            if (User.Identity.Name != "")
                 return View(new NewProject());
-            else
-                return RedirectToAction("Login", "Account");*/
+
+                return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
