@@ -42,6 +42,38 @@
     </div>
 
     <div id="financement">
-        <span>Le financement ira ici. SOON™</span>
+		<h3>Financer le projet</h2>
+        <input type="radio" name="rbMontant" value="500" checked = "checked"/>5$<br />
+        <input type="radio" name="rbMontant" value="1000"/>10$<br />
+        <input type="radio" name="rbMontant" value="2000"/>20$<br />
+        <input type="radio" name="rbMontant" value="5000"/>50$<br />
+        <input type="radio" name="rbMontant" value="10000"/>100$<br />
+        <input type="radio" name="rbMontant" value="20000"/>200$<br />
+        <input type="radio" name="rbMontant" value="50000"/>500$<br />
+        <input type="radio" name="rbMontant" value="100000"/>1000$<br />
+        <button id="bouton-paiement">Payer</button>
     </div>
 </div>
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script>
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_kWMZ4i3unFgBYwdXs1PEdAz9',
+        image: '/Images/cashflow_logo.png',
+        token: function (token) {
+            // Use the token to create the charge with a server-side script.
+            // You can access the token ID with `token.id`
+        }
+    });
+    document.getElementById('bouton-paiement').addEventListener('click', function (e) {
+        // Open Checkout with further options
+        var montant = $('input[name="rbMontant"]:checked').val();
+        handler.open({
+            name: 'Faire une contribution',
+            description: '@Model.Titre',
+            amount: montant,
+            email: '@@Membership.GetUser(User.Identity.Name).Email'
+        });
+        e.preventDefault();
+    });    
+</script>

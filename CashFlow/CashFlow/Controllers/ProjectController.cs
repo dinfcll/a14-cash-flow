@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Data.SqlClient;
 using CashFlow.Models;
 using System.Data;
+using System.Web.Security;
 
 
 namespace CashFlow.Controllers
@@ -12,9 +13,9 @@ namespace CashFlow.Controllers
     public class ProjectController : Controller
     {
         NewProject.ProjectDBContext dbProjet = new NewProject.ProjectDBContext();
-        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");    
-
-        public ActionResult Project()
+        SqlConnection m_con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
+		
+        public ActionResult NewProject()
         {
             if (User.Identity.Name != "")
                 return View(new NewProject());
@@ -22,7 +23,7 @@ namespace CashFlow.Controllers
         }
 
         [HttpPost]
-        public ActionResult Project(NewProject model)
+        public ActionResult NewProject(NewProject model)
         {
             if (ModelState.IsValid)
             {
@@ -30,6 +31,7 @@ namespace CashFlow.Controllers
                 string mois = string.Format("{0}{1}", model.DateString[3].ToString(), model.DateString[4].ToString());
                 string jour = string.Format("{0}{1}", model.DateString[0].ToString(), model.DateString[1].ToString());
                 model.DateFin = new DateTime(Convert.ToInt32(annee),Convert.ToInt32(mois),Convert.ToInt32(jour), 23, 59, 59);
+
                 model.DateDepart = DateTime.Today;
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
@@ -54,6 +56,7 @@ namespace CashFlow.Controllers
             };
 
             m_con.Open();
+
             SqlDataReader reader = toutesDonnees.ExecuteReader();
             var aideProjet = new List<NewProject>();
             while (reader.Read())
@@ -72,8 +75,10 @@ namespace CashFlow.Controllers
                     Createur = reader.GetString(9)
                 };
                 aideProjet.Add(projet);
+
             }
             m_con.Close();
+			TempData["message"] = "Voici la liste de tous les projets qui sont en cours de financement.";
             return View(aideProjet);
         }
 
@@ -110,7 +115,8 @@ namespace CashFlow.Controllers
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
                   + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
             insert.ExecuteNonQuery();
-            m_con.Close();    
+
+            m_con.Close();
         }
 
         private ListeCommentaireModel RechercheCommentaire(string hash)
@@ -154,4 +160,3 @@ namespace CashFlow.Controllers
         }
     }
 }
-

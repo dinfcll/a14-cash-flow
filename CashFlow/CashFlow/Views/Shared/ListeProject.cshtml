@@ -1,0 +1,18 @@
+﻿@using CashFlow.Models;
+@model IEnumerable<NewProject>
+@{
+    ViewBag.Title = "Liste des projets";
+}
+
+<h2>@TempData["message"]</h2>
+
+@foreach (NewProject m in Model)
+{
+    <h3>@Html.ActionLink(m.Titre, "ProjectComplet", "Project", m, null)</h3>
+    <ul>
+        <li>Description : @m.Description</li>
+        <li>Montant reçu : @m.MontantRecu $</li>
+        <li>Montant requis : @m.MontantRequis $</li>
+        <li>Fin du projet : @m.DateFin.Day @m.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @m.DateFin.Year</li>
+    </ul>
+}
