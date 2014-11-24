@@ -21,7 +21,6 @@ namespace CashFlow.Controllers
 		
         public ActionResult NewProject()
         {
-            return View(new NewProject());
             if (User.Identity.Name != "")
                 return View(new NewProject());
 
@@ -43,7 +42,8 @@ namespace CashFlow.Controllers
 
                 if (fichier != null)
                 {
-                    fichier.SaveAs("C:/Users/Usager/Desktop/a14-cash-flow/CashFlow/CashFlow/Images/Uploads/" + fichier.FileName);
+                    string path = Server.MapPath("../Images/Uploads/");
+                    fichier.SaveAs(path + fichier.FileName);
                     model.Image = fichier.FileName;
                 }
 
