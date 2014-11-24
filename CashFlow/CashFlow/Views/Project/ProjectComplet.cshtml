@@ -70,7 +70,7 @@
         var montant = $('input[name="rbMontant"]:checked').val();
         handler.open({
             name: 'Faire une contribution',
-            description: '@Model.Titre',
+            description: '@Model.Item1.Titre',
             amount: montant,
             email: '@@Membership.GetUser(User.Identity.Name).Email'
         });
