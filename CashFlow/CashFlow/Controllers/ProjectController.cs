@@ -6,6 +6,9 @@ using System.Data.SqlClient;
 using CashFlow.Models;
 using System.Data;
 using System.Web.Security;
+using System.Web.Helpers;
+using System.IO;
+using System.Web;
 
 
 namespace CashFlow.Controllers
@@ -17,13 +20,17 @@ namespace CashFlow.Controllers
 		
         public ActionResult NewProject()
         {
+            return View(new NewProject());
             if (User.Identity.Name != "")
+            {
                 return View(new NewProject());
+            }
+
             return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
-        public ActionResult NewProject(NewProject model)
+        public ActionResult NewProject(NewProject model, HttpPostedFileBase fichier)
         {
             if (ModelState.IsValid)
             {
@@ -36,10 +43,19 @@ namespace CashFlow.Controllers
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
 
-                EnregistrerDansBd(model);
+                if (fichier != null)
+                {
+                    string path = Server.MapPath("../Images/Uploads/");
+                    fichier.SaveAs(path + fichier.FileName);
+                    model.Image = fichier.FileName;
+                }
 
                 TempData["info"] = "Votre projet " + model.Titre + " est désormais lancé! Le financement prendra fin le "
                     + model.DateFin.ToLongDateString() + ".";
+
+                model.Titre = model.Titre.Replace("'", "''");
+                model.Description = model.Description.Replace("'", "''");
+                EnregistrerDansBD(model);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -64,18 +80,18 @@ namespace CashFlow.Controllers
                 var projet = new NewProject
                 {
                     Hash = reader.GetString(0),
-                    Titre = reader.GetString(1),
-                    Description = reader.GetString(2),
-                    Ville = reader.GetString(3),
-                    MontantRecu = reader.GetInt32(4),
-                    MontantRequis = reader.GetInt32(5),
-                    DateDepart = reader.GetDateTime(6),
-                    DateFin = reader.GetDateTime(7),
-                    Categorie = reader.GetString(8),
-                    Createur = reader.GetString(9)
+					Titre = reader.GetString(1),
+					Description = reader.GetString(2),
+					Ville = reader.GetInt32(3),
+					MontantRecu = reader.GetInt32(4),
+					MontantRequis = reader.GetInt32(5),
+					DateDepart = reader.GetDateTime(6),
+					DateFin = reader.GetDateTime(7),
+					Categorie = reader.GetInt32(8),
+					Createur = reader.GetString(9),
+                    Image = reader.GetString(10)
                 };
                 aideProjet.Add(projet);
-
             }
             m_con.Close();
 			TempData["message"] = "Voici la liste de tous les projets qui sont en cours de financement.";
@@ -107,13 +123,14 @@ namespace CashFlow.Controllers
             return builder.ToString();
         }
 
-        void EnregistrerDansBd(NewProject model)
+        void EnregistrerDansBD(NewProject model)
         {
             m_con.Open();
 
             var insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + ChaineHasard() + "','" + model.Titre + "','" + model.Description
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
-                  + "','" + model.Categorie + "','" + model.Createur + "')", m_con);
+                  + "','" + model.Categorie + "','" + model.Createur + "','" + model.Image + "')", m_con);
+
             insert.ExecuteNonQuery();
 
             m_con.Close();

@@ -72,7 +72,7 @@ namespace CashFlow.Models
 
         [DisplayName("Catégorie")]
         [Required]
-        public string Categorie { get; set; }
+        public int Categorie { get; set; }
 
         public class ValeurCategorie
         {
@@ -98,7 +98,7 @@ namespace CashFlow.Models
 
         [DisplayName("Ville")]
         [Required]
-        public string Ville { get; set; }
+        public int Ville { get; set; }
 
         public class ValeurVille
         {

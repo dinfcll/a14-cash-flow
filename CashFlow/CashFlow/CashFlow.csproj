@@ -165,6 +165,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PayPalController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CommentaireModel.cs" />
     <Compile Include="Models\listeCommentaireModel.cs" />
+    <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -251,6 +253,28 @@
     <Content Include="Images\cashflow-rat.jpg" />
     <Content Include="Images\cashflow_logo.png" />
     <Content Include="Images\Operating-Cash-Flow-There-Are-Many-Types-of-Cash-Flow.jpg" />
+    <Content Include="Images\Ressources\accent.png" />
+    <Content Include="Images\Ressources\banner.png" />
+    <Content Include="Images\Ressources\bullet.png" />
+    <Content Include="Images\Ressources\cashflow-101-202-espanol-pc-original-precio-especial_MLM-F-3661077115_012013.jpg" />
+    <Content Include="Images\Ressources\cashflow-arus-kas.jpg" />
+    <Content Include="Images\Ressources\cashflow-rat.jpg" />
+    <Content Include="Images\Ressources\cashflow_logo.png" />
+    <Content Include="Images\Ressources\heroAccent.png" />
+    <Content Include="Images\Ressources\Operating-Cash-Flow-There-Are-Many-Types-of-Cash-Flow.jpg" />
+    <Content Include="Images\Ressources\orderedList0.png" />
+    <Content Include="Images\Ressources\orderedList1.png" />
+    <Content Include="Images\Ressources\orderedList2.png" />
+    <Content Include="Images\Ressources\orderedList3.png" />
+    <Content Include="Images\Ressources\orderedList4.png" />
+    <Content Include="Images\Ressources\orderedList5.png" />
+    <Content Include="Images\Ressources\orderedList6.png" />
+    <Content Include="Images\Ressources\orderedList7.png" />
+    <Content Include="Images\Ressources\orderedList8.png" />
+    <Content Include="Images\Ressources\orderedList9.png" />
+    <Content Include="Images\Ressources\projetSiteWeb.jpg" />
+    <Content Include="Images\Ressources\roundbox.gif" />
+    <Content Include="Images\Ressources\Search.png" />
     <Content Include="Images\roundbox.gif" />
     <Content Include="Images\Search.png" />
     <Content Include="Models\aaCashFlow.edmx.sql" />
@@ -333,6 +357,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\ListeProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Paypal\ValidationCommande.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Paypal\RedirectFromPaypal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Paypal\CancelFromPaypal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

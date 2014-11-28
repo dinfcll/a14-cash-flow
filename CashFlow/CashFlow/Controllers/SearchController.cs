@@ -40,13 +40,14 @@ namespace CashFlow.Controllers
                         Hash = reader.GetString(0),
                         Titre = reader.GetString(1),
                         Description = reader.GetString(2),
-                        Ville = reader.GetString(3),
+                        Ville = reader.GetInt32(3),
                         MontantRecu = reader.GetInt32(4),
                         MontantRequis = reader.GetInt32(5),
                         DateDepart = reader.GetDateTime(6),
                         DateFin = reader.GetDateTime(7),
-                        Categorie = reader.GetString(8),
-                        Createur = reader.GetString(9)
+                        Categorie = reader.GetInt32(8),
+                        Createur = reader.GetString(9),
+                        Image = reader.GetString(10)
                     });
                 }
                 
