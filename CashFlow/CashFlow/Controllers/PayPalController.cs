@@ -43,7 +43,6 @@ namespace CashFlow.Controllers
 
         public ActionResult CancelFromPaypal()
         {
-            TempData["message"] = "420 blaze it faggot";
             return View();
         }
 
