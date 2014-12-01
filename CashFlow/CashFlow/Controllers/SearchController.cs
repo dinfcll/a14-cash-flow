@@ -50,7 +50,7 @@ namespace CashFlow.Controllers
                         Image = reader.GetString(10)
                     });
                 }
-                
+                reader.Close();
 
             }
             catch (Exception Ex)

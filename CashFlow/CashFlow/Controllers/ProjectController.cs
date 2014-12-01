@@ -42,6 +42,7 @@ namespace CashFlow.Controllers
                 model.DateDepart = DateTime.Today;
                 model.MontantRequis = Convert.ToInt32(model.MontantString);
                 model.Createur = User.Identity.Name;
+                model.Hash = ChaineHasard();
 
                 if (fichier != null)
                 {
@@ -127,7 +128,7 @@ namespace CashFlow.Controllers
         {
             m_con.Open();
 
-            var insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + ChaineHasard() + "','" + model.Titre + "','" + model.Description
+            var insert = new SqlCommand("INSERT INTO tableProject VALUES ('" + model.Hash + "','" + model.Titre + "','" + model.Description
                  + "','" + model.Ville + "','0','" + model.MontantString + "','" + DateTime.Now.ToShortDateString() + "','" + model.DateString
                   + "','" + model.Categorie + "','" + model.Createur + "','" + model.Image + "')", m_con);
 
