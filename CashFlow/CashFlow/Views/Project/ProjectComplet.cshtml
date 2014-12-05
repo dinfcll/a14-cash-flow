@@ -1,57 +1,67 @@
-﻿@model CashFlow.Models.NewProject
+﻿@using CashFlow.Models
+@model Tuple<NewProject, ListeCommentaireModel, CommentaireModel>
 @{
-    ViewBag.Title = @Model.Titre;
+    ViewBag.Title = @Model.Item1.Titre;
 }
 
-<div id="info-projet" style="float:left"></div>
+<div id="tabs">
+    <ul>
+        <li><a href="#information">Informations</a></li>
+        <li><a href="#commentaire">Commentaires</a></li>
+        <li><a href="#financement">Financement</a></li>
+    </ul>
 
-<h2>@Model.Titre</h2>
-
-<h3>Créateur du projet : @Model.Createur</h3>
-<h3>Description : @Model.Description</h3>
-<h3>Type du projet : @Model.ListeCategories.ElementAt(Convert.ToInt32(@Model.Categorie)).Value </h3>
-<h3>Ville : @Model.ListeVille.ElementAt(Convert.ToInt32(@Model.Ville)).Value</h3>
-<h3>Montant reçu : @Model.MontantRecu $</h3>
-<h3>Montant requis : @Model.MontantRequis $</h3>
-<h3>Début du projet : Le @Model.DateDepart.Day @Model.DateDepart.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateDepart.Year</h3>
-<h3>Fin du projet :  Le @Model.DateFin.Day @Model.DateFin.ToString("MMMM", System.Globalization.CultureInfo.CurrentCulture) @Model.DateFin.Year</h3>
-
-<div />
-
-<div id="div-paiement" style="float:right">
-        <h3>Financer le projet</h2>
-        <input type="radio" name="rbMontant" value="500" checked = "checked"/>5$<br />
-        <input type="radio" name="rbMontant" value="1000"/>10$<br />
-        <input type="radio" name="rbMontant" value="2000"/>20$<br />
-        <input type="radio" name="rbMontant" value="5000"/>50$<br />
-        <input type="radio" name="rbMontant" value="10000"/>100$<br />
-        <input type="radio" name="rbMontant" value="20000"/>200$<br />
-        <input type="radio" name="rbMontant" value="50000"/>500$<br />
-        <input type="radio" name="rbMontant" value="100000"/>1000$<br />
-        <button id="bouton-paiement">Payer</button>
-</div>
-
-<script src="https://checkout.stripe.com/checkout.js"></script>
-
-<script>
-    var handler = StripeCheckout.configure({
-        key: 'pk_test_kWMZ4i3unFgBYwdXs1PEdAz9',
-        image: '/Images/cashflow_logo.png',
-        token: function (token) {
-            // Use the token to create the charge with a server-side script.
-            // You can access the token ID with `token.id`
+    <div id="information">
+        @if(Model.Item1.Image != null)
+        {
+            <img src="@Url.Content("~/Images/Uploads/" + Model.Item1.Image)"/>
         }
-    });
+        <h2>@Model.Item1.Titre</h2>
+        <h3>Créateur du projet : @Model.Item1.Createur</h3>
+        <h3>Description : @Model.Item1.Description</h3>
+        <h3>Type du projet : @Model.Item1.ListeCategories.ElementAt(Convert.ToInt32(@Model.Item1.Categorie)).Value </h3>
+        <h3>Ville : @Model.Item1.ListeVille.ElementAt(Convert.ToInt32(@Model.Item1.Ville)).Value</h3>
+        <h3>Montant reçu : @Model.Item1.MontantRecu $</h3>
+        <h3>Montant requis : @Model.Item1.MontantRequis $</h3>
+        <h3>Début du projet : Le @Model.Item1.DateDepart.ToString("dd/MM/yyyy HH:mm:ss")</h3>
+        <h3>Fin du projet :  Le @Model.Item1.DateFin.ToString("dd/MM/yyyy HH:mm:ss")</h3><br /><br />
+    </div>
 
-    document.getElementById('bouton-paiement').addEventListener('click', function (e) {
-        // Open Checkout with further options
-        var montant = $('input[name="rbMontant"]:checked').val();
-        handler.open({
-            name: 'Faire une contribution',
-            description: '@Model.Titre',
-            amount: montant,
-            email: '@@Membership.GetUser(User.Identity.Name).Email'
-        });
-        e.preventDefault();
-    });    
-</script>
+    <div id="commentaire">
+        @foreach (var commentaire in Model.Item2)
+        {
+            <h3>@commentaire.Username le @commentaire.Date.ToString("dd/MM/yyyy HH:mm:ss") </h3>
+            <br />
+            <span>@commentaire.Commentaire</span>
+            <hr />
+        }
+        @using (Html.BeginForm())
+        {
+            @Html.LabelFor(model => model.Item3.Commentaire)<br />
+            @Html.TextAreaFor(model => model.Item3.Commentaire)<br />
+            @Html.ValidationMessageFor(model => model.Item3.Commentaire)<br />
+
+            <button type="submit">Soummettre votre commentaire</button>
+        }
+    </div>
+
+    <div id="financement">
+		@using (Html.BeginForm("ValidationCommande", "Paypal"))
+        {
+            <h3>Financer le projet</h3>
+            <input type="hidden" name="TitreProjet" value="Don au projet @Model.Item1.Titre" />
+            <input type="radio" name="Montant" value="5" checked = "checked"/> <span>5$</span> <br />
+            <input type="radio" name="Montant" value="10"/> <span>10$</span> <br />
+            <input type="radio" name="Montant" value="20"/> <span>20$</span> <br />
+            <input type="radio" name="Montant" value="50"/> <span>50$</span> <br />
+            <input type="radio" name="Montant" value="100"/> <span>100$</span> <br />
+            <input type="radio" name="Montant" value="200"/> <span>200$</span> <br />
+            <input type="radio" name="Montant" value="500"/> <span>500$</span> <br />
+            <input type="radio" name="Montant" value="1000"/> <span>1000$</span> <br />
+            <input type="radio" name="Montant" value="5000"/> <span>5000$</span> <br />
+            <input type="radio" name="Montant" value="10000"/> <span>10000$</span> <br />
+            <input type="submit" name="btnConfirm" value="Payer avec PayPal" />
+        }
+    </div>
+
+

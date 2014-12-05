@@ -8,7 +8,7 @@
 
 @foreach (NewProject m in Model)
 {
-    <h3>@Html.ActionLink(m.Titre, "ProjectComplet", "Project", m, null)</h3>
+    <h4>@Html.ActionLink(m.Titre, "ProjectComplet", "Project", m, null)</h4>
     <ul>
         <li>Description : @m.Description</li>
         <li>Montant reçu : @m.MontantRecu $</li>

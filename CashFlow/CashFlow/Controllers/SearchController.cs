@@ -57,7 +57,8 @@ namespace CashFlow.Controllers
                         DateDepart = reader.GetDateTime(6),
                         DateFin = reader.GetDateTime(7),
                         Categorie = reader.GetInt32(8),
-                        Createur = reader.GetString(9)
+                        Createur = reader.GetString(9),
+                        Image = reader.GetString(10)
                     });
                 }
                 

@@ -6,8 +6,16 @@
         <title>@ViewBag.Title - Mon application ASP.NET MVC</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/css")    
+        @Styles.Render("~/Content/themes/base/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
         @Scripts.Render("~/bundles/modernizr")
+        <script type="text/javascript">
+            $(function () {
+                $("#tabs").tabs();
+            });
+</script>
     </head>
     <body>
         <header>
@@ -19,7 +27,7 @@
                     <section id="login">
                         @Html.Partial("_LoginPartial")
                     </section>
-                                    <img src="~/Images/banner.png" /> <img src="~/Images/cashflow-rat.jpg" width = "350" height = "296"/>
+                                    <img src="~/Images/Ressources/banner.png" /> <img src="~/Images/Ressources/cashflow-rat.jpg" width = "350" height = "296"/>
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Créer un projet", "NewProject", "Project")</li>
@@ -55,6 +63,8 @@
                                     <option value="MontantRecu">Montant reçu (Croissant)</option>
                                     <option value="MontantRecu DESC">Montant reçu (Décroissant)</option>
                                 </select>
+                                <input type="submit" value="" style="border-style: none; background: url('/../Images/Ressources/Search.png') no-repeat; width: 50px; height: 50px;">
+
 	                        </form>
                         </div>
                     </nav>
@@ -80,8 +90,6 @@
                 </div>
             </div>
         </footer>
-
-        @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
     </body>
 </html>
