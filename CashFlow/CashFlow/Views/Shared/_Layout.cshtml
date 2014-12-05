@@ -36,7 +36,35 @@
                         <div class="search-wrapper">
 	                        <form action="@Url.Action("ListeProject","Search")">
 	                            <input type="text" name="focus" id = "focus" required class="search-box" placeholder="Recherche" />
+                                <input type="submit" value="" style="border-style: none; background: url('/../Images/Search.png') no-repeat; width: 50px; height: 50px;">
+                                <select name="categorie">
+                                    <option value="Aucune">Toutes les catégories</option>
+                                    <option value="0">Art</option>
+                                    <option value="1">Jeux</option>
+                                    <option value="2">Musique</option>
+                                    <option value="3">Technologie</option>
+                                    <option value="4">Sport</option>
+                                    <option value="5">Film</option>
+                                    <option value="6">Mode</option>
+                                    <option value="7">Publications</option>
+                                    <option value="8">Journalisme</option>
+                                    <option value="9">Théatre</option>
+                                    <option value="10">Alimentation</option>
+                                    <option value="11">Transport</option>
+                                </select>
+                                <select name="ordre">
+                                    <option value="Aucun">Ordre des résultats</option>
+                                    <option value="Titre">Alphabétique (Croissant)</option>
+                                    <option value="Titre DESC">Alphabétique (Décroissant)</option>
+                                    <option value="DateLimite">Date limite (Croissant)</option>
+                                    <option value="DateLimite DESC">Date limite (Décroissant)</option>
+                                    <option value="DateDebut">Date de création (Croissant)</option>
+                                    <option value="DateDebut DESC">Date de création (Décroissant)</option>
+                                    <option value="MontantRecu">Montant reçu (Croissant)</option>
+                                    <option value="MontantRecu DESC">Montant reçu (Décroissant)</option>
+                                </select>
                                 <input type="submit" value="" style="border-style: none; background: url('/../Images/Ressources/Search.png') no-repeat; width: 50px; height: 50px;">
+
 	                        </form>
                         </div>
                     </nav>
