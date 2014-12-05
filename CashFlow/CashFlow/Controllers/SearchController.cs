@@ -29,13 +29,17 @@ namespace CashFlow.Controllers
             var Resultats = new List<NewProject>();
             try
             {
-                string commande = "Select * FROM tableProject WHERE Titre LIKE '%" + MotCle + "%' OR Description LIKE '%" + MotCle + "%'";
+                string commande = "Select * FROM tableProject WHERE (Titre LIKE '%" + MotCle + "%' OR Description LIKE '%" + MotCle + "%')";
 
                 if (Categorie != 12)
+                {
                     commande += " AND Categorie = " + Categorie.ToString();
+                }
 
                 if (OrderBy != "Aucun")
+                {
                     commande += " ORDER BY " + OrderBy;
+                }
 
                 SqlCommand Recherche = new SqlCommand(commande, con);
                 SqlDataReader reader = Recherche.ExecuteReader();
