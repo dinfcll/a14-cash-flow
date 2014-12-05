@@ -15,14 +15,14 @@ namespace CashFlow.Controllers
             return View();
         }
 
-        public ActionResult ListeProject(string focus, int categorie, string ordre)
+        public ActionResult ListeProject(string focus, string categorie, string ordre)
         {
             List<NewProject> Resultats = Recherche(focus, categorie, ordre);
             TempData["message"] = "Résultats de recherche pour \"" + focus + "\"";
             return View(Resultats);
         }
 
-        List<NewProject> Recherche(string MotCle, int Categorie, string OrderBy)
+        List<NewProject> Recherche(string MotCle, String Categorie, string OrderBy)
         {
             SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\dbCashFlow.mdf;Integrated Security=True;User Instance=True");
             con.Open();
@@ -31,9 +31,9 @@ namespace CashFlow.Controllers
             {
                 string commande = "Select * FROM tableProject WHERE (Titre LIKE '%" + MotCle + "%' OR Description LIKE '%" + MotCle + "%')";
 
-                if (Categorie != 12)
+                if (Categorie != "Aucune")
                 {
-                    commande += " AND Categorie = " + Categorie.ToString();
+                    commande += " AND Categorie = " + Categorie;
                 }
 
                 if (OrderBy != "Aucun")
