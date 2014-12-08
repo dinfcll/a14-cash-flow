@@ -213,12 +213,12 @@ ul#menu {
 }
 
     .featured .content-wrapper {
-        background-color: #7ac0da;
-        background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
-        background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-color: #006600;
+        background-image: -ms-linear-gradient(left, #006600 0%, #a4d4e6 100%);
+        background-image: -o-linear-gradient(left, #006600 0%, #a4d4e6 100%);
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #006600), color-stop(1, #a4d4e6));
+        background-image: -webkit-linear-gradient(left, #006600 0%, #a4d4e6 100%);
+        background-image: linear-gradient(left, #7006600 0%, #006600 100%);
         color: #3e5667;
         padding: 20px 40px 30px 40px;
     }
@@ -440,7 +440,7 @@ textarea {
 }
 
     input:focus, textarea:focus {
-        border: 1px solid #7ac0da;
+        border: 1px solid #006600;
     }
 
     input[type="checkbox"] {
@@ -486,7 +486,7 @@ textarea {
 }
 
 .message-success {
-    color: #7ac0da;
+    color: #006600;
     font-size: 1.3em;
     font-weight: bold;
     margin: 20px 0 10px 0;
@@ -779,3 +779,27 @@ tr.pager td {
 	border: 2px solid #bebede;
 }
 
+/* Accueil
+----------------------------------------------*/
+.accueil {
+    background-color: #fff;
+}
+
+    .accueil .content-wrapper {
+        background-color: #009933;
+        background-image: -ms-linear-gradient(left, #009933 0%, #a4d4e6 100%);
+        background-image: -o-linear-gradient(left, #009933 0%, #a4d4e6 100%);
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #006600), color-stop(1, #a4d4e6));
+        background-image: -webkit-linear-gradient(left, #009933 0%, #a4d4e6 100%);
+        background-image: linear-gradient(left, #009933 0%, #009933 100%);
+        color: #009933;
+        padding: 20px 40px 30px 40px;
+    }
+
+        .accueil hgroup.title h1, .featured hgroup.title h2 {
+            color: #fff;
+        }
+
+        .accueil p {
+            font-size: 1.1em;
+        }

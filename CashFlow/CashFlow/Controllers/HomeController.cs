@@ -10,7 +10,7 @@ namespace CashFlow.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modifiez ce modèle pour dynamiser votre application ASP.NET MVC.";
+            ViewBag.Message = "CashFlow est un site permettant aux utilisateurs d'obtenir du financement pour leurs projets de la part d'autres utilisateurs.";
 
             return View();
         }
