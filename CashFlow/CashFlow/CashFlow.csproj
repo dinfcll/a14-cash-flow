@@ -247,12 +247,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Images\banner.png" />
-    <Content Include="Images\cashflow-101-202-espanol-pc-original-precio-especial_MLM-F-3661077115_012013.jpg" />
-    <Content Include="Images\cashflow-arus-kas.jpg" />
-    <Content Include="Images\cashflow-rat.jpg" />
-    <Content Include="Images\cashflow_logo.png" />
-    <Content Include="Images\Operating-Cash-Flow-There-Are-Many-Types-of-Cash-Flow.jpg" />
     <Content Include="Images\Ressources\accent.png" />
     <Content Include="Images\Ressources\banner.png" />
     <Content Include="Images\Ressources\bullet.png" />
@@ -275,8 +269,6 @@
     <Content Include="Images\Ressources\projetSiteWeb.jpg" />
     <Content Include="Images\Ressources\roundbox.gif" />
     <Content Include="Images\Ressources\Search.png" />
-    <Content Include="Images\roundbox.gif" />
-    <Content Include="Images\Search.png" />
     <Content Include="Models\aaCashFlow.edmx.sql" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -304,19 +296,6 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\orderedList0.png" />
-    <Content Include="Images\orderedList1.png" />
-    <Content Include="Images\orderedList2.png" />
-    <Content Include="Images\orderedList3.png" />
-    <Content Include="Images\orderedList4.png" />
-    <Content Include="Images\orderedList5.png" />
-    <Content Include="Images\orderedList6.png" />
-    <Content Include="Images\orderedList7.png" />
-    <Content Include="Images\orderedList8.png" />
-    <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -352,7 +331,6 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Project\ProjectComplet.cshtml" />
     <Content Include="Views\Project\ProjectComplet.cshtml" />
   </ItemGroup>
   <ItemGroup>
